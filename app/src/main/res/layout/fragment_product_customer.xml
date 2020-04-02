@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.ProductCustomerFragment">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/upper"
+        android:background="@drawable/upper_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+      <LinearLayout
+          android:layout_marginTop="15dp"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center_vertical"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="Produk"/>
+      </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/upper"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+
+            <Button
+                android:id="@+id/btnSortStock"
+                android:drawableLeft="@drawable/ic_sort"
+                android:layout_alignParentRight="true"
+                android:padding="10dp"
+                android:background="@drawable/button_grey"
+                android:layout_width="80dp"
+                android:layout_height="36dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:text="Stok" />
+
+            <Button
+                android:id="@+id/btnSortPrice"
+                android:layout_toLeftOf="@+id/btnSortStock"
+                android:drawableLeft="@drawable/ic_sort"
+                android:padding="10dp"
+                android:background="@drawable/button_grey"
+                android:layout_width="100dp"
+                android:layout_height="36dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:text="Harga" />
+
+            <SearchView
+                android:id="@+id/searchView"
+                android:layout_toLeftOf="@+id/btnSortPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:iconifiedByDefault="false"
+                android:layout_alignParentLeft="true"
+                android:queryHint="Cari Produk"></SearchView>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/productRecyclerView"
+        android:layout_below="@+id/upper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
+  </RelativeLayout>
+</FrameLayout>

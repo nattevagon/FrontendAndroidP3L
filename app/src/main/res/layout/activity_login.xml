@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Activity.LoginActivity"
+    android:background="@color/grey"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvLogo"
+        android:layout_width="250dp"
+        android:layout_height="160dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="80dp"
+        app:cardElevation="6dp"
+        app:cardCornerRadius="6dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/imageMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@drawable/kouveelogo" />
+    </androidx.cardview.widget.CardView>
+
+
+    <EditText
+        android:id="@+id/etUsername"
+        android:hint="Username"
+        android:inputType="text"
+        android:layout_width="800px"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@drawable/field_text"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_marginTop="80dp"/>
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="800px"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/field_text"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:inputType="textPassword"
+        android:hint="Password" />
+
+    <Button
+        android:id="@+id/btnMasuk"
+        android:layout_marginTop="50dp"
+        android:layout_width="800px"
+        android:layout_height="50dp"
+        android:background="@drawable/button"
+        android:layout_gravity="center"
+        android:text="MASUK"
+        android:textColor="@color/black"
+        android:fontFamily="sans-serif-black"
+        android:textSize="25dp"/>
+
+
+</LinearLayout>

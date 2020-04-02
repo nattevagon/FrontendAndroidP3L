@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_data_master"
+        android:icon="@drawable/ic_data_master"
+        android:title="Data Master" />
+    <item
+        android:id="@+id/navigation_procurement"
+        android:icon="@drawable/ic_procurement"
+        android:title="Pengadaan" />
+    <item
+        android:id="@+id/navigation_report"
+        android:icon="@drawable/ic_report"
+        android:title="Laporan" />
+    <item
+        android:id="@+id/navigation_account"
+        android:icon="@drawable/ic_account"
+        android:title="Akun" />
+</menu>

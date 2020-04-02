@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_1"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.DataMasterFragment">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="80dp"
+      android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_gravity="center_vertical"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="Data Master"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:textSize="15dp"
+        android:text="Mengelola data master Kouvee Pet Shop!"/>
+  </LinearLayout>
+
+  <ScrollView
+      android:layout_marginTop="90dp"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="1"
+        android:rowCount="3"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:alignmentMode="alignMargins"
+        android:columnOrderPreserved="false">
+
+      <androidx.cardview.widget.CardView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_columnWeight="1"
+          android:layout_rowWeight="1"
+          app:cardElevation="6dp"
+          app:cardCornerRadius="6dp"
+          android:clickable="true"
+          android:foreground="?android:attr/selectableItemBackground"
+          android:id="@+id/cvProducts"
+          android:layout_margin="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/gradient_blue"
+            android:padding="16dp">
+
+          <ImageView
+              android:background="@drawable/ic_product"
+              android:layout_width="80dp"
+              android:layout_height="80dp"
+              android:layout_marginLeft="10dp"/>
+
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_gravity="center"
+              android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="30dp"
+                android:text="Produk"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:text="Mengelola data produk"/>
+
+          </LinearLayout>
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+
+      <androidx.cardview.widget.CardView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_columnWeight="1"
+          android:layout_rowWeight="1"
+          app:cardElevation="6dp"
+          app:cardCornerRadius="6dp"
+          android:clickable="true"
+          android:foreground="?android:attr/selectableItemBackground"
+          android:id="@+id/cvServices"
+          android:layout_margin="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/gradient_green"
+            android:padding="16dp">
+
+          <ImageView
+              android:background="@drawable/ic_service"
+              android:layout_width="80dp"
+              android:layout_height="80dp"
+              android:layout_marginLeft="10dp"/>
+
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_gravity="center"
+              android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="30dp"
+                android:text="Layanan"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:text="Mengelola data layanan"/>
+
+          </LinearLayout>
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+
+      <androidx.cardview.widget.CardView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_columnWeight="1"
+          android:layout_rowWeight="1"
+          app:cardElevation="6dp"
+          app:cardCornerRadius="6dp"
+          android:clickable="true"
+          android:foreground="?android:attr/selectableItemBackground"
+          android:id="@+id/cvCustomers"
+          android:layout_margin="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/gradient_red"
+            android:padding="16dp">
+
+          <ImageView
+              android:background="@drawable/ic_customer"
+              android:layout_width="80dp"
+              android:layout_height="80dp"
+              android:layout_marginLeft="10dp"/>
+
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_gravity="center"
+              android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="30dp"
+                android:text="Pelanggan"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:text="Mengelola data pelanggan"/>
+
+          </LinearLayout>
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+
+      <androidx.cardview.widget.CardView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_columnWeight="1"
+          android:layout_rowWeight="1"
+          app:cardElevation="6dp"
+          app:cardCornerRadius="6dp"
+          android:clickable="true"
+          android:foreground="?android:attr/selectableItemBackground"
+          android:id="@+id/cvPet"
+          android:layout_margin="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/gradient_chocodark"
+            android:padding="16dp">
+
+          <ImageView
+              android:background="@drawable/ic_pet"
+              android:layout_width="80dp"
+              android:layout_height="80dp"
+              android:layout_marginLeft="10dp"/>
+
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_gravity="center"
+              android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="30dp"
+                android:text="Hewan"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:text="Mengelola data hewan"/>
+
+          </LinearLayout>
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+
+      <androidx.cardview.widget.CardView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_columnWeight="1"
+          android:layout_rowWeight="1"
+          app:cardElevation="6dp"
+          app:cardCornerRadius="6dp"
+          android:clickable="true"
+          android:foreground="?android:attr/selectableItemBackground"
+          android:id="@+id/cvPetTypes"
+          android:layout_margin="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/gradient_yellow"
+            android:padding="16dp">
+
+          <ImageView
+              android:background="@drawable/ic_pet"
+              android:layout_width="80dp"
+              android:layout_height="80dp"
+              android:layout_marginLeft="10dp"/>
+
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_gravity="center"
+              android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="30dp"
+                android:text="Jenis Hewan"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:text="Mengelola jenis data hewan"/>
+
+          </LinearLayout>
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+
+      <androidx.cardview.widget.CardView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_columnWeight="1"
+          android:layout_rowWeight="1"
+          app:cardElevation="6dp"
+          app:cardCornerRadius="6dp"
+          android:clickable="true"
+          android:foreground="?android:attr/selectableItemBackground"
+          android:id="@+id/cvPetSizes"
+          android:layout_margin="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/gradient_greenyellow"
+            android:padding="16dp">
+
+          <ImageView
+              android:background="@drawable/ic_pet"
+              android:layout_width="80dp"
+              android:layout_height="80dp"
+              android:layout_marginLeft="10dp"/>
+
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_gravity="center"
+              android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="28dp"
+                android:text="Ukuran Hewan"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:text="Mengelola data ukuran hewan"/>
+
+          </LinearLayout>
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+
+      <androidx.cardview.widget.CardView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_columnWeight="1"
+          android:layout_rowWeight="1"
+          app:cardElevation="6dp"
+          app:cardCornerRadius="6dp"
+          android:clickable="true"
+          android:foreground="?android:attr/selectableItemBackground"
+          android:id="@+id/cvSupplier"
+          android:layout_margin="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/gradient_purple"
+            android:padding="16dp">
+
+          <ImageView
+              android:background="@drawable/ic_supplier"
+              android:layout_width="80dp"
+              android:layout_height="80dp"
+              android:layout_marginLeft="10dp"/>
+
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_gravity="center"
+              android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="30dp"
+                android:text="Supplier"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:text="Mengelola data supplier"/>
+
+          </LinearLayout>
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+    </GridLayout>
+  </ScrollView>
+
+  </FrameLayout>

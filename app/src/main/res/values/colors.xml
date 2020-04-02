@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#013243</color>
+    <color name="colorPrimaryDark">#22313f</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="skyBlue">#45b3e0</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="grey">#eeeeee</color>
+    <color name="greyMedium">#E0E0E0</color>
+    <color name="greyDark">#2e3131</color>
+    <color name="choco">#DEAE8D</color>
+    <color name="chocoDark">#CD8452</color>
+    <color name="chocoDark2">#523420</color>
+    <color name="purpleScampi">#736598</color>
+    <color name="softPink">#ff9478</color>
+    <color name="pink">#e08283</color>
+    <color name="yellowCream">#fad859</color>
+    <color name="yellow">#f4d03f</color>
+    <color name="green">#87d37c</color>
+    <color name="cyan">#23cba7</color>
+    <color name="redLight">#d64541</color>
+    <color name="softCyan">#73a4a7</color>
+    <color name="lightGreen">#c4efe0</color>
+    <color name="darkArmy">#c4efe0</color>
+    <color name="lightPurple">#d1d5e0</color>
+    <color name="lightChoco">#f2ebd7</color>
+    <color name="gold">#ffb947</color>
+    <color name="darkGrey">#3f3931</color>
+    <color name="blue">#3b5998</color>
+
+    <color name="transparent">#00000000</color>
+</resources>
