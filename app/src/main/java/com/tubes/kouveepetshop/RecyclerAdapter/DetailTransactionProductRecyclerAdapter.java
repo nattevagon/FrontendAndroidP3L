@@ -42,13 +42,13 @@ public class DetailTransactionProductRecyclerAdapter extends RecyclerView.Adapte
     @Override
     public void onBindViewHolder(@NonNull DetailTransactionProductRecyclerAdapter.RoomViewHolder holder, int position) {
         final DetailTransactionProductDAO brg = dataList.get(position);
-        holder.mProduct.setText(brg.getPRODUK());
-        holder.mAmount.setText(brg.getJUMLAH());
+        holder.mProduct.setText(brg.getProduk());
+        holder.mAmount.setText(brg.getJumlah());
 
         holder.mParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                id = brg.getID_DETAIL_TP();
+                id = brg.getId_detail_tp();
 
 //                Intent i = new Intent(context, DetailTransactionProductActivity.class);
 //                i.putExtra("id",id);

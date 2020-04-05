@@ -83,7 +83,7 @@ public class PetSizeActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPostResume() {
+    public void onPostResume() {
         super.onPostResume();
         progressDialog.show();
         load();

@@ -44,7 +44,7 @@ public class ServiceRecyclerAdapter extends RecyclerView.Adapter<ServiceRecycler
     @Override
     public void onBindViewHolder(@NonNull ServiceRecyclerAdapter.RoomViewHolder holder, int position) {
         final ServiceDAO brg = filteredDataList.get(position);
-        holder.mName.setText(brg.getNAMA());
+        holder.mName.setText(brg.getNama());
 
         holder.mParent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,8 +53,8 @@ public class ServiceRecyclerAdapter extends RecyclerView.Adapter<ServiceRecycler
                 MasterBottomFragment bottomSheet = new MasterBottomFragment();
                 bottomSheet.show(manager, "bottomSheet");
 
-                id = brg.getID_LAYANAN();
-                nama = brg.getNAMA();
+                id = brg.getId_layanan();
+                nama = brg.getNama();
 
                 Bundle args = new Bundle();
                 args.putString("id", id);
@@ -92,7 +92,7 @@ public class ServiceRecyclerAdapter extends RecyclerView.Adapter<ServiceRecycler
                 } else {
                     List<ServiceDAO> filteredList = new ArrayList<>();
                     for (ServiceDAO serviceDAO : dataList) {
-                        if (serviceDAO.getNAMA().toLowerCase().contains(charSequenceString.toLowerCase())) {
+                        if (serviceDAO.getNama().toLowerCase().contains(charSequenceString.toLowerCase())) {
                             filteredList.add(serviceDAO);
                         }
                         filteredDataList = filteredList;

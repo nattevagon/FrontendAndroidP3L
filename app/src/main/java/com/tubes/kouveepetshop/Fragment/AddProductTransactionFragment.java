@@ -17,17 +17,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.squareup.picasso.Picasso;
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
-import com.tubes.kouveepetshop.Activity.AddPetActivity;
-import com.tubes.kouveepetshop.Activity.DetailPetActivity;
-import com.tubes.kouveepetshop.Activity.DetailSupplierActivity;
 import com.tubes.kouveepetshop.Activity.DetailTransactionProductActivity;
-import com.tubes.kouveepetshop.Activity.TransactionProductActivity;
-import com.tubes.kouveepetshop.Model.CustomerDAO;
 import com.tubes.kouveepetshop.Model.PetDAO;
-import com.tubes.kouveepetshop.Model.ProductDAO;
 import com.tubes.kouveepetshop.Model.TransactionProductDAO;
 import com.tubes.kouveepetshop.R;
 
@@ -41,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddTransactionProductFragment extends BottomSheetDialogFragment {
+public class AddProductTransactionFragment extends BottomSheetDialogFragment {
     private TextView twCustomerService, twCode, twDate;
     private Button btnAdd;
     private AutoCompleteTextView spPet;
@@ -55,7 +48,7 @@ public class AddTransactionProductFragment extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_add_transaction_product, container, false);
+        View v = inflater.inflate(R.layout.fragment_add_product_transaction, container, false);
 
         twCustomerService = v.findViewById(R.id.twCS);
         twDate = v.findViewById(R.id.twDate);
@@ -105,8 +98,8 @@ public class AddTransactionProductFragment extends BottomSheetDialogFragment {
             @Override
             public void onResponse(Call<List<PetDAO>> call, Response<List<PetDAO>> response) {
                 for (int i = 0; i < response.body().size(); i++) {
-                    idListPet.add(response.body().get(i).getID_HEWAN());
-                    nameListPet.add(response.body().get(i).getNAMA());
+                    idListPet.add(response.body().get(i).getId_hewan());
+                    nameListPet.add(response.body().get(i).getNama());
                 }
 
                 ArrayAdapter<String> adapterPet = new ArrayAdapter<String>

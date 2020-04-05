@@ -1,71 +1,71 @@
 package com.tubes.kouveepetshop.Model;
 
 public class ProductDAO {
-    String ID_PRODUK, NAMA, HARGA, MINIMAL, STOK, SATUAN, GAMBAR;
+    String id_produk, nama, harga, minimal, stok, satuan, gambar;
 
-    public ProductDAO(String ID_PRODUK, String NAMA, String HARGA, String MINIMAL, String STOK, String SATUAN, String GAMBAR) {
-        this.ID_PRODUK = ID_PRODUK;
-        this.NAMA = NAMA;
-        this.HARGA = HARGA;
-        this.MINIMAL = MINIMAL;
-        this.STOK = STOK;
-        this.SATUAN = SATUAN;
-        this.GAMBAR = GAMBAR;
+    public ProductDAO(String id_produk, String nama, String harga, String minimal, String stok, String satuan, String gambar) {
+        this.id_produk = id_produk;
+        this.nama = nama;
+        this.harga = harga;
+        this.minimal = minimal;
+        this.stok = stok;
+        this.satuan = satuan;
+        this.gambar = gambar;
     }
 
-    public String getID_PRODUK() {
-        return ID_PRODUK;
+    public String getId_produk() {
+        return id_produk;
     }
 
-    public String getNAMA() {
-        return NAMA;
+    public String getNama() {
+        return nama;
     }
 
-    public String getHARGA() {
-        return HARGA;
+    public String getHarga() {
+        return harga;
     }
 
-    public String getMINIMAL() {
-        return MINIMAL;
+    public String getMinimal() {
+        return minimal;
     }
 
-    public String getSTOK() {
-        return STOK;
+    public String getStok() {
+        return stok;
     }
 
-    public String getSATUAN() {
-        return SATUAN;
+    public String getSatuan() {
+        return satuan;
     }
 
-    public String getGAMBAR() {
-        return GAMBAR;
+    public String getGambar() {
+        return gambar;
     }
 
-    public void setID_PRODUK(String ID_PRODUK) {
-        this.ID_PRODUK = ID_PRODUK;
+    public void setId_produk(String id_produk) {
+        this.id_produk = id_produk;
     }
 
-    public void setNAMA(String NAMA) {
-        this.NAMA = NAMA;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
-    public void setHARGA(String HARGA) {
-        this.HARGA = HARGA;
+    public void setHarga(String harga) {
+        this.harga = harga;
     }
 
-    public void setMINIMAL(String MINIMAL) {
-        this.MINIMAL = MINIMAL;
+    public void setMinimal(String minimal) {
+        this.minimal = minimal;
     }
 
-    public void setSTOK(String STOK) {
-        this.STOK = STOK;
+    public void setStok(String stok) {
+        this.stok = stok;
     }
 
-    public void setSATUAN(String SATUAN) {
-        this.SATUAN = SATUAN;
+    public void setSatuan(String satuan) {
+        this.satuan = satuan;
     }
 
-    public void setGAMBAR(String GAMBAR) {
-        this.GAMBAR = GAMBAR;
+    public void setGambar(String gambar) {
+        this.gambar = gambar;
     }
 }

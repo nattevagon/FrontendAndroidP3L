@@ -43,17 +43,17 @@ public class TransactionProductRecyclerAdapter extends RecyclerView.Adapter<Tran
     @Override
     public void onBindViewHolder(@NonNull TransactionProductRecyclerAdapter.RoomViewHolder holder, int position) {
         final TransactionProductDAO brg = filteredDataList.get(position);
-        holder.mCode.setText(brg.getKODE());
-        holder.mPet.setText(brg.getHEWAN());
-        holder.mDate.setText(brg.getTANGGAL());
-        holder.mStatus.setText(brg.getSTATUS());
-        holder.mTotal.setText(brg.getTOTAL_HARGA());
+        holder.mCode.setText(brg.getKode());
+        holder.mPet.setText(brg.getHewan());
+        holder.mDate.setText(brg.getTanggal());
+        holder.mStatus.setText(brg.getStatus());
+        holder.mTotal.setText(brg.getTotal_harga());
 
         holder.mParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                id = brg.getID_TP();
-                code = brg.getKODE();
+                id = brg.getId_tp();
+                code = brg.getKode();
 
                 Intent i = new Intent(context, DetailTransactionProductActivity.class);
                 i.putExtra("id",id);
@@ -94,7 +94,7 @@ public class TransactionProductRecyclerAdapter extends RecyclerView.Adapter<Tran
                 } else {
                     List<TransactionProductDAO> filteredList = new ArrayList<>();
                     for (TransactionProductDAO TransactionProductDAO : dataList) {
-                        if (TransactionProductDAO.getKODE().toLowerCase().contains(charSequenceString.toLowerCase())) {
+                        if (TransactionProductDAO.getKode().toLowerCase().contains(charSequenceString.toLowerCase())) {
                             filteredList.add(TransactionProductDAO);
                         }
                         filteredDataList = filteredList;

@@ -110,11 +110,11 @@ public class DetailCustomerActivity extends AppCompatActivity {
 
                 for(int i=0;i<response.body().size();i++)
                 {
-                    sId = response.body().get(i).getID_CUSTOMER();
-                    sName = response.body().get(i).getNAMA();
-                    sBirthdate = response.body().get(i).getTGL_LAHIR();
-                    sAddress = response.body().get(i).getALAMAT();
-                    sPhoneNumber = response.body().get(i).getNO_TELP();
+                    sId = response.body().get(i).getId_customer();
+                    sName = response.body().get(i).getNama();
+                    sBirthdate = response.body().get(i).getTgl_lahir();
+                    sAddress = response.body().get(i).getAlamat();
+                    sPhoneNumber = response.body().get(i).getNo_telp();
                 }
 
                 twInitial.setText(sName.substring(0, 1));

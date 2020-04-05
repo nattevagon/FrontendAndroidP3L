@@ -29,7 +29,7 @@ public interface ApiInterface {
     Call<List<ProductDAO>> getAllProduct();
 
     @GET("produk")
-    Call<List<ProductDAO>> getByProduct(@Query("id_produk") String ID_PRODUK);
+    Call<List<ProductDAO>> getByProduct(@Query("id_produk") String id_produk);
 
     @GET("produk/sortbyprice")
     Call<List<ProductDAO>> getSortPrice();
@@ -39,12 +39,12 @@ public interface ApiInterface {
 
     @POST("produk")
     @FormUrlEncoded
-    Call<ProductDAO> addProduct(@Field("nama") String NAMA,
-                                @Field("harga") String HARGA,
-                                @Field("minimal") String MINIMAL,
-                                @Field("stok") String STOK,
-                                @Field("satuan") String SATUAN,
-                                @Field("gambar") String GAMBAR);
+    Call<ProductDAO> addProduct(@Field("nama") String nama,
+                                @Field("harga") String harga,
+                                @Field("minimal") String minimal,
+                                @Field("stok") String stok,
+                                @Field("satuan") String satuan,
+                                @Field("gambar") String gambar);
 
     @Multipart
     @POST("produk/upload")
@@ -52,17 +52,17 @@ public interface ApiInterface {
 
     @POST("produk/update")
     @FormUrlEncoded
-    Call<ProductDAO> updateProduct(@Field("id_produk") String ID_PRODUK,
-                                   @Field("nama") String NAMA,
-                                   @Field("harga") String HARGA,
-                                   @Field("minimal") String MINIMAL,
-                                   @Field("stok") String STOK,
-                                   @Field("satuan") String SATUAN,
-                                   @Field("gambar") String GAMBAR);
+    Call<ProductDAO> updateProduct(@Field("id_produk") String id_produk,
+                                   @Field("nama") String nama,
+                                   @Field("harga") String harga,
+                                   @Field("minimal") String minimal,
+                                   @Field("stok") String stok,
+                                   @Field("satuan") String satuan,
+                                   @Field("gambar") String gambar);
 
     @POST("produk/delete")
     @FormUrlEncoded
-    Call<ProductDAO> deleteProduct(@Field("id_produk") String ID_PRODUK);
+    Call<ProductDAO> deleteProduct(@Field("id_produk") String id_produk);
 
     //=============================================//
 
@@ -70,20 +70,20 @@ public interface ApiInterface {
     Call<List<ServiceDAO>> getAllService();
 
     @GET("layanan")
-    Call<List<ServiceDAO>> getByService(@Query("id_layanan") String ID_LAYANAN);
+    Call<List<ServiceDAO>> getByService(@Query("id_layanan") String id_layanan);
 
     @POST("layanan")
     @FormUrlEncoded
-    Call<ServiceDAO> addService(@Field("nama") String NAMA);
+    Call<ServiceDAO> addService(@Field("nama") String nama);
 
     @POST("layanan/update")
     @FormUrlEncoded
-    Call<ServiceDAO> updateService(@Field("id_layanan") String ID_LAYANAN,
-                                   @Field("nama") String NAMA);
+    Call<ServiceDAO> updateService(@Field("id_layanan") String id_layanan,
+                                   @Field("nama") String nama);
 
     @POST("layanan/delete")
     @FormUrlEncoded
-    Call<ServiceDAO> deleteService(@Field("id_layanan") String ID_LAYANAN);
+    Call<ServiceDAO> deleteService(@Field("id_layanan") String id_layanan);
 
     //=============================================//
 
@@ -91,26 +91,26 @@ public interface ApiInterface {
     Call<List<CustomerDAO>> getAllCustomer();
 
     @GET("customer")
-    Call<List<CustomerDAO>> getByCustomer(@Query("id_customer") String ID_CUSTOMER);
+    Call<List<CustomerDAO>> getByCustomer(@Query("id_customer") String id_customer);
 
     @POST("customer")
     @FormUrlEncoded
-    Call<CustomerDAO> addCustomer(@Field("nama") String NAMA,
-                                  @Field("tgl_lahir") String TGL_LAHIR,
-                                  @Field("alamat") String ALAMAT,
-                                  @Field("no_telp") String NO_TELP);
+    Call<CustomerDAO> addCustomer(@Field("nama") String nama,
+                                  @Field("tgl_lahir") String tgl_lahir,
+                                  @Field("alamat") String alamat,
+                                  @Field("no_telp") String no_telp);
 
     @POST("customer/update")
     @FormUrlEncoded
-    Call<CustomerDAO> updateCustomer(@Field("id_customer") String ID_CUSTOMER,
-                                     @Field("nama") String NAMA,
-                                     @Field("tgl_lahir") String TGL_LAHIR,
-                                     @Field("alamat") String ALAMAT,
-                                     @Field("no_telp") String NO_TELP);
+    Call<CustomerDAO> updateCustomer(@Field("id_customer") String id_customer,
+                                     @Field("nama") String nama,
+                                     @Field("tgl_lahir") String tgl_lahir,
+                                     @Field("alamat") String alamat,
+                                     @Field("no_telp") String no_telp);
 
     @POST("customer/delete")
     @FormUrlEncoded
-    Call<CustomerDAO> deleteCustomer(@Field("id_customer") String ID_CUSTOMER);
+    Call<CustomerDAO> deleteCustomer(@Field("id_customer") String id_customer);
 
     //=============================================//
 
@@ -118,28 +118,28 @@ public interface ApiInterface {
     Call<List<PetDAO>> getAllPet();
 
     @GET("hewan")
-    Call<List<PetDAO>> getByPet(@Query("id_hewan") String ID_HEWAN);
+    Call<List<PetDAO>> getByPet(@Query("id_hewan") String id_hewan);
 
     @POST("hewan")
     @FormUrlEncoded
-    Call<PetDAO> addPet(@Field("nama") String NAMA,
-                        @Field("id_jenis_hewan") String ID_JENIS_HEWAN,
-                        @Field("id_ukuran_hewan") String ID_UKURAN_HEWAN,
-                        @Field("id_customer") String ID_CUSTOMER,
-                        @Field("tgl_lahir") String TGL_LAHIR);
+    Call<PetDAO> addPet(@Field("nama") String nama,
+                        @Field("id_jenis_hewan") String id_jenis_hewan,
+                        @Field("id_ukuran_hewan") String id_ukuran_hewan,
+                        @Field("id_customer") String id_customer,
+                        @Field("tgl_lahir") String tgl_lahir);
 
     @POST("hewan/update")
     @FormUrlEncoded
-    Call<PetDAO> updatePet(@Field("id_hewan") String ID_HEWAN,
-                           @Field("nama") String NAMA,
-                           @Field("id_jenis_hewan") String ID_JENIS_HEWAN,
-                           @Field("id_ukuran_hewan") String ID_UKURAN_HEWAN,
-                           @Field("id_customer") String ID_CUSTOMER,
-                           @Field("tgl_lahir") String TGL_LAHIR);
+    Call<PetDAO> updatePet(@Field("id_hewan") String id_hewan,
+                           @Field("nama") String nama,
+                           @Field("id_jenis_hewan") String id_jenis_hewan,
+                           @Field("id_ukuran_hewan") String id_ukuran_hewan,
+                           @Field("id_customer") String id_customer,
+                           @Field("tgl_lahir") String tgl_lahir);
 
     @POST("hewan/delete")
     @FormUrlEncoded
-    Call<PetDAO> deletePet(@Field("id_hewan") String ID_HEWAN);
+    Call<PetDAO> deletePet(@Field("id_hewan") String id_hewan);
 
     //=============================================//
 
@@ -147,20 +147,20 @@ public interface ApiInterface {
     Call<List<PetTypeDAO>> getAllPetType();
 
     @GET("jenishewan")
-    Call<List<PetTypeDAO>> getByPetType(@Query("id_jenis_hewan") String ID_JENIS_HEWAN);
+    Call<List<PetTypeDAO>> getByPetType(@Query("id_jenis_hewan") String id_jenis_hewan);
 
     @POST("jenishewan")
     @FormUrlEncoded
-    Call<PetTypeDAO> addPetType(@Field("nama") String NAMA);
+    Call<PetTypeDAO> addPetType(@Field("nama") String nama);
 
     @POST("jenishewan/update")
     @FormUrlEncoded
-    Call<PetTypeDAO> updatePetType(@Field("id_jenis_hewan") String ID_JENIS_HEWAN,
-                                   @Field("nama") String NAMA);
+    Call<PetTypeDAO> updatePetType(@Field("id_jenis_hewan") String id_jenis_hewan,
+                                   @Field("nama") String nama);
 
     @POST("jenishewan/delete")
     @FormUrlEncoded
-    Call<PetTypeDAO> deletePetType(@Field("id_jenis_hewan") String ID_JENIS_HEWAN);
+    Call<PetTypeDAO> deletePetType(@Field("id_jenis_hewan") String id_jenis_hewan);
 
 
     //=============================================//
@@ -169,20 +169,20 @@ public interface ApiInterface {
     Call<List<PetSizeDAO>> getAllPetSize();
 
     @GET("ukuranhewan")
-    Call<List<PetSizeDAO>> getByPetSize(@Query("id_ukuran_hewan") String ID_UKURAN_HEWAN);
+    Call<List<PetSizeDAO>> getByPetSize(@Query("id_ukuran_hewan") String id_ukuran_hewan);
 
     @POST("ukuranhewan")
     @FormUrlEncoded
-    Call<PetSizeDAO> addPetSize(@Field("nama") String NAMA);
+    Call<PetSizeDAO> addPetSize(@Field("nama") String nama);
 
     @POST("ukuranhewan/update")
     @FormUrlEncoded
-    Call<PetSizeDAO> updatePetSize(@Field("id_ukuran_hewan") String ID_UKURAN_HEWAN,
-                                   @Field("nama") String NAMA);
+    Call<PetSizeDAO> updatePetSize(@Field("id_ukuran_hewan") String id_ukuran_hewan,
+                                   @Field("nama") String nama);
 
     @POST("ukuranhewan/delete")
     @FormUrlEncoded
-    Call<PetSizeDAO> deletePetSize(@Field("id_ukuran_hewan") String ID_UKURAN_HEWAN);
+    Call<PetSizeDAO> deletePetSize(@Field("id_ukuran_hewan") String id_ukuran_hewan);
 
     //=============================================//
 
@@ -190,24 +190,24 @@ public interface ApiInterface {
     Call<List<SupplierDAO>> getAllSupplier();
 
     @GET("supplier")
-    Call<List<SupplierDAO>> getBySupplier(@Query("id_supplier") String ID_SUPPLIER);
+    Call<List<SupplierDAO>> getBySupplier(@Query("id_supplier") String id_supplier);
 
     @POST("supplier")
     @FormUrlEncoded
-    Call<SupplierDAO> addSupplier(@Field("nama") String NAMA,
-                                  @Field("no_telp") String NO_TELP,
-                                  @Field("alamat") String ALAMAT);
+    Call<SupplierDAO> addSupplier(@Field("nama") String nama,
+                                  @Field("no_telp") String no_telp,
+                                  @Field("alamat") String alamat);
 
     @POST("supplier/update")
     @FormUrlEncoded
-    Call<SupplierDAO> updateSupplier(@Field("id_supplier") String ID_SUPPLIER,
-                                     @Field("nama") String NAMA,
-                                     @Field("no_telp") String NO_TELP,
-                                     @Field("alamat") String ALAMAT);
+    Call<SupplierDAO> updateSupplier(@Field("id_supplier") String id_supplier,
+                                     @Field("nama") String nama,
+                                     @Field("no_telp") String no_telp,
+                                     @Field("alamat") String alamat);
 
     @POST("supplier/delete")
     @FormUrlEncoded
-    Call<SupplierDAO> deleteSupplier(@Field("id_supplier") String ID_SUPPLIER);
+    Call<SupplierDAO> deleteSupplier(@Field("id_supplier") String id_supplier);
 
     //=============================================//
 
@@ -216,42 +216,44 @@ public interface ApiInterface {
     Call<List<TransactionProductDAO>> getAllTransactionProduct();
 
     @GET("transaksiproduk")
-    Call<List<TransactionProductDAO>> getByIdTransactionProduct(@Query("id_tp") String ID_TP);
+    Call<List<TransactionProductDAO>> getByIdTransactionProduct(@Query("id_tp") String id_tp);
 
     @GET("transaksiproduk")
-    Call<List<TransactionProductDAO>> getByCodeTransactionProduct(@Query("kode") String KODE);
+    Call<List<TransactionProductDAO>> getByCodeTransactionProduct(@Query("kode") String kode);
 
     @GET("transaksiproduk/codelength")
-    Call<List<TransactionProductDAO>> getCodeLengthTransactionProduct(@Query("kode") String KODE);
+    Call<List<TransactionProductDAO>> getCodeLengthTransactionProduct(@Query("kode") String kode);
 
     @POST("transaksiproduk")
     @FormUrlEncoded
-    Call<TransactionProductDAO> addTransactionProduct(@Field("id_hewan") String ID_HEWAN,
-                                                      @Field("id_pegawai_cs") String ID_PEGAWAI_CS,
-                                                      @Field("kode") String KODE,
-                                                      @Field("tanggal") String TANGGAL,
-                                                      @Field("sub_total") String SUB_TOTAL,
-                                                      @Field("total_harga") String TOTAL_HARGA,
-                                                      @Field("status") String STATUS,
-                                                      @Field("created_by") String CREATED_BY);
+    Call<TransactionProductDAO> addTransactionProduct(@Field("id_hewan") String id_hewan,
+                                                      @Field("id_pegawai_cs") String id_pegawai_cs,
+                                                      @Field("kode") String kode,
+                                                      @Field("tanggal") String tanggal,
+                                                      @Field("sub_total") String sub_total,
+                                                      @Field("total_harga") String total_harga,
+                                                      @Field("status") String status,
+                                                      @Field("created_by") String created_by);
 
     @POST("transaksiproduk/update")
     @FormUrlEncoded
-    Call<TransactionProductDAO> updateTransactionProduct(@Field("id_tp") String ID_TP,
-                                                         @Field("id_hewan") String ID_HEWAN,
-                                                         @Field("id_pegawai_cs") String ID_PEGAWAI_CS,
-                                                         @Field("kode") String KODE,
-                                                         @Field("tanggal") String TANGGAL,
-                                                         @Field("sub_total") String SUB_TOTAL,
-                                                         @Field("total_harga") String TOTAL_HARGA);
+    Call<TransactionProductDAO> updateTransactionProduct(@Field("id_tp") String id_tp,
+                                                         @Field("id_hewan") String id_hewan,
+                                                         @Field("id_pegawai_cs") String id_pegawai,
+                                                         @Field("kode") String kode,
+                                                         @Field("tanggal") String tanggal,
+                                                         @Field("sub_total") String sub_total,
+                                                         @Field("total_harga") String total_harga,
+                                                         @Field("status") String status,
+                                                         @Field("created_by") String created_by);
 
     @POST("transaksiproduk/delete")
     @FormUrlEncoded
-    Call<TransactionProductDAO> deleteTransactionProduct(@Field("id_tp") String ID_TP);
+    Call<TransactionProductDAO> deleteTransactionProduct(@Field("id_tp") String id_tp);
 
     @POST("transaksiproduk/confirm")
     @FormUrlEncoded
-    Call<TransactionProductDAO> confirmTransactionProduct(@Field("id_tp") String ID_TP);
+    Call<TransactionProductDAO> confirmTransactionProduct(@Field("id_tp") String id_tp);
 
     //==================================================//
 
@@ -261,26 +263,33 @@ public interface ApiInterface {
     Call<List<DetailTransactionProductDAO>> getAllDetailTP();
 
     @GET("detailtransaksiproduk")
-    Call<List<DetailTransactionProductDAO>> getByDetailTP(@Query("id_detail_tp") String ID_DETAIL_TP);
+    Call<List<DetailTransactionProductDAO>> getByIDDetailTP(@Query("id_detail_tp") String id_detail_tp);
+
+    @GET("detailtransaksiproduk")
+    Call<List<DetailTransactionProductDAO>> getByIDTPDetailTP(@Query("id_tp") String id_tp);
+
+    @GET("detailtransaksiproduk")
+    Call<List<DetailTransactionProductDAO>> getByProdukDTP(@Query("id_tp") String id_tp,
+                                                              @Query("id_produk") String id_produk);
 
     @POST("detailtransaksiproduk")
     @FormUrlEncoded
-    Call<DetailTransactionProductDAO> addDetailTP(@Field("id_tp") String ID_TP,
-                                                  @Field("id_produk") String ID_PRODUK,
-                                                  @Field("jumlah") String JUMLAH,
-                                                  @Field("total") String TOTAL);
+    Call<DetailTransactionProductDAO> addDetailTP(@Field("id_tp") String id_tp,
+                                                  @Field("id_produk") String id_produk,
+                                                  @Field("jumlah") String jumlah,
+                                                  @Field("total") String total);
 
     @POST("detailtransaksiproduk/update")
     @FormUrlEncoded
-    Call<DetailTransactionProductDAO> updateDetailTP(@Field("id_detail_tp") String ID_DETAIL_TP,
-                                                     @Field("id_tp") String ID_TP,
-                                                     @Field("id_produk") String ID_PRODUK,
-                                                     @Field("jumlah") String JUMLAH,
-                                                     @Field("total") String TOTAL);
+    Call<DetailTransactionProductDAO> updateDetailTP(@Field("id_detail_tp") String id_detail_tp,
+                                                     @Field("id_tp") String id_tp,
+                                                     @Field("id_produk") String id_produk,
+                                                     @Field("jumlah") String jumlah,
+                                                     @Field("total") String total);
 
     @POST("detailtransaksiproduk/delete")
     @FormUrlEncoded
-    Call<DetailTransactionProductDAO> deleteDetailTP(@Field("id_detail_tp") String ID_DETAIL_TP);
+    Call<DetailTransactionProductDAO> deleteDetailTP(@Field("id_detail_tp") String id_detail_tp);
 
     //==================================================//
 

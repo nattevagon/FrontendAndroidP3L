@@ -68,12 +68,12 @@ public class ProductBottomFragment extends BottomSheetDialogFragment{
 
                 for(int i=0;i<response.body().size();i++)
                 {
-                    sId = response.body().get(i).getID_PRODUK();
-                    sName = response.body().get(i).getNAMA();
-                    sStock = response.body().get(i).getSTOK();
-                    sUnit = response.body().get(i).getSATUAN();
-                    sPrice = response.body().get(i).getHARGA();
-                    sImage = response.body().get(i).getGAMBAR();
+                    sId = response.body().get(i).getId_produk();
+                    sName = response.body().get(i).getNama();
+                    sStock = response.body().get(i).getStok();
+                    sUnit = response.body().get(i).getSatuan();
+                    sPrice = response.body().get(i).getHarga();
+                    sImage = response.body().get(i).getGambar();
                 }
 
                 twName.setText(sName);

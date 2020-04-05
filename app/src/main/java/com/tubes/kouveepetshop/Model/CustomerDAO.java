@@ -1,53 +1,80 @@
 package com.tubes.kouveepetshop.Model;
 
 public class CustomerDAO {
-    String ID_CUSTOMER, NAMA, TGL_LAHIR, ALAMAT, NO_TELP;
+    String id_customer, nama, tgl_lahir, alamat, no_telp, created_by, updated_by, deleted_by;
 
-    public CustomerDAO(String ID_CUSTOMER, String NAMA, String TGL_LAHIR, String ALAMAT, String NO_TELP) {
-        this.ID_CUSTOMER = ID_CUSTOMER;
-        this.NAMA = NAMA;
-        this.TGL_LAHIR = TGL_LAHIR;
-        this.ALAMAT = ALAMAT;
-        this.NO_TELP = NO_TELP;
+    public CustomerDAO(String id_customer, String nama, String tgl_lahir, String alamat, String no_telp, String created_by, String updated_by, String deleted_by) {
+        this.id_customer = id_customer;
+        this.nama = nama;
+        this.tgl_lahir = tgl_lahir;
+        this.alamat = alamat;
+        this.no_telp = no_telp;
+        this.created_by = created_by;
+        this.updated_by = updated_by;
+        this.deleted_by = deleted_by;
     }
 
-    public String getID_CUSTOMER() {
-        return ID_CUSTOMER;
+    public String getId_customer() {
+        return id_customer;
     }
 
-    public String getNAMA() {
-        return NAMA;
+    public String getNama() {
+        return nama;
     }
 
-    public String getTGL_LAHIR() {
-        return TGL_LAHIR;
+    public String getTgl_lahir() {
+        return tgl_lahir;
     }
 
-    public String getALAMAT() {
-        return ALAMAT;
+    public String getAlamat() {
+        return alamat;
     }
 
-    public String getNO_TELP() {
-        return NO_TELP;
+    public String getNo_telp() {
+        return no_telp;
     }
 
-    public void setID_CUSTOMER(String ID_CUSTOMER) {
-        this.ID_CUSTOMER = ID_CUSTOMER;
+    public String getCreated_by() {
+        return created_by;
     }
 
-    public void setNAMA(String NAMA) {
-        this.NAMA = NAMA;
+    public String getUpdated_by() {
+        return updated_by;
     }
 
-    public void setTGL_LAHIR(String TGL_LAHIR) {
-        this.TGL_LAHIR = TGL_LAHIR;
+    public String getDeleted_by() {
+        return deleted_by;
     }
 
-    public void setALAMAT(String ALAMAT) {
-        this.ALAMAT = ALAMAT;
+    public void setId_customer(String id_customer) {
+        this.id_customer = id_customer;
     }
 
-    public void setNO_TELP(String NO_TELP) {
-        this.NO_TELP = NO_TELP;
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public void setTgl_lahir(String tgl_lahir) {
+        this.tgl_lahir = tgl_lahir;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
+    }
+
+    public void setNo_telp(String no_telp) {
+        this.no_telp = no_telp;
+    }
+
+    public void setCreated_by(String created_by) {
+        this.created_by = created_by;
+    }
+
+    public void setUpdated_by(String updated_by) {
+        this.updated_by = updated_by;
+    }
+
+    public void setDeleted_by(String deleted_by) {
+        this.deleted_by = deleted_by;
     }
 }

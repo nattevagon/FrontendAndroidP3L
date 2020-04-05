@@ -1,89 +1,101 @@
 package com.tubes.kouveepetshop.Model;
 
 public class PetDAO {
-    String ID_HEWAN, ID_JENIS_HEWAN, ID_UKURAN_HEWAN, ID_CUSTOMER, NAMA, TGL_LAHIR, JENIS_HEWAN, UKURAN_HEWAN, CUSTOMER;
+    String id_hewan, id_jenis_hewan, id_ukuran_hewan, id_customer, nama, tgl_lahir, jenis_hewan, ukuran_hewan, customer, created_by, updated_by, deleted_by;
 
-    public PetDAO(String ID_HEWAN, String ID_JENIS_HEWAN, String ID_UKURAN_HEWAN, String ID_CUSTOMER, String NAMA, String TGL_LAHIR, String JENIS_HEWAN, String UKURAN_HEWAN, String CUSTOMER) {
-        this.ID_HEWAN = ID_HEWAN;
-        this.ID_JENIS_HEWAN = ID_JENIS_HEWAN;
-        this.ID_UKURAN_HEWAN = ID_UKURAN_HEWAN;
-        this.ID_CUSTOMER = ID_CUSTOMER;
-        this.NAMA = NAMA;
-        this.TGL_LAHIR = TGL_LAHIR;
-        this.JENIS_HEWAN = JENIS_HEWAN;
-        this.UKURAN_HEWAN = UKURAN_HEWAN;
-        this.CUSTOMER = CUSTOMER;
+    public String getId_hewan() {
+        return id_hewan;
     }
 
-    public String getID_HEWAN() {
-        return ID_HEWAN;
+    public String getId_jenis_hewan() {
+        return id_jenis_hewan;
     }
 
-    public String getID_JENIS_HEWAN() {
-        return ID_JENIS_HEWAN;
+    public String getId_ukuran_hewan() {
+        return id_ukuran_hewan;
     }
 
-    public String getID_UKURAN_HEWAN() {
-        return ID_UKURAN_HEWAN;
+    public String getId_customer() {
+        return id_customer;
     }
 
-    public String getID_CUSTOMER() {
-        return ID_CUSTOMER;
+    public String getNama() {
+        return nama;
     }
 
-    public String getNAMA() {
-        return NAMA;
+    public String getTgl_lahir() {
+        return tgl_lahir;
     }
 
-    public String getTGL_LAHIR() {
-        return TGL_LAHIR;
+    public String getJenis_hewan() {
+        return jenis_hewan;
     }
 
-    public String getJENIS_HEWAN() {
-        return JENIS_HEWAN;
+    public String getUkuran_hewan() {
+        return ukuran_hewan;
     }
 
-    public String getUKURAN_HEWAN() {
-        return UKURAN_HEWAN;
+    public String getCustomer() {
+        return customer;
     }
 
-    public String getCUSTOMER() {
-        return CUSTOMER;
+    public String getCreated_by() {
+        return created_by;
     }
 
-    public void setID_HEWAN(String ID_HEWAN) {
-        this.ID_HEWAN = ID_HEWAN;
+    public String getUpdated_by() {
+        return updated_by;
     }
 
-    public void setID_JENIS_HEWAN(String ID_JENIS_HEWAN) {
-        this.ID_JENIS_HEWAN = ID_JENIS_HEWAN;
+    public String getDeleted_by() {
+        return deleted_by;
     }
 
-    public void setID_UKURAN_HEWAN(String ID_UKURAN_HEWAN) {
-        this.ID_UKURAN_HEWAN = ID_UKURAN_HEWAN;
+    public void setId_hewan(String id_hewan) {
+        this.id_hewan = id_hewan;
     }
 
-    public void setID_CUSTOMER(String ID_CUSTOMER) {
-        this.ID_CUSTOMER = ID_CUSTOMER;
+    public void setId_jenis_hewan(String id_jenis_hewan) {
+        this.id_jenis_hewan = id_jenis_hewan;
     }
 
-    public void setNAMA(String NAMA) {
-        this.NAMA = NAMA;
+    public void setId_ukuran_hewan(String id_ukuran_hewan) {
+        this.id_ukuran_hewan = id_ukuran_hewan;
     }
 
-    public void setTGL_LAHIR(String TGL_LAHIR) {
-        this.TGL_LAHIR = TGL_LAHIR;
+    public void setId_customer(String id_customer) {
+        this.id_customer = id_customer;
     }
 
-    public void setJENIS_HEWAN(String JENIS_HEWAN) {
-        this.JENIS_HEWAN = JENIS_HEWAN;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
-    public void setUKURAN_HEWAN(String UKURAN_HEWAN) {
-        this.UKURAN_HEWAN = UKURAN_HEWAN;
+    public void setTgl_lahir(String tgl_lahir) {
+        this.tgl_lahir = tgl_lahir;
     }
 
-    public void setCUSTOMER(String CUSTOMER) {
-        this.CUSTOMER = CUSTOMER;
+    public void setJenis_hewan(String jenis_hewan) {
+        this.jenis_hewan = jenis_hewan;
+    }
+
+    public void setUkuran_hewan(String ukuran_hewan) {
+        this.ukuran_hewan = ukuran_hewan;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
+
+    public void setCreated_by(String created_by) {
+        this.created_by = created_by;
+    }
+
+    public void setUpdated_by(String updated_by) {
+        this.updated_by = updated_by;
+    }
+
+    public void setDeleted_by(String deleted_by) {
+        this.deleted_by = deleted_by;
     }
 }

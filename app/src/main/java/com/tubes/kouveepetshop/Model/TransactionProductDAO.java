@@ -1,134 +1,134 @@
 package com.tubes.kouveepetshop.Model;
 
 public class TransactionProductDAO {
-    String ID_TP, ID_HEWAN, ID_PEGAWAI_K, ID_PEGAWAI_CS, HEWAN, KASIR, CUSTOMER_SERVICE, KODE, TANGGAL, SUB_TOTAL, TOTAL_HARGA, STATUS, CREATED_BY, UPDATED_BY;
+    String id_tp, id_hewan, id_pegawai_k, id_pegawai_cs, hewan, kasir, customer_service, kode, tanggal, sub_total, total_harga, status, created_by, updated_by;
 
-    public TransactionProductDAO(String ID_TP, String ID_HEWAN, String ID_PEGAWAI_K, String ID_PEGAWAI_CS, String HEWAN, String KASIR, String CUSTOMER_SERVICE, String KODE, String TANGGAL, String SUB_TOTAL, String TOTAL_HARGA, String STATUS, String CREATED_BY, String UPDATED_BY) {
-        this.ID_TP = ID_TP;
-        this.ID_HEWAN = ID_HEWAN;
-        this.ID_PEGAWAI_K = ID_PEGAWAI_K;
-        this.ID_PEGAWAI_CS = ID_PEGAWAI_CS;
-        this.HEWAN = HEWAN;
-        this.KASIR = KASIR;
-        this.CUSTOMER_SERVICE = CUSTOMER_SERVICE;
-        this.KODE = KODE;
-        this.TANGGAL = TANGGAL;
-        this.SUB_TOTAL = SUB_TOTAL;
-        this.TOTAL_HARGA = TOTAL_HARGA;
-        this.STATUS = STATUS;
-        this.CREATED_BY = CREATED_BY;
-        this.UPDATED_BY = UPDATED_BY;
+    public TransactionProductDAO(String id_tp, String id_hewan, String id_pegawai_k, String id_pegawai_cs, String hewan, String kasir, String customer_service, String kode, String tanggal, String sub_total, String total_harga, String status, String created_by, String updated_by) {
+        this.id_tp = id_tp;
+        this.id_hewan = id_hewan;
+        this.id_pegawai_k = id_pegawai_k;
+        this.id_pegawai_cs = id_pegawai_cs;
+        this.hewan = hewan;
+        this.kasir = kasir;
+        this.customer_service = customer_service;
+        this.kode = kode;
+        this.tanggal = tanggal;
+        this.sub_total = sub_total;
+        this.total_harga = total_harga;
+        this.status = status;
+        this.created_by = created_by;
+        this.updated_by = updated_by;
     }
 
-    public String getID_TP() {
-        return ID_TP;
+    public String getId_tp() {
+        return id_tp;
     }
 
-    public String getID_HEWAN() {
-        return ID_HEWAN;
+    public String getId_hewan() {
+        return id_hewan;
     }
 
-    public String getID_PEGAWAI_K() {
-        return ID_PEGAWAI_K;
+    public String getId_pegawai_k() {
+        return id_pegawai_k;
     }
 
-    public String getID_PEGAWAI_CS() {
-        return ID_PEGAWAI_CS;
+    public String getId_pegawai_cs() {
+        return id_pegawai_cs;
     }
 
-    public String getHEWAN() {
-        return HEWAN;
+    public String getHewan() {
+        return hewan;
     }
 
-    public String getKASIR() {
-        return KASIR;
+    public String getKasir() {
+        return kasir;
     }
 
-    public String getCUSTOMER_SERVICE() {
-        return CUSTOMER_SERVICE;
+    public String getCustomer_service() {
+        return customer_service;
     }
 
-    public String getKODE() {
-        return KODE;
+    public String getKode() {
+        return kode;
     }
 
-    public String getTANGGAL() {
-        return TANGGAL;
+    public String getTanggal() {
+        return tanggal;
     }
 
-    public String getSUB_TOTAL() {
-        return SUB_TOTAL;
+    public String getSub_total() {
+        return sub_total;
     }
 
-    public String getTOTAL_HARGA() {
-        return TOTAL_HARGA;
+    public String getTotal_harga() {
+        return total_harga;
     }
 
-    public String getSTATUS() {
-        return STATUS;
+    public String getStatus() {
+        return status;
     }
 
-    public String getCREATED_BY() {
-        return CREATED_BY;
+    public String getCreated_by() {
+        return created_by;
     }
 
-    public String getUPDATED_BY() {
-        return UPDATED_BY;
+    public String getUpdated_by() {
+        return updated_by;
     }
 
-    public void setID_TP(String ID_TP) {
-        this.ID_TP = ID_TP;
+    public void setId_tp(String id_tp) {
+        this.id_tp = id_tp;
     }
 
-    public void setID_HEWAN(String ID_HEWAN) {
-        this.ID_HEWAN = ID_HEWAN;
+    public void setId_hewan(String id_hewan) {
+        this.id_hewan = id_hewan;
     }
 
-    public void setID_PEGAWAI_K(String ID_PEGAWAI_K) {
-        this.ID_PEGAWAI_K = ID_PEGAWAI_K;
+    public void setId_pegawai_k(String id_pegawai_k) {
+        this.id_pegawai_k = id_pegawai_k;
     }
 
-    public void setID_PEGAWAI_CS(String ID_PEGAWAI_CS) {
-        this.ID_PEGAWAI_CS = ID_PEGAWAI_CS;
+    public void setId_pegawai_cs(String id_pegawai_cs) {
+        this.id_pegawai_cs = id_pegawai_cs;
     }
 
-    public void setHEWAN(String HEWAN) {
-        this.HEWAN = HEWAN;
+    public void setHewan(String hewan) {
+        this.hewan = hewan;
     }
 
-    public void setKASIR(String KASIR) {
-        this.KASIR = KASIR;
+    public void setKasir(String kasir) {
+        this.kasir = kasir;
     }
 
-    public void setCUSTOMER_SERVICE(String CUSTOMER_SERVICE) {
-        this.CUSTOMER_SERVICE = CUSTOMER_SERVICE;
+    public void setCustomer_service(String customer_service) {
+        this.customer_service = customer_service;
     }
 
-    public void setKODE(String KODE) {
-        this.KODE = KODE;
+    public void setKode(String kode) {
+        this.kode = kode;
     }
 
-    public void setTANGGAL(String TANGGAL) {
-        this.TANGGAL = TANGGAL;
+    public void setTanggal(String tanggal) {
+        this.tanggal = tanggal;
     }
 
-    public void setSUB_TOTAL(String SUB_TOTAL) {
-        this.SUB_TOTAL = SUB_TOTAL;
+    public void setSub_total(String sub_total) {
+        this.sub_total = sub_total;
     }
 
-    public void setTOTAL_HARGA(String TOTAL_HARGA) {
-        this.TOTAL_HARGA = TOTAL_HARGA;
+    public void setTotal_harga(String total_harga) {
+        this.total_harga = total_harga;
     }
 
-    public void setSTATUS(String STATUS) {
-        this.STATUS = STATUS;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public void setCREATED_BY(String CREATED_BY) {
-        this.CREATED_BY = CREATED_BY;
+    public void setCreated_by(String created_by) {
+        this.created_by = created_by;
     }
 
-    public void setUPDATED_BY(String UPDATED_BY) {
-        this.UPDATED_BY = UPDATED_BY;
+    public void setUpdated_by(String updated_by) {
+        this.updated_by = updated_by;
     }
 }

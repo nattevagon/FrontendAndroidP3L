@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerRecyclerAdapter extends RecyclerView.Adapter<CustomerRecyclerAdapter.RoomViewHolder> implements Filterable {
-    private String nama, tglLahir, id, alamat, noTelp, icon;
+    private String nama, tglLahir, id, alamat, noTelp;
     private List<CustomerDAO> dataList;
     private List<CustomerDAO> filteredDataList;
     private Context context;
@@ -43,16 +43,16 @@ public class CustomerRecyclerAdapter extends RecyclerView.Adapter<CustomerRecycl
     @Override
     public void onBindViewHolder(@NonNull CustomerRecyclerAdapter.RoomViewHolder holder, int position) {
         final CustomerDAO brg = filteredDataList.get(position);
-        holder.mIcon.setText(brg.getNAMA().substring(0, 1));
-        holder.mNama.setText(brg.getNAMA());
-        holder.mTglLahir.setText(brg.getTGL_LAHIR());
-        holder.mAlamat.setText(brg.getALAMAT());
-        holder.mNoTelp.setText(brg.getNO_TELP());
+        holder.mIcon.setText(brg.getNama().substring(0, 1));
+        holder.mNama.setText(brg.getNama());
+        holder.mTglLahir.setText(brg.getTgl_lahir());
+        holder.mAlamat.setText(brg.getAlamat());
+        holder.mNoTelp.setText(brg.getNo_telp());
 
         holder.mParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                id = brg.getID_CUSTOMER();
+                id = brg.getId_customer();
 
                 Intent i = new Intent(context, DetailCustomerActivity.class);
                 i.putExtra("id",id);
@@ -92,7 +92,7 @@ public class CustomerRecyclerAdapter extends RecyclerView.Adapter<CustomerRecycl
                 } else {
                     List<CustomerDAO> filteredList = new ArrayList<>();
                     for (CustomerDAO CustomerDAO : dataList) {
-                        if (CustomerDAO.getNAMA().toLowerCase().contains(charSequenceString.toLowerCase())) {
+                        if (CustomerDAO.getNama().toLowerCase().contains(charSequenceString.toLowerCase())) {
                             filteredList.add(CustomerDAO);
                         }
                         filteredDataList = filteredList;

@@ -1,26 +1,26 @@
 package com.tubes.kouveepetshop.Model;
 
 public class ServiceDAO {
-    String ID_LAYANAN, NAMA;
+    String id_layanan, nama;
 
-    public ServiceDAO(String ID_LAYANAN, String NAMA) {
-        this.ID_LAYANAN = ID_LAYANAN;
-        this.NAMA = NAMA;
+    public ServiceDAO(String id_layanan, String nama) {
+        this.id_layanan = id_layanan;
+        this.nama = nama;
     }
 
-    public String getID_LAYANAN() {
-        return ID_LAYANAN;
+    public String getId_layanan() {
+        return id_layanan;
     }
 
-    public String getNAMA() {
-        return NAMA;
+    public String getNama() {
+        return nama;
     }
 
-    public void setID_LAYANAN(String ID_LAYANAN) {
-        this.ID_LAYANAN = ID_LAYANAN;
+    public void setId_layanan(String id_layanan) {
+        this.id_layanan = id_layanan;
     }
 
-    public void setNAMA(String NAMA) {
-        this.NAMA = NAMA;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 }

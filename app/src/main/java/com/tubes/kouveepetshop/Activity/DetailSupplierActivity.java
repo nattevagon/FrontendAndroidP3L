@@ -106,10 +106,10 @@ public class DetailSupplierActivity extends AppCompatActivity {
 
                 for(int i=0;i<response.body().size();i++)
                 {
-                    sId = sName = response.body().get(i).getID_SUPPLIER();
-                    sName = response.body().get(i).getNAMA();
-                    sAddress = response.body().get(i).getALAMAT();
-                    sPhoneNumber = response.body().get(i).getNO_TELP();
+                    sId = sName = response.body().get(i).getId_supplier();
+                    sName = response.body().get(i).getNama();
+                    sAddress = response.body().get(i).getAlamat();
+                    sPhoneNumber = response.body().get(i).getNo_telp();
                 }
 
                 twName.setText(sName);

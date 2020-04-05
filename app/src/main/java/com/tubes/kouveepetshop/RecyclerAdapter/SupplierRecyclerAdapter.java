@@ -42,14 +42,14 @@ public class SupplierRecyclerAdapter extends RecyclerView.Adapter<SupplierRecycl
     @Override
     public void onBindViewHolder(@NonNull SupplierRecyclerAdapter.RoomViewHolder holder, int position) {
         final SupplierDAO brg = filteredDataList.get(position);
-        holder.mNama.setText(brg.getNAMA());
-        holder.mNoTelp.setText(brg.getNO_TELP());
-        holder.mAlamat.setText(brg.getALAMAT());
+        holder.mNama.setText(brg.getNama());
+        holder.mNoTelp.setText(brg.getNo_telp());
+        holder.mAlamat.setText(brg.getAlamat());
 
         holder.mParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                id = brg.getID_SUPPLIER();
+                id = brg.getId_supplier();
 
                 Intent i = new Intent(context, DetailSupplierActivity.class);
                 i.putExtra("id",id);
@@ -87,7 +87,7 @@ public class SupplierRecyclerAdapter extends RecyclerView.Adapter<SupplierRecycl
                 } else {
                     List<SupplierDAO> filteredList = new ArrayList<>();
                     for (SupplierDAO SupplierDAO : dataList) {
-                        if (SupplierDAO.getNAMA().toLowerCase().contains(charSequenceString.toLowerCase())) {
+                        if (SupplierDAO.getNama().toLowerCase().contains(charSequenceString.toLowerCase())) {
                             filteredList.add(SupplierDAO);
                         }
                         filteredDataList = filteredList;

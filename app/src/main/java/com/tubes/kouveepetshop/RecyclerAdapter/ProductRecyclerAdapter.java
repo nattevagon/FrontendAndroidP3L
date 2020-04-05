@@ -45,18 +45,18 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
     @Override
     public void onBindViewHolder(@NonNull ProductRecyclerAdapter.RoomViewHolder holder, int position) {
         final ProductDAO brg = filteredDataList.get(position);
-        holder.mName.setText(brg.getNAMA());
-        holder.mUnit.setText(brg.getSATUAN());
-        holder.mStock.setText(brg.getSTOK());
-        holder.mPrice.setText(brg.getHARGA());
+        holder.mName.setText(brg.getNama());
+        holder.mUnit.setText(brg.getSatuan());
+        holder.mStock.setText(brg.getStok());
+        holder.mPrice.setText(brg.getHarga());
 
-        url = "https://kouvee.modifierisme.com/upload/"+brg.getGAMBAR();
+        url = "https://kouvee.modifierisme.com/upload/"+brg.getGambar();
         Picasso.with(context).load(url).resize(300,300).centerCrop().into(holder.mImage);
 
         holder.mParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                id = brg.getID_PRODUK();
+                id = brg.getId_produk();
 
                 Intent i = new Intent(context, DetailProductActivity.class);
                 i.putExtra("id",id);
@@ -97,7 +97,7 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
                 } else {
                     List<ProductDAO> filteredList = new ArrayList<>();
                     for (ProductDAO productDAO : dataList) {
-                        if (productDAO.getNAMA().toLowerCase().contains(charSequenceString.toLowerCase())) {
+                        if (productDAO.getNama().toLowerCase().contains(charSequenceString.toLowerCase())) {
                             filteredList.add(productDAO);
                         }
                         filteredDataList = filteredList;

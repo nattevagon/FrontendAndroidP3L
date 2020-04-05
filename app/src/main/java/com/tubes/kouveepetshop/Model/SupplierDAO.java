@@ -1,44 +1,44 @@
 package com.tubes.kouveepetshop.Model;
 
 public class SupplierDAO {
-    String ID_SUPPLIER, NAMA, NO_TELP, ALAMAT;
+    String id_supplier, nama, no_telp, alamat;
 
-    public SupplierDAO(String ID_SUPPLIER, String NAMA, String NO_TELP, String ALAMAT) {
-        this.ID_SUPPLIER = ID_SUPPLIER;
-        this.NAMA = NAMA;
-        this.NO_TELP = NO_TELP;
-        this.ALAMAT = ALAMAT;
+    public SupplierDAO(String id_supplier, String nama, String no_telp, String alamat) {
+        this.id_supplier = id_supplier;
+        this.nama = nama;
+        this.no_telp = no_telp;
+        this.alamat = alamat;
     }
 
-    public String getID_SUPPLIER() {
-        return ID_SUPPLIER;
+    public String getId_supplier() {
+        return id_supplier;
     }
 
-    public String getNAMA() {
-        return NAMA;
+    public String getNama() {
+        return nama;
     }
 
-    public String getNO_TELP() {
-        return NO_TELP;
+    public String getNo_telp() {
+        return no_telp;
     }
 
-    public String getALAMAT() {
-        return ALAMAT;
+    public String getAlamat() {
+        return alamat;
     }
 
-    public void setID_SUPPLIER(String ID_SUPPLIER) {
-        this.ID_SUPPLIER = ID_SUPPLIER;
+    public void setId_supplier(String id_supplier) {
+        this.id_supplier = id_supplier;
     }
 
-    public void setNAMA(String NAMA) {
-        this.NAMA = NAMA;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
-    public void setNO_TELP(String NO_TELP) {
-        this.NO_TELP = NO_TELP;
+    public void setNo_telp(String no_telp) {
+        this.no_telp = no_telp;
     }
 
-    public void setALAMAT(String ALAMAT) {
-        this.ALAMAT = ALAMAT;
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
     }
 }

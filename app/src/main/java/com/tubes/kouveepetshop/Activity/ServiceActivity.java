@@ -82,9 +82,8 @@ public class ServiceActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
-
     @Override
-    protected void onPostResume() {
+    public void onPostResume() {
         super.onPostResume();
         progressDialog.show();
         load();

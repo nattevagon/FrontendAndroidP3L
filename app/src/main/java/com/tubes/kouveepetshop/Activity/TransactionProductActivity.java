@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
-import com.tubes.kouveepetshop.Fragment.AddTransactionProductFragment;
+import com.tubes.kouveepetshop.Fragment.AddProductTransactionFragment;
 import com.tubes.kouveepetshop.Model.TransactionProductDAO;
 import com.tubes.kouveepetshop.R;
 import com.tubes.kouveepetshop.RecyclerAdapter.TransactionProductRecyclerAdapter;
@@ -58,7 +58,7 @@ public class TransactionProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FragmentManager manager = TransactionProductActivity.this.getSupportFragmentManager();
-                AddTransactionProductFragment bottomSheet = new AddTransactionProductFragment();
+                AddProductTransactionFragment bottomSheet = new AddProductTransactionFragment();
                 bottomSheet.show(manager, "bottomSheet");
             }
         });

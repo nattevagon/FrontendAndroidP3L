@@ -1,6 +1,7 @@
 package com.tubes.kouveepetshop.Activity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -10,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,15 +22,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
-import com.tubes.kouveepetshop.Fragment.ProductBottomFragment;
-import com.tubes.kouveepetshop.Fragment.ProductTransactionFragment;
+import com.tubes.kouveepetshop.Fragment.AddDetailProductTransactionFragment;
 import com.tubes.kouveepetshop.Model.DetailTransactionProductDAO;
 import com.tubes.kouveepetshop.Model.PetDAO;
 import com.tubes.kouveepetshop.Model.TransactionProductDAO;
 import com.tubes.kouveepetshop.R;
 import com.tubes.kouveepetshop.RecyclerAdapter.DetailTransactionProductRecyclerAdapter;
-import com.tubes.kouveepetshop.RecyclerAdapter.ProductRecyclerAdapter;
-import com.tubes.kouveepetshop.RecyclerAdapter.TransactionProductRecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +55,7 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_transaction_product);
+        setContentView(R.layout.activity_detail_product_transaction);
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         progressDialog = new ProgressDialog(this);
@@ -80,15 +77,16 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
         Intent i = getIntent();
         sCode = i.getStringExtra("kode");
 
-        getData();
-        loadSpinnerPet();
-
         btnAddProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentManager manager = DetailTransactionProductActivity.this.getSupportFragmentManager();
-                ProductTransactionFragment dialog = new ProductTransactionFragment();
+                AddDetailProductTransactionFragment dialog = new AddDetailProductTransactionFragment();
                 dialog.show(manager, "dialog");
+
+                Bundle args = new Bundle();
+                args.putString("id", sId);
+                dialog.setArguments(args);
             }
         });
 
@@ -99,13 +97,22 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(LayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(recyclerAdapter);
-        loadProduct();
+
+        getData();
+        loadSpinnerPet();
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+    public void onBack() {
+        super.onPostResume();
+        progressDialog.show();
+        detailTPProductList.removeAll(detailTPProductList);
+        getData();
     }
 
     private void getData(){
@@ -117,12 +124,12 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
             public void onResponse(Call<List<TransactionProductDAO>> call, Response<List<TransactionProductDAO>> response) {
                 for(int i=0;i<response.body().size();i++)
                 {
-                    sId = response.body().get(i).getID_TP();
-                    sCode = response.body().get(i).getKODE();
-                    sDate = response.body().get(i).getTANGGAL();
-                    sPet = response.body().get(i).getHEWAN();
-                    sCustomerService = response.body().get(i).getCUSTOMER_SERVICE();
-                    sStatus = response.body().get(i).getSTATUS();
+                    sId = response.body().get(i).getId_tp();
+                    sCode = response.body().get(i).getKode();
+                    sDate = response.body().get(i).getTanggal();
+                    sPet = response.body().get(i).getHewan();
+                    sCustomerService = response.body().get(i).getCustomer_service();
+                    sStatus = response.body().get(i).getStatus();
                 }
 
                 twCode.setText(sCode);
@@ -130,7 +137,7 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
                 twCS.setText(sCustomerService);
                 spPet.setText(sPet);
 
-                progressDialog.dismiss();
+                loadProduct();
             }
 
             @Override
@@ -149,8 +156,8 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<PetDAO>> call, Response<List<PetDAO>> response) {
                 for (int i = 0; i < response.body().size(); i++) {
-                    idListPet.add(response.body().get(i).getID_HEWAN());
-                    nameListPet.add(response.body().get(i).getNAMA());
+                    idListPet.add(response.body().get(i).getId_hewan());
+                    nameListPet.add(response.body().get(i).getNama());
                 }
 
                 ArrayAdapter<String> adapterPet = new ArrayAdapter<String>
@@ -183,9 +190,9 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
 
     public void loadProduct(){
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<List<DetailTransactionProductDAO>> callBarang = apiService.getByDetailTP(sId);
+        Call<List<DetailTransactionProductDAO>> call = apiService.getByIDTPDetailTP(sId);
 
-        callBarang.enqueue(new Callback<List<DetailTransactionProductDAO>>() {
+        call.enqueue(new Callback<List<DetailTransactionProductDAO>>() {
             @Override
             public void onResponse(Call<List<DetailTransactionProductDAO>> call, Response<List<DetailTransactionProductDAO>> response) {
                 detailTPProductList.addAll(response.body());
@@ -195,7 +202,7 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<DetailTransactionProductDAO>> call, Throwable t) {
-                Toast.makeText(DetailTransactionProductActivity.this, "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             }
         });
     }

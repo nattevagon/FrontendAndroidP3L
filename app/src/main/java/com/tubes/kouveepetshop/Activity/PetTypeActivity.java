@@ -82,7 +82,7 @@ public class PetTypeActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPostResume() {
+    public void onPostResume() {
         super.onPostResume();
         progressDialog.show();
         load();

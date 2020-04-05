@@ -1,7 +1,6 @@
 package com.tubes.kouveepetshop.RecyclerAdapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
-import com.tubes.kouveepetshop.Activity.DetailProductActivity;
-import com.tubes.kouveepetshop.Activity.DetailTransactionProductActivity;
-import com.tubes.kouveepetshop.Fragment.ProductTransactionFragment;
+import com.tubes.kouveepetshop.Fragment.AddDetailProductTransactionFragment;
 import com.tubes.kouveepetshop.Model.ProductDAO;
 import com.tubes.kouveepetshop.R;
 
@@ -25,13 +22,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddDetailTPRecyclerAdapter extends RecyclerView.Adapter<AddDetailTPRecyclerAdapter.RoomViewHolder> implements Filterable {
-    private String nama, satuan, id, minimal, stok, harga, gambar, url;
+    private String id, price, url;
     private List<ProductDAO> dataList;
     private List<ProductDAO> filteredDataList;
     private Context context;
-    private ProductTransactionFragment productTransactionFragment;
+    private AddDetailProductTransactionFragment fragment;
 
-    public AddDetailTPRecyclerAdapter(Context context, List<ProductDAO> dataList) {
+    public AddDetailTPRecyclerAdapter(Context context, List<ProductDAO> dataList, AddDetailProductTransactionFragment fragment) {
+        this.fragment = fragment;
         this.context=context;
         this.dataList = dataList;
         this.filteredDataList = dataList;
@@ -41,29 +39,32 @@ public class AddDetailTPRecyclerAdapter extends RecyclerView.Adapter<AddDetailTP
     @Override
     public RoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.recycle_adapter_product, parent, false);
+        View view = layoutInflater.inflate(R.layout.recycle_adapter_add_detail_tp, parent, false);
         return new RoomViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AddDetailTPRecyclerAdapter.RoomViewHolder holder, int position) {
         final ProductDAO brg = filteredDataList.get(position);
-        holder.mName.setText(brg.getNAMA());
-        holder.mUnit.setText(brg.getSATUAN());
-        holder.mStock.setText(brg.getSTOK());
-        holder.mPrice.setText(brg.getHARGA());
+        holder.mName.setText(brg.getNama());
+        holder.mUnit.setText(brg.getSatuan());
+        holder.mStock.setText(brg.getStok());
+        holder.mPrice.setText(brg.getHarga());
 
-        url = "https://kouvee.modifierisme.com/upload/"+brg.getGAMBAR();
+        url = "https://kouvee.modifierisme.com/upload/"+brg.getGambar();
         Picasso.with(context).load(url).resize(300,300).centerCrop().into(holder.mImage);
 
         holder.mParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                id = brg.getID_PRODUK();
+                id = brg.getId_produk();
+                price = brg.getHarga();
 
-                Intent i = new Intent(context, DetailTransactionProductActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                context.startActivity(i);
+                fragment.Add(id, price);
+
+//                Intent i = new Intent(context, DetailTransactionProductActivity.class);
+//                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                context.startActivity(i);
 //
 //                Intent i = new Intent(context, DetailProductActivity.class);
 //                i.putExtra("id",id);
@@ -104,7 +105,7 @@ public class AddDetailTPRecyclerAdapter extends RecyclerView.Adapter<AddDetailTP
                 } else {
                     List<ProductDAO> filteredList = new ArrayList<>();
                     for (ProductDAO productDAO : dataList) {
-                        if (productDAO.getNAMA().toLowerCase().contains(charSequenceString.toLowerCase())) {
+                        if (productDAO.getNama().toLowerCase().contains(charSequenceString.toLowerCase())) {
                             filteredList.add(productDAO);
                         }
                         filteredDataList = filteredList;

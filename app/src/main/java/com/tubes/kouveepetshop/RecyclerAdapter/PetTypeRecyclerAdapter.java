@@ -45,7 +45,7 @@ public class PetTypeRecyclerAdapter extends RecyclerView.Adapter<PetTypeRecycler
     @Override
     public void onBindViewHolder(@NonNull PetTypeRecyclerAdapter.RoomViewHolder holder, int position) {
         final PetTypeDAO brg = filteredDataList.get(position);
-        holder.mName.setText(brg.getNAMA());
+        holder.mName.setText(brg.getNama());
 
         holder.mParent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,8 +54,8 @@ public class PetTypeRecyclerAdapter extends RecyclerView.Adapter<PetTypeRecycler
                 MasterBottomFragment bottomSheet = new MasterBottomFragment();
                 bottomSheet.show(manager, "bottomSheet");
 
-                id = brg.getID_JENIS_HEWAN();
-                nama = brg.getNAMA();
+                id = brg.getId_jenis_hewan();
+                nama = brg.getNama();
 
                 Bundle args = new Bundle();
                 args.putString("id", id);
@@ -93,7 +93,7 @@ public class PetTypeRecyclerAdapter extends RecyclerView.Adapter<PetTypeRecycler
                 } else {
                     List<PetTypeDAO> filteredList = new ArrayList<>();
                     for (PetTypeDAO pet_typeDAO : dataList) {
-                        if (pet_typeDAO.getNAMA().toLowerCase().contains(charSequenceString.toLowerCase())) {
+                        if (pet_typeDAO.getNama().toLowerCase().contains(charSequenceString.toLowerCase())) {
                             filteredList.add(pet_typeDAO);
                         }
                         filteredDataList = filteredList;

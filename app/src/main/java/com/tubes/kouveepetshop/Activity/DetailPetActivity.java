@@ -107,12 +107,12 @@ public class DetailPetActivity extends AppCompatActivity {
 
                 for(int i=0;i<response.body().size();i++)
                 {
-                    sId = response.body().get(i).getID_HEWAN();
-                    sName = response.body().get(i).getNAMA();
-                    sBirthdate = response.body().get(i).getTGL_LAHIR();
-                    sPetType = response.body().get(i).getJENIS_HEWAN();
-                    sPetSize = response.body().get(i).getUKURAN_HEWAN();
-                    sCustomer = response.body().get(i).getCUSTOMER();
+                    sId = response.body().get(i).getId_hewan();
+                    sName = response.body().get(i).getNama();
+                    sBirthdate = response.body().get(i).getTgl_lahir();
+                    sPetType = response.body().get(i).getJenis_hewan();
+                    sPetSize = response.body().get(i).getUkuran_hewan();
+                    sCustomer = response.body().get(i).getCustomer();
                 }
 
                 twName.setText(sName);

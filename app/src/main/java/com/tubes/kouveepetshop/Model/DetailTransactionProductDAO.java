@@ -1,71 +1,80 @@
 package com.tubes.kouveepetshop.Model;
 
 public class DetailTransactionProductDAO {
-    String ID_DETAIL_TP, ID_TP, ID_PRODUK, KODE_TRANSAKSI, PRODUK, JUMLAH, TOTAL;
+    String id_detail_tp, id_tp, id_produk, kode_transaksi, produk, jumlah, harga, total;
 
-    public DetailTransactionProductDAO(String ID_DETAIL_TP, String ID_TP, String ID_PRODUK, String KODE_TRANSAKSI, String PRODUK, String JUMLAH, String TOTAL) {
-        this.ID_DETAIL_TP = ID_DETAIL_TP;
-        this.ID_TP = ID_TP;
-        this.ID_PRODUK = ID_PRODUK;
-        this.KODE_TRANSAKSI = KODE_TRANSAKSI;
-        this.PRODUK = PRODUK;
-        this.JUMLAH = JUMLAH;
-        this.TOTAL = TOTAL;
+    public DetailTransactionProductDAO(String id_detail_tp, String id_tp, String id_produk, String kode_transaksi, String produk, String jumlah, String harga, String total) {
+        this.id_detail_tp = id_detail_tp;
+        this.id_tp = id_tp;
+        this.id_produk = id_produk;
+        this.kode_transaksi = kode_transaksi;
+        this.produk = produk;
+        this.jumlah = jumlah;
+        this.harga = harga;
+        this.total = total;
     }
 
-    public String getID_DETAIL_TP() {
-        return ID_DETAIL_TP;
+    public String getId_detail_tp() {
+        return id_detail_tp;
     }
 
-    public String getID_TP() {
-        return ID_TP;
+    public String getId_tp() {
+        return id_tp;
     }
 
-    public String getID_PRODUK() {
-        return ID_PRODUK;
+    public String getId_produk() {
+        return id_produk;
     }
 
-    public String getKODE_TRANSAKSI() {
-        return KODE_TRANSAKSI;
+    public String getKode_transaksi() {
+        return kode_transaksi;
     }
 
-    public String getPRODUK() {
-        return PRODUK;
+    public String getProduk() {
+        return produk;
     }
 
-    public String getJUMLAH() {
-        return JUMLAH;
+    public String getJumlah() {
+        return jumlah;
     }
 
-    public String getTOTAL() {
-        return TOTAL;
+    public String getHarga() {
+        return harga;
     }
 
-    public void setID_DETAIL_TP(String ID_DETAIL_TP) {
-        this.ID_DETAIL_TP = ID_DETAIL_TP;
+    public String getTotal() {
+        return total;
     }
 
-    public void setID_TP(String ID_TP) {
-        this.ID_TP = ID_TP;
+    public void setId_detail_tp(String id_detail_tp) {
+        this.id_detail_tp = id_detail_tp;
     }
 
-    public void setID_PRODUK(String ID_PRODUK) {
-        this.ID_PRODUK = ID_PRODUK;
+    public void setId_tp(String id_tp) {
+        this.id_tp = id_tp;
     }
 
-    public void setKODE_TRANSAKSI(String KODE_TRANSAKSI) {
-        this.KODE_TRANSAKSI = KODE_TRANSAKSI;
+    public void setId_produk(String id_produk) {
+        this.id_produk = id_produk;
     }
 
-    public void setPRODUK(String PRODUK) {
-        this.PRODUK = PRODUK;
+    public void setKode_transaksi(String kode_transaksi) {
+        this.kode_transaksi = kode_transaksi;
     }
 
-    public void setJUMLAH(String JUMLAH) {
-        this.JUMLAH = JUMLAH;
+    public void setProduk(String produk) {
+        this.produk = produk;
     }
 
-    public void setTOTAL(String TOTAL) {
-        this.TOTAL = TOTAL;
+    public void setJumlah(String jumlah) {
+        this.jumlah = jumlah;
+    }
+
+    public void setHarga(String harga) {
+        this.harga = harga;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
     }
 }

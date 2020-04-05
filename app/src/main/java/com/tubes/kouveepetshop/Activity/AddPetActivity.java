@@ -116,8 +116,8 @@ public class AddPetActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<PetTypeDAO>> call, Response<List<PetTypeDAO>> response) {
                 for (int i = 0; i < response.body().size(); i++){
-                    idListPetType.add(response.body().get(i).getID_JENIS_HEWAN());
-                    nameListPetType.add(response.body().get(i).getNAMA());
+                    idListPetType.add(response.body().get(i).getId_jenis_hewan());
+                    nameListPetType.add(response.body().get(i).getNama());
                 }
 
                 ArrayAdapter<String> adapterPetType = new ArrayAdapter<String>
@@ -157,8 +157,8 @@ public class AddPetActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<PetSizeDAO>> call, Response<List<PetSizeDAO>> response) {
                 for (int i = 0; i < response.body().size(); i++){
-                    idListPetSize.add(response.body().get(i).getID_UKURAN_HEWAN());
-                    nameListPetSize.add(response.body().get(i).getNAMA());
+                    idListPetSize.add(response.body().get(i).getId_ukuran_hewan());
+                    nameListPetSize.add(response.body().get(i).getNama());
                 }
 
                 ArrayAdapter<String> adapterPetSize = new ArrayAdapter<String>
@@ -198,8 +198,8 @@ public class AddPetActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<CustomerDAO>> call, Response<List<CustomerDAO>> response) {
                 for (int i = 0; i < response.body().size(); i++){
-                    idListCustomer.add(response.body().get(i).getID_CUSTOMER());
-                    nameListCustomer.add(response.body().get(i).getNAMA());
+                    idListCustomer.add(response.body().get(i).getId_customer());
+                    nameListCustomer.add(response.body().get(i).getNama());
                 }
 
                 ArrayAdapter<String> adapterCustomer = new ArrayAdapter<String>

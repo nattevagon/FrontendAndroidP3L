@@ -1,26 +1,21 @@
 package com.tubes.kouveepetshop.Model;
 
 public class PetTypeDAO {
-    String ID_JENIS_HEWAN, NAMA;
+    String id_jenis_hewan, nama;
 
-    public PetTypeDAO(String ID_JENIS_HEWAN, String NAMA) {
-        this.ID_JENIS_HEWAN = ID_JENIS_HEWAN;
-        this.NAMA = NAMA;
+    public String getId_jenis_hewan() {
+        return id_jenis_hewan;
     }
 
-    public String getID_JENIS_HEWAN() {
-        return ID_JENIS_HEWAN;
+    public String getNama() {
+        return nama;
     }
 
-    public String getNAMA() {
-        return NAMA;
+    public void setId_jenis_hewan(String id_jenis_hewan) {
+        this.id_jenis_hewan = id_jenis_hewan;
     }
 
-    public void setID_JENIS_HEWAN(String ID_JENIS_HEWAN) {
-        this.ID_JENIS_HEWAN = ID_JENIS_HEWAN;
-    }
-
-    public void setNAMA(String NAMA) {
-        this.NAMA = NAMA;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 }

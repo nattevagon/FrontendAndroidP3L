@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
+import com.tubes.kouveepetshop.Activity.DetailTransactionProductActivity;
 import com.tubes.kouveepetshop.Activity.EditPetSizeActivity;
 import com.tubes.kouveepetshop.Activity.EditPetTypeActivity;
 import com.tubes.kouveepetshop.Activity.EditServiceActivity;
@@ -152,7 +153,7 @@ public class MasterBottomFragment extends BottomSheetDialogFragment{
 
                 for(int i=0;i<response.body().size();i++)
                 {
-                    name = response.body().get(i).getNAMA();
+                    name = response.body().get(i).getNama();
 
                 }
 
@@ -177,7 +178,7 @@ public class MasterBottomFragment extends BottomSheetDialogFragment{
 
                 for(int i=0;i<response.body().size();i++)
                 {
-                    name = response.body().get(i).getNAMA();
+                    name = response.body().get(i).getNama();
 
                 }
 
@@ -202,7 +203,7 @@ public class MasterBottomFragment extends BottomSheetDialogFragment{
 
                 for(int i=0;i<response.body().size();i++)
                 {
-                    name = response.body().get(i).getNAMA();
+                    name = response.body().get(i).getNama();
 
                 }
 
@@ -232,9 +233,8 @@ public class MasterBottomFragment extends BottomSheetDialogFragment{
                                     public void onResponse(Call<ServiceDAO> call, Response<ServiceDAO> response) {
                                         Toast.makeText(getContext(), "Berhasil dihapus", Toast.LENGTH_SHORT).show();
                                         dismiss();
-                                        getActivity().finish();
-                                        Intent i = new Intent(getContext(), ServiceActivity.class);
-                                        startActivity(i);
+                                        ServiceActivity serviceActivity = (ServiceActivity) getActivity();
+                                        serviceActivity.onPostResume();
                                     }
 
                                     @Override
@@ -270,9 +270,8 @@ public class MasterBottomFragment extends BottomSheetDialogFragment{
                                     public void onResponse(Call<PetTypeDAO> call, Response<PetTypeDAO> response) {
                                         Toast.makeText(getContext(), "Berhasil dihapus", Toast.LENGTH_SHORT).show();
                                         dismiss();
-                                        getActivity().finish();
-                                        Intent i = new Intent(getContext(), PetTypeActivity.class);
-                                        startActivity(i);
+                                        PetTypeActivity petTypeActivity = (PetTypeActivity) getActivity();
+                                        petTypeActivity.onPostResume();
                                     }
 
                                     @Override
@@ -308,9 +307,8 @@ public class MasterBottomFragment extends BottomSheetDialogFragment{
                                     public void onResponse(Call<PetSizeDAO> call, Response<PetSizeDAO> response) {
                                         Toast.makeText(getContext(), "Berhasil dihapus", Toast.LENGTH_SHORT).show();
                                         dismiss();
-                                        getActivity().finish();
-                                        Intent i = new Intent(getContext(), PetSizeActivity.class);
-                                        startActivity(i);
+                                        PetSizeActivity petSizeActivity = (PetSizeActivity) getActivity();
+                                        petSizeActivity.onPostResume();
                                     }
 
                                     @Override

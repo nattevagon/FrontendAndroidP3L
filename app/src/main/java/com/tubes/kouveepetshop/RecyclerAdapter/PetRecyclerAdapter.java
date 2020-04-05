@@ -43,16 +43,16 @@ public class PetRecyclerAdapter extends RecyclerView.Adapter<PetRecyclerAdapter.
     @Override
     public void onBindViewHolder(@NonNull PetRecyclerAdapter.RoomViewHolder holder, int position) {
         final PetDAO brg = filteredDataList.get(position);
-        holder.mNama.setText(brg.getNAMA());
-        holder.mTglLahir.setText(brg.getTGL_LAHIR());
-        holder.mJenisHewan.setText(brg.getJENIS_HEWAN());
-        holder.mUkuranHewan.setText(brg.getUKURAN_HEWAN());
-        holder.mCustomer.setText(brg.getCUSTOMER());
+        holder.mNama.setText(brg.getNama());
+        holder.mTglLahir.setText(brg.getTgl_lahir());
+        holder.mJenisHewan.setText(brg.getJenis_hewan());
+        holder.mUkuranHewan.setText(brg.getUkuran_hewan());
+        holder.mCustomer.setText(brg.getCustomer());
 
         holder.mParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                id = brg.getID_HEWAN();
+                id = brg.getId_hewan();
 
                 Intent i = new Intent(context, DetailPetActivity.class);
                 i.putExtra("id",id);
@@ -92,7 +92,7 @@ public class PetRecyclerAdapter extends RecyclerView.Adapter<PetRecyclerAdapter.
                 } else {
                     List<PetDAO> filteredList = new ArrayList<>();
                     for (PetDAO PetDAO : dataList) {
-                        if (PetDAO.getNAMA().toLowerCase().contains(charSequenceString.toLowerCase())) {
+                        if (PetDAO.getNama().toLowerCase().contains(charSequenceString.toLowerCase())) {
                             filteredList.add(PetDAO);
                         }
                         filteredDataList = filteredList;
