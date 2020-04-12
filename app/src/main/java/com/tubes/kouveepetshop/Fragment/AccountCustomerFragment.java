@@ -9,13 +9,18 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.tubes.kouveepetshop.Activity.LoginActivity;
+import com.tubes.kouveepetshop.Activity.TransactionProductActivity;
 import com.tubes.kouveepetshop.R;
 
 public class AccountCustomerFragment extends Fragment {
-  Button btnLogin;
+  private Button btnLogin;
+  private CardView cvAboutUs;
 
   public AccountCustomerFragment() {
   }
@@ -31,6 +36,16 @@ public class AccountCustomerFragment extends Fragment {
 
 
     btnLogin = view.findViewById(R.id.btnLogin);
+    cvAboutUs = view.findViewById(R.id.cvAboutUs);
+    cvAboutUs.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        FragmentManager manager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
+        AboutUsFragment dialog = new AboutUsFragment();
+        dialog.show(manager, "dialog");
+      }
+    });
+
     btnLogin.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {

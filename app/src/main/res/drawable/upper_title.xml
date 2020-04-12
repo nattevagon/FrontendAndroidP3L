@@ -6,7 +6,10 @@
     </item>
     <item android:bottom="2dp">
         <shape android:shape="rectangle">
-            <solid android:color="@color/choco" />
+            <gradient
+                android:startColor = "@color/choco"
+                android:endColor = "@color/chocoDark"
+                android:angle = "90"/>
         </shape>
     </item>
 </layer-list>

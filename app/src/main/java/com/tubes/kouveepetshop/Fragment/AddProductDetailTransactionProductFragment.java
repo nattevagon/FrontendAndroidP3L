@@ -12,6 +12,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
 import com.tubes.kouveepetshop.Activity.DetailTransactionProductActivity;
@@ -88,11 +89,6 @@ public class AddProductDetailTransactionProductFragment extends DialogFragment {
       @Override
       public void onResponse(Call<List<ProductDAO>> call, Response<List<ProductDAO>> response) {
         generateDataList(response.body());
-
-        for(int i=0;i<response.body().size();i++)
-        {
-          sStock = response.body().get(i).getStok();
-        }
       }
 
       @Override
@@ -124,8 +120,31 @@ public class AddProductDetailTransactionProductFragment extends DialogFragment {
     });
   }
 
+  private void getStockProduct(String id)
+  {
+    ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+    Call<List<ProductDAO>> get = apiService.getByProduct(id);
+
+    get.enqueue(new Callback<List<ProductDAO>>() {
+      @Override
+      public void onResponse(Call<List<ProductDAO>> call, Response<List<ProductDAO>> response) {
+
+        for(int i=0;i<response.body().size();i++)
+        {
+          sStock = response.body().get(i).getStok();
+        }
+      }
+
+      @Override
+      public void onFailure(Call<List<ProductDAO>> call, Throwable t) {
+        Toast.makeText(getContext(), "Gagal mengambil data produk", Toast.LENGTH_SHORT).show();
+      }
+    });
+  }
+
   public void Add(final String id_product, final String total)
   {
+    getStockProduct(id_product);
     ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
     Call<List<DetailTransactionProductDAO>> call = apiService.getByProdukDTP(sId, id_product);
 
@@ -141,10 +160,20 @@ public class AddProductDetailTransactionProductFragment extends DialogFragment {
           sTotal = response.body().get(i).getTotal();
         }
 
-        int amount = Integer.parseInt(sAmount)+1;
-        int total = Integer.parseInt(sTotal)+Integer.parseInt(sPrice);
+        int totalStock = Integer.parseInt(sStock)-Integer.parseInt(sAmount);
 
-        UpdateDetail(sIdDTP, sId, id_product, Integer.toString(amount), Integer.toString(total));
+        if(Integer.parseInt(sStock)<1)
+        {
+          Toast.makeText(getContext(), "Telah menambahkan produk melebihi stok yang tersedia ", Toast.LENGTH_SHORT).show();
+        }
+        else{
+
+          int amount = Integer.parseInt(sAmount)+1;
+          int total = Integer.parseInt(sTotal)+Integer.parseInt(sPrice);
+
+          UpdateDetail(sIdDTP, sId, id_product, Integer.toString(amount), Integer.toString(total));
+
+        }
 
       }
 
@@ -170,7 +199,7 @@ public class AddProductDetailTransactionProductFragment extends DialogFragment {
 
       @Override
       public void onFailure(Call<DetailTransactionProductDAO> call, Throwable t) {
-        Toast.makeText(getContext(), "Fail", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Gagal menambahkan produk", Toast.LENGTH_SHORT).show();
         dismiss();
         DetailTransactionProductActivity detailTP = (DetailTransactionProductActivity) getActivity();
         detailTP.onBack();
@@ -193,7 +222,7 @@ public class AddProductDetailTransactionProductFragment extends DialogFragment {
 
       @Override
       public void onFailure(Call<DetailTransactionProductDAO> call, Throwable t) {
-        Toast.makeText(getContext(), "Fail", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Gagal", Toast.LENGTH_SHORT).show();
         dismiss();
         DetailTransactionProductActivity detailTP = (DetailTransactionProductActivity) getActivity();
         detailTP.onBack();

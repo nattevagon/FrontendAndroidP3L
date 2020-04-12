@@ -25,43 +25,58 @@
   <androidx.cardview.widget.CardView
       android:id="@+id/cvProfile"
       android:layout_width="match_parent"
-      android:layout_height="70dp"
+      android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
       android:layout_marginTop="20dp"
       android:layout_marginHorizontal="20dp"
       android:clickable="true"
       android:foreground="?android:attr/selectableItemBackground"
-      app:cardCornerRadius="6dp">
+      app:cardCornerRadius="@dimen/normal_radius">
 
-    <TextView
-        android:id="@+id/twName"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="15dp"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nama"
-        android:textSize="20dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"/>
+        android:layout_margin="20dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/twRole"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="40dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Peran"
-        android:textSize="15dp"
-        android:textColor="@color/black"/>
+      <TextView
+          android:id="@+id/twName"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Nama"
+          android:textColor="@color/black"
+          android:textSize="20dp"
+          android:textStyle="bold" />
+
+      <TextView
+          android:id="@+id/twBirthdate"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Tanggal Lahir"
+          android:textColor="@color/black"
+          android:textSize="15dp" />
+
+      <TextView
+          android:id="@+id/twRole"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Peran"
+          android:textColor="@color/black"
+          android:textSize="20dp" />
+
+    </LinearLayout>
   </androidx.cardview.widget.CardView>
 
   <androidx.cardview.widget.CardView
+      android:id="@+id/cvChangePassword"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
       android:layout_marginTop="20dp"
       android:layout_marginHorizontal="20dp"
-      app:cardCornerRadius="6dp">
+      android:clickable="true"
+      android:foreground="?android:attr/selectableItemBackground"
+      app:cardCornerRadius="@dimen/normal_radius">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -72,41 +87,21 @@
           android:layout_width="match_parent"
           android:layout_height="60dp"
           android:background="@drawable/border_line"
-          android:clickable="true"
-          android:foreground="?android:attr/selectableItemBackground"
           android:orientation="vertical">
-
-        <TextView
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tentang Toko"
-            android:textSize="20dp"
-            android:layout_centerVertical="true"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
 
         <ImageView
+            android:id="@+id/icon_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_chevron_right"
+            android:src="@drawable/ic_key"
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"/>
-      </RelativeLayout>
-      <RelativeLayout
-          android:layout_width="match_parent"
-          android:layout_height="60dp"
-          android:clickable="true"
-          android:foreground="?android:attr/selectableItemBackground"
-          android:orientation="vertical">
+            android:layout_marginHorizontal="20dp"/>
 
         <TextView
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/icon_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Alamat Toko"
+            android:text="Ubah Password"
             android:textSize="20dp"
             android:layout_centerVertical="true"
             android:textColor="@color/black"

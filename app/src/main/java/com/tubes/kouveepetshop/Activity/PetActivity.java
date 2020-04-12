@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
@@ -31,7 +32,7 @@ public class PetActivity extends AppCompatActivity {
     private ImageButton btnBack;
     private SearchView searchView;
     private FloatingActionButton btnAdd;
-    private ProgressDialog progressDialog;
+    private ShimmerFrameLayout mShimmerViewContainer;
 
     private List<PetDAO> petList;
     private RecyclerView recyclerView;
@@ -44,8 +45,9 @@ public class PetActivity extends AppCompatActivity {
 
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        progressDialog = new ProgressDialog(this);
-        progressDialog.show();
+
+        mShimmerViewContainer = findViewById(R.id.shimmer_view_container);
+        mShimmerViewContainer.startShimmerAnimation();
 
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +82,7 @@ public class PetActivity extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        progressDialog.show();
+        mShimmerViewContainer.startShimmerAnimation();
         load();
     }
 
@@ -92,14 +94,13 @@ public class PetActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<PetDAO>> call, Response<List<PetDAO>> response) {
                 generateDataList(response.body());
-                progressDialog.dismiss();
+                mShimmerViewContainer.stopShimmerAnimation();
+                mShimmerViewContainer.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<List<PetDAO>> call, Throwable t) {
                 Toast.makeText(PetActivity.this, "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
-
             }
         });
     }

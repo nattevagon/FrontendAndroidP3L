@@ -101,7 +101,23 @@ public class EditProductActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(etName.getText().toString().equalsIgnoreCase(""))
                 {
-                    Toast.makeText(EditProductActivity.this, "Kosong", Toast.LENGTH_SHORT).show();
+                    etName.setError("Kosong!");
+                    etName.requestFocus();
+                }
+                else if(etStock.getText().toString().equalsIgnoreCase(""))
+                {
+                    etStock.setError("Kosong!");
+                    etStock.requestFocus();
+                }
+                else if(etMinimal.getText().toString().equalsIgnoreCase(""))
+                {
+                    etMinimal.setError("Kosong!");
+                    etMinimal.requestFocus();
+                }
+                else if(etPrice.getText().toString().equalsIgnoreCase(""))
+                {
+                    etPrice.setError("Kosong!");
+                    etPrice.requestFocus();
                 }
                 else {
                     progressDialog.show();
@@ -167,13 +183,13 @@ public class EditProductActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<FileProductDAO> call, Response<FileProductDAO> response) {
                 String filename = response.body().getFileName();
-                Toast.makeText(EditProductActivity.this, "Success : ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditProductActivity.this, "Sukses mengunggah gambar", Toast.LENGTH_SHORT).show();
                 Edit(filename);
             }
 
             @Override
             public void onFailure(Call<FileProductDAO> call, Throwable t) {
-                Toast.makeText(EditProductActivity.this, "Fail"+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditProductActivity.this, "Gagal mengunggah gambar", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -186,14 +202,14 @@ public class EditProductActivity extends AppCompatActivity {
         update.enqueue(new Callback<ProductDAO>(){
             @Override
             public void onResponse(Call<ProductDAO> call, Response<ProductDAO> response) {
-                Toast.makeText(EditProductActivity.this, "Success"+sId, Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditProductActivity.this, "Sukses mengubah data", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
                 onBackPressed();
             }
 
             @Override
             public void onFailure(Call<ProductDAO> call, Throwable t) {
-                Toast.makeText(EditProductActivity.this, "Fail"+sId, Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditProductActivity.this, "Gagal mengubah data", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
                 onBackPressed();
             }

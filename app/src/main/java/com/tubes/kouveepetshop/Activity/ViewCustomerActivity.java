@@ -23,7 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailCustomerActivity extends AppCompatActivity {
+public class ViewCustomerActivity extends AppCompatActivity {
     private TextView twName, twBirthdate, twAddress, twPhoneNumber, twInitial;
     private ImageView btnBack, btnDelete, btnEdit;
     private String sId, sName, sBirthdate, sAddress, sPhoneNumber;
@@ -33,7 +33,6 @@ public class DetailCustomerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_customer);
-
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         progressDialog = new ProgressDialog(this);
@@ -63,7 +62,7 @@ public class DetailCustomerActivity extends AppCompatActivity {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(DetailCustomerActivity.this, EditCustomerActivity.class);
+                Intent i = new Intent(ViewCustomerActivity.this, EditCustomerActivity.class);
                 i.putExtra("id",sId);
                 i.putExtra("name",sName);
                 i.putExtra("birthdate",sBirthdate);
@@ -73,7 +72,7 @@ public class DetailCustomerActivity extends AppCompatActivity {
             }
         });
 
-        Toast.makeText(DetailCustomerActivity.this, "Coba hapus"+sId, Toast.LENGTH_SHORT).show();
+        Toast.makeText(ViewCustomerActivity.this, "Coba hapus"+sId, Toast.LENGTH_SHORT).show();
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +87,7 @@ public class DetailCustomerActivity extends AppCompatActivity {
     public void onRestart() {
         super.onRestart();
         getData();
-        Toast.makeText(DetailCustomerActivity.this, "Coba hapus"+sId, Toast.LENGTH_SHORT).show();
+        Toast.makeText(ViewCustomerActivity.this, "Coba hapus"+sId, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -125,7 +124,7 @@ public class DetailCustomerActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<CustomerDAO>> call, Throwable t) {
-                Toast.makeText(DetailCustomerActivity.this, "Koneksi hilang", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewCustomerActivity.this, "Koneksi hilang", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -161,14 +160,14 @@ public class DetailCustomerActivity extends AppCompatActivity {
         delete.enqueue(new Callback<CustomerDAO>() {
             @Override
             public void onResponse(Call<CustomerDAO> call, Response<CustomerDAO> response) {
-                Toast.makeText(DetailCustomerActivity.this, "Berhasil dihapus", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewCustomerActivity.this, "Berhasil dihapus", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
                 onBackPressed();
             }
 
             @Override
             public void onFailure(Call<CustomerDAO> call, Throwable t) {
-                Toast.makeText(DetailCustomerActivity.this, "Koneksi hilang", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewCustomerActivity.this, "Koneksi hilang", Toast.LENGTH_SHORT).show();
             }
         });
     }

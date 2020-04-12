@@ -28,7 +28,7 @@ import retrofit2.Response;
 
 public class EditCustomerActivity extends AppCompatActivity {
     private ImageButton btnBack;
-    private EditText etName, etDate, etAddress, etPhoneNumber;
+    private EditText etName, etBirthdate, etAddress, etPhoneNumber;
     private Button btnSave;
     private String sId, sName, sBirthdate, sAddress, sPhoneNumber, sYear, sMonth, sDate;
     private DatePickerDialog.OnDateSetListener mOnDateSetListener;
@@ -42,7 +42,7 @@ public class EditCustomerActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
 
         etName = findViewById(R.id.etName);
-        etDate = findViewById(R.id.etDate);
+        etBirthdate = findViewById(R.id.etBirthdate);
         etAddress = findViewById(R.id.etAddress);
         etPhoneNumber = findViewById(R.id.etPhoneNumber);
         btnSave = findViewById(R.id.btnSave);
@@ -61,7 +61,7 @@ public class EditCustomerActivity extends AppCompatActivity {
         sYear = sBirthdate.substring(0, 4);
         sMonth = sBirthdate.substring(5, 7);
         sDate = sBirthdate.substring(8, 10);
-        etDate.setText(sDate+"/"+sMonth+"/"+sYear);
+        etBirthdate.setText(sDate+"/"+sMonth+"/"+sYear);
 
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +71,7 @@ public class EditCustomerActivity extends AppCompatActivity {
             }
         });
 
-        etDate.setOnClickListener(new View.OnClickListener() {
+        etBirthdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Calendar mCalendar =  Calendar.getInstance();
@@ -96,15 +96,38 @@ public class EditCustomerActivity extends AppCompatActivity {
                 month = month+1;
                 String mDate = dayOfMonth+"/"+month+"/"+year;
                 sBirthdate = year+"-"+month+"/"+dayOfMonth;
-                etDate.setText(mDate);
+                etBirthdate.setText(mDate);
             }
         };
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog.show();
-                Edit();
+                if(etName.getText().toString().equalsIgnoreCase(""))
+                {
+                    etName.setError("Kosong!");
+                    etName.requestFocus();
+                }
+                else if(etBirthdate.getText().toString().equalsIgnoreCase(""))
+                {
+                    etBirthdate.setError("Kosong!");
+                    etBirthdate.requestFocus();
+                }
+                else if(etAddress.getText().toString().equalsIgnoreCase(""))
+                {
+                    etAddress.setError("Kosong!");
+                    etAddress.requestFocus();
+                }
+                else if(etPhoneNumber.getText().toString().equalsIgnoreCase(""))
+                {
+                    etPhoneNumber.setError("Kosong!");
+                    etPhoneNumber.requestFocus();
+                }
+                else
+                {
+                    progressDialog.show();
+                    Edit();
+                }
             }
         });
     }
@@ -123,14 +146,14 @@ public class EditCustomerActivity extends AppCompatActivity {
         update.enqueue(new Callback<CustomerDAO>(){
             @Override
             public void onResponse(Call<CustomerDAO> call, Response<CustomerDAO> response) {
-                Toast.makeText(EditCustomerActivity.this, "Success"+sId, Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditCustomerActivity.this, "Sukses mengubah data", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
                 onBackPressed();
             }
 
             @Override
             public void onFailure(Call<CustomerDAO> call, Throwable t) {
-                Toast.makeText(EditCustomerActivity.this, "Fail"+sId, Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditCustomerActivity.this, "Gagal mengubah data", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
                 onBackPressed();
             }

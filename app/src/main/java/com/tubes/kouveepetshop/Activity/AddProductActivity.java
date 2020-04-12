@@ -81,7 +81,23 @@ public class AddProductActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(etName.getText().toString().equalsIgnoreCase(""))
                 {
-                    Toast.makeText(AddProductActivity.this, "Kosong", Toast.LENGTH_SHORT).show();
+                    etName.setError("Kosong!");
+                    etName.requestFocus();
+                }
+                else if(etStock.getText().toString().equalsIgnoreCase(""))
+                {
+                    etStock.setError("Kosong!");
+                    etStock.requestFocus();
+                }
+                else if(etMinimal.getText().toString().equalsIgnoreCase(""))
+                {
+                    etMinimal.setError("Kosong!");
+                    etMinimal.requestFocus();
+                }
+                else if(etPrice.getText().toString().equalsIgnoreCase(""))
+                {
+                    etPrice.setError("Kosong!");
+                    etPrice.requestFocus();
                 }
                 else
                 {
@@ -140,13 +156,12 @@ public class AddProductActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<FileProductDAO> call, Response<FileProductDAO> response) {
                 String filename = response.body().getFileName();
-                Toast.makeText(AddProductActivity.this, "Success : "+statusPickImage, Toast.LENGTH_SHORT).show();
                 Add(filename);
             }
 
             @Override
             public void onFailure(Call<FileProductDAO> call, Throwable t) {
-                Toast.makeText(AddProductActivity.this, "Fail"+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddProductActivity.this, "Gagal mengunggah gambar", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -159,13 +174,13 @@ public class AddProductActivity extends AppCompatActivity {
         add.enqueue(new Callback<ProductDAO>(){
             @Override
             public void onResponse(Call<ProductDAO> call, Response<ProductDAO> response) {
-                Toast.makeText(AddProductActivity.this, "Success Nambah data"+image, Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddProductActivity.this, "Success menambah data", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
                 onBackPressed();            }
 
             @Override
             public void onFailure(Call<ProductDAO> call, Throwable t) {
-                Toast.makeText(AddProductActivity.this, "Fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddProductActivity.this, "Gagal menambah data", Toast.LENGTH_SHORT).show();
             }
         });
     }

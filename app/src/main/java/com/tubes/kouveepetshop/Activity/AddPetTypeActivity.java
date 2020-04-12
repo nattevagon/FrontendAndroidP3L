@@ -22,7 +22,7 @@ import retrofit2.Response;
 public class AddPetTypeActivity extends AppCompatActivity {
     private Button btnAdd;
     private ImageView btnBack;
-    private EditText etNama;
+    private EditText etName;
     private ProgressDialog progressDialog;
 
     @Override
@@ -33,7 +33,7 @@ public class AddPetTypeActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         progressDialog =new ProgressDialog(this);
 
-        etNama = findViewById(R.id.etNama);
+        etName = findViewById(R.id.etName);
         btnBack = findViewById(R.id.btnBack);
         btnAdd = findViewById(R.id.btnAdd);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -46,7 +46,16 @@ public class AddPetTypeActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Add();
+                if(etName.getText().toString().equalsIgnoreCase(""))
+                {
+                    etName.setError("Kosong!");
+                    etName.requestFocus();
+                }
+                else
+                {
+                    progressDialog.show();
+                    Add();
+                }
             }
         });
 
@@ -55,18 +64,20 @@ public class AddPetTypeActivity extends AppCompatActivity {
     private void Add() {
         progressDialog.show();
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<PetTypeDAO> add = apiService.addPetType(etNama.getText().toString());
+        Call<PetTypeDAO> add = apiService.addPetType(etName.getText().toString());
 
         add.enqueue(new Callback<PetTypeDAO>() {
             @Override
             public void onResponse(Call<PetTypeDAO> call, Response<PetTypeDAO> response) {
-                Toast.makeText(AddPetTypeActivity.this, "Success"+etNama.getText().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddPetTypeActivity.this, "Sukses menambah data", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
                 onBackPressed();
             }
 
             @Override
             public void onFailure(Call<PetTypeDAO> call, Throwable t) {
-
+                Toast.makeText(AddPetTypeActivity.this, "Gagal menambah data", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             }
         });
     }

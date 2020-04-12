@@ -2,6 +2,7 @@ package com.tubes.kouveepetshop.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,19 +30,22 @@ import retrofit2.Response;
 public class AddServiceActivity extends AppCompatActivity {
     private Button btnAdd;
     private ImageView btnBack;
-    private EditText etNama, etPrice;
+    private EditText etName, etPrice;
     private int idPetSize;
     private AutoCompleteTextView spPetSize;
+    private ProgressDialog progressDialog;
     List<String> idListPetSize = new ArrayList<String>();
     List<String> nameListPetSize = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         setContentView(R.layout.activity_add_service);
 
-        etNama = findViewById(R.id.etNama);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        progressDialog = new ProgressDialog(this);
+
+        etName = findViewById(R.id.etName);
         spPetSize = findViewById(R.id.spPetSize);
         etPrice = findViewById(R.id.etPrice);
         btnBack = findViewById(R.id.btnBack);
@@ -58,16 +62,29 @@ public class AddServiceActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(etNama.getText().toString().equalsIgnoreCase(""))
+                if(etName.getText().toString().equalsIgnoreCase(""))
                 {
-                    Toast.makeText(AddServiceActivity.this, "Kosong", Toast.LENGTH_SHORT).show();
+                    etName.setError("Kosong!");
+                    etName.requestFocus();
+                }
+                else if(etPrice.getText().toString().equalsIgnoreCase(""))
+                {
+                    etPrice.setError("Kosong!");
+                    etPrice.requestFocus();
                 }
                 else
                 {
+                    progressDialog.show();
                     Add();
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     public void loadSpinnerPetSize(){
@@ -98,7 +115,6 @@ public class AddServiceActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         idPetSize = nameListPetSize.indexOf(spPetSize.getText().toString());
-                        Toast.makeText(AddServiceActivity.this, "POS"+idPetSize, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -113,25 +129,19 @@ public class AddServiceActivity extends AppCompatActivity {
 
     private void Add() {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<ServiceDAO> add = apiService.addService(etNama.getText().toString(), idListPetSize.get(idPetSize), etPrice.getText().toString());
+        Call<ServiceDAO> add = apiService.addService(etName.getText().toString(), idListPetSize.get(idPetSize), etPrice.getText().toString());
 
         add.enqueue(new Callback<ServiceDAO>(){
             @Override
             public void onResponse(Call<ServiceDAO> call, Response<ServiceDAO> response) {
-                Toast.makeText(AddServiceActivity.this, "Success"+etNama.getText().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddServiceActivity.this, "Sukses menambah data", Toast.LENGTH_SHORT).show();
                 finish();
             }
 
             @Override
             public void onFailure(Call<ServiceDAO> call, Throwable t) {
-                Toast.makeText(AddServiceActivity.this, "Fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddServiceActivity.this, "Gagal menambah data", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

@@ -22,7 +22,7 @@ import retrofit2.Response;
 public class AddPetSizeActivity extends AppCompatActivity {
     private Button btnAdd;
     private ImageView btnBack;
-    private EditText etNama;
+    private EditText etName;
     private ProgressDialog progressDialog;
 
     @Override
@@ -33,7 +33,7 @@ public class AddPetSizeActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         progressDialog =new ProgressDialog(this);
 
-        etNama = findViewById(R.id.etNama);
+        etName = findViewById(R.id.etName);
         btnBack = findViewById(R.id.btnBack);
         btnAdd = findViewById(R.id.btnAdd);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -46,7 +46,16 @@ public class AddPetSizeActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Add();
+                if(etName.getText().toString().equalsIgnoreCase(""))
+                {
+                    etName.setError("Kosong!");
+                    etName.requestFocus();
+                }
+                else
+                {
+                    progressDialog.show();
+                    Add();
+                }
             }
         });
 
@@ -55,18 +64,20 @@ public class AddPetSizeActivity extends AppCompatActivity {
     private void Add() {
         progressDialog.show();
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<PetSizeDAO> add = apiService.addPetSize(etNama.getText().toString());
+        Call<PetSizeDAO> add = apiService.addPetSize(etName.getText().toString());
 
         add.enqueue(new Callback<PetSizeDAO>() {
             @Override
             public void onResponse(Call<PetSizeDAO> call, Response<PetSizeDAO> response) {
-                Toast.makeText(AddPetSizeActivity.this, "Success"+etNama.getText().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddPetSizeActivity.this, "Sukses menambah data", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
                 onBackPressed();
             }
 
             @Override
             public void onFailure(Call<PetSizeDAO> call, Throwable t) {
-
+                Toast.makeText(AddPetSizeActivity.this, "Gagal menambah data", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             }
         });
     }
@@ -75,6 +86,5 @@ public class AddPetSizeActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-        progressDialog.dismiss();
     }
 }

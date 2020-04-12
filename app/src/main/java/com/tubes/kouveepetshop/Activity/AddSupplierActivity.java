@@ -2,6 +2,7 @@ package com.tubes.kouveepetshop.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,12 +23,15 @@ public class AddSupplierActivity extends AppCompatActivity {
     private ImageButton btnBack;
     private EditText etName, etAddress, etPhoneNumber;
     private Button btnAdd;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_supplier);
+
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        progressDialog = new ProgressDialog(this);
 
         etName = findViewById(R.id.etName);
         etAddress = findViewById(R.id.etAddress);
@@ -47,10 +51,22 @@ public class AddSupplierActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(etName.getText().toString().equalsIgnoreCase(""))
                 {
-                    Toast.makeText(AddSupplierActivity.this, "Kosong", Toast.LENGTH_SHORT).show();
+                    etName.setError("Kosong!");
+                    etName.requestFocus();
+                }
+                else if(etAddress.getText().toString().equalsIgnoreCase(""))
+                {
+                    etAddress.setError("Kosong!");
+                    etAddress.requestFocus();
+                }
+                else if(etPhoneNumber.getText().toString().equalsIgnoreCase(""))
+                {
+                    etPhoneNumber.setError("Kosong!");
+                    etPhoneNumber.requestFocus();
                 }
                 else
                 {
+                    progressDialog.show();
                     Add();
                 }
             }
@@ -70,13 +86,15 @@ public class AddSupplierActivity extends AppCompatActivity {
         add.enqueue(new Callback<SupplierDAO>(){
             @Override
             public void onResponse(Call<SupplierDAO> call, Response<SupplierDAO> response) {
-                Toast.makeText(AddSupplierActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddSupplierActivity.this, "Sukses menambahkan data", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
                 onBackPressed();
             }
 
             @Override
             public void onFailure(Call<SupplierDAO> call, Throwable t) {
-                Toast.makeText(AddSupplierActivity.this, "Fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddSupplierActivity.this, "Gagal menambahkan data", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             }
         });
     }

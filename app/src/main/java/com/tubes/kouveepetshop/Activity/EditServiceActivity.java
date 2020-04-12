@@ -2,6 +2,7 @@ package com.tubes.kouveepetshop.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -28,12 +29,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EditServiceActivity extends AppCompatActivity {
-    private EditText etNama, etPrice;
+    private EditText etName, etPrice;
     private Button btnSave;
     private ImageView btnBack;
     private String sId, sName, sPetSize, sPrice;
     private int idPetSize;
     private AutoCompleteTextView spPetSize;
+    private ProgressDialog progressDialog;
     List<String> idListPetSize = new ArrayList<String>();
     List<String> nameListPetSize = new ArrayList<String>();
 
@@ -41,9 +43,11 @@ public class EditServiceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_service);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-        etNama = findViewById(R.id.etNama);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        progressDialog = new ProgressDialog(this);
+
+        etName = findViewById(R.id.etName);
         spPetSize = findViewById(R.id.spPetSize);
         etPrice = findViewById(R.id.etPrice);
         btnBack = findViewById(R.id.btnBack);
@@ -55,7 +59,7 @@ public class EditServiceActivity extends AppCompatActivity {
         sPetSize = i.getStringExtra("petsize");
         sPrice = i.getStringExtra("price");
 
-        etNama.setText(sName);
+        etName.setText(sName);
         spPetSize.setText(sPetSize);
         etPrice.setText(sPrice);
 
@@ -71,12 +75,19 @@ public class EditServiceActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(etNama.getText().toString().equalsIgnoreCase(""))
+                if(etName.getText().toString().equalsIgnoreCase(""))
                 {
-                    Toast.makeText(EditServiceActivity.this, "Kosong", Toast.LENGTH_SHORT).show();
+                    etName.setError("Kosong!");
+                    etName.requestFocus();
+                }
+                else if(etPrice.getText().toString().equalsIgnoreCase(""))
+                {
+                    etPrice.setError("Kosong!");
+                    etPrice.requestFocus();
                 }
                 else
                 {
+                    progressDialog.show();
                     Edit();
                 }
             }
@@ -126,18 +137,20 @@ public class EditServiceActivity extends AppCompatActivity {
 
     private void Edit() {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<ServiceDAO> add = apiService.updateService(sId, etNama.getText().toString(), idListPetSize.get(idPetSize), etPrice.getText().toString());
+        Call<ServiceDAO> add = apiService.updateService(sId, etName.getText().toString(), idListPetSize.get(idPetSize), etPrice.getText().toString());
 
         add.enqueue(new Callback<ServiceDAO>(){
             @Override
             public void onResponse(Call<ServiceDAO> call, Response<ServiceDAO> response) {
-                Toast.makeText(EditServiceActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                finish();
+                Toast.makeText(EditServiceActivity.this, "Sukses mengubah data", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+                onBackPressed();
             }
 
             @Override
             public void onFailure(Call<ServiceDAO> call, Throwable t) {
-                Toast.makeText(EditServiceActivity.this, "Fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditServiceActivity.this, "Gagal mengubah data", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             }
         });
     }

@@ -63,10 +63,10 @@ public interface ApiInterface {
                                    @Field("satuan") String satuan,
                                    @Field("gambar") String gambar);
 
-    @POST("produk/updatestock")
-    @FormUrlEncoded
-    Call<ProductDAO> updateStockProduct(@Field("id_produk") String id_produk,
-                                        @Field("stok") String stok);
+//    @POST("produk/updatestock")
+//    @FormUrlEncoded
+//    Call<ProductDAO> updateStockProduct(@Field("id_produk") String id_produk,
+//                                        @Field("stok") String stok);
 
     @POST("produk/delete")
     @FormUrlEncoded

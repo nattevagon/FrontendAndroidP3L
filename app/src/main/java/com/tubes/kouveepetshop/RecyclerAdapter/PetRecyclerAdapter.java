@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tubes.kouveepetshop.Activity.DetailPetActivity;
+import com.tubes.kouveepetshop.Activity.ViewPetActivity;
 import com.tubes.kouveepetshop.Model.PetDAO;
 import com.tubes.kouveepetshop.R;
 
@@ -54,7 +54,7 @@ public class PetRecyclerAdapter extends RecyclerView.Adapter<PetRecyclerAdapter.
             public void onClick(View view){
                 id = brg.getId_hewan();
 
-                Intent i = new Intent(context, DetailPetActivity.class);
+                Intent i = new Intent(context, ViewPetActivity.class);
                 i.putExtra("id",id);
                 context.startActivity(i);
             }

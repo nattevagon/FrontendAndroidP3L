@@ -42,8 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
-        app:cardElevation="6dp"
-        app:cardCornerRadius="6dp"
+        app:cardElevation="@dimen/card_elevation"
+        app:cardCornerRadius="@dimen/normal_radius"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground">
 

@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.tubes.kouveepetshop.Activity.DetailSupplierActivity;
+import com.tubes.kouveepetshop.Activity.ViewSupplierActivity;
 import com.tubes.kouveepetshop.Model.SupplierDAO;
 import com.tubes.kouveepetshop.R;
 
@@ -51,7 +51,7 @@ public class SupplierRecyclerAdapter extends RecyclerView.Adapter<SupplierRecycl
             public void onClick(View view){
                 id = brg.getId_supplier();
 
-                Intent i = new Intent(context, DetailSupplierActivity.class);
+                Intent i = new Intent(context, ViewSupplierActivity.class);
                 i.putExtra("id",id);
                 context.startActivity(i);
             }

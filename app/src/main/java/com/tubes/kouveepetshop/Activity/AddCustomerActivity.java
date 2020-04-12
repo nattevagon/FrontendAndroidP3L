@@ -3,6 +3,7 @@ package com.tubes.kouveepetshop.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -26,19 +27,22 @@ import retrofit2.Response;
 
 public class AddCustomerActivity extends AppCompatActivity {
     private ImageButton btnBack;
-    private EditText etName, etDate, etAddress, etPhoneNumber;
+    private EditText etName, etBirthdate, etAddress, etPhoneNumber;
     private Button btnAdd;
     private String sBirthdate;
     private DatePickerDialog.OnDateSetListener mOnDateSetListener;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_customer);
+
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        progressDialog = new ProgressDialog(this);
 
         etName = findViewById(R.id.etName);
-        etDate = findViewById(R.id.etDate);
+        etBirthdate = findViewById(R.id.etBirthdate);
         etAddress = findViewById(R.id.etAddress);
         etPhoneNumber = findViewById(R.id.etPhoneNumber);
         btnAdd = findViewById(R.id.btnAdd);
@@ -51,7 +55,7 @@ public class AddCustomerActivity extends AppCompatActivity {
             }
         });
 
-        etDate.setOnClickListener(new View.OnClickListener() {
+        etBirthdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Calendar mCalendar =  Calendar.getInstance();
@@ -75,7 +79,7 @@ public class AddCustomerActivity extends AppCompatActivity {
                 month = month+1;
                 String mDate = dayOfMonth+"/"+month+"/"+year;
                 sBirthdate = year+"-"+month+"/"+dayOfMonth;
-                etDate.setText(mDate);
+                etBirthdate.setText(mDate);
             }
         };
 
@@ -84,10 +88,27 @@ public class AddCustomerActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(etName.getText().toString().equalsIgnoreCase(""))
                 {
-                    Toast.makeText(AddCustomerActivity.this, "Kosong", Toast.LENGTH_SHORT).show();
+                    etName.setError("Kosong!");
+                    etName.requestFocus();
+                }
+                else if(etBirthdate.getText().toString().equalsIgnoreCase(""))
+                {
+                    etBirthdate.setError("Kosong!");
+                    etBirthdate.requestFocus();
+                }
+                else if(etAddress.getText().toString().equalsIgnoreCase(""))
+                {
+                    etAddress.setError("Kosong!");
+                    etAddress.requestFocus();
+                }
+                else if(etPhoneNumber.getText().toString().equalsIgnoreCase(""))
+                {
+                    etPhoneNumber.setError("Kosong!");
+                    etPhoneNumber.requestFocus();
                 }
                 else
                 {
+                    progressDialog.show();
                     Add();
                 }
             }
@@ -108,13 +129,15 @@ public class AddCustomerActivity extends AppCompatActivity {
         add.enqueue(new Callback<CustomerDAO>(){
             @Override
             public void onResponse(Call<CustomerDAO> call, Response<CustomerDAO> response) {
-                Toast.makeText(AddCustomerActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddCustomerActivity.this, "Sukses menambah data", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
                 onBackPressed();
             }
 
             @Override
             public void onFailure(Call<CustomerDAO> call, Throwable t) {
-                Toast.makeText(AddCustomerActivity.this, "Fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddCustomerActivity.this, "Gagal menambah data", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             }
         });
     }

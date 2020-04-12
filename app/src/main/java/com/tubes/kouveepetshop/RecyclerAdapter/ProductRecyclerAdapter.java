@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
-import com.tubes.kouveepetshop.Activity.DetailProductActivity;
+import com.tubes.kouveepetshop.Activity.ViewProductActivity;
 import com.tubes.kouveepetshop.Model.ProductDAO;
 import com.tubes.kouveepetshop.R;
 
@@ -63,7 +63,7 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
             public void onClick(View view){
                 id = brg.getId_produk();
 
-                Intent i = new Intent(context, DetailProductActivity.class);
+                Intent i = new Intent(context, ViewProductActivity.class);
                 i.putExtra("id",id);
                 context.startActivity(i);
             }

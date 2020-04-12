@@ -36,21 +36,20 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EditPetActivity extends AppCompatActivity {
-    private EditText etName, etDate;
+    private EditText etName, etBirthdate;
     private ImageView btnBack;
     private String sId, sName, sBirthdate, sPetType, sPetSize, sCustomer, sYear, sMonth, sDate;
     private int idPetType, idPetSize, idCustomer;
     private AutoCompleteTextView spPetType, spPetSize, spCustomer;
     private Button btnSave;
     private DatePickerDialog.OnDateSetListener mOnDateSetListener;
+    private ProgressDialog progressDialog;
     List<String> idListPetType = new ArrayList<String>();
     List<String> idListPetSize = new ArrayList<String>();
     List<String> idListCustomer = new ArrayList<String>();
     List<String> nameListPetType = new ArrayList<String>();
     List<String> nameListPetSize = new ArrayList<String>();
     List<String> nameListCustomer = new ArrayList<String>();
-    private ProgressDialog progressDialog;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +60,7 @@ public class EditPetActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
 
         etName = findViewById(R.id.etName);
-        etDate = findViewById(R.id.etDate);
+        etBirthdate = findViewById(R.id.etBirthdate);
         spPetType = findViewById(R.id.spPetType);
         spPetSize = findViewById(R.id.spPetSize);
         spCustomer = findViewById(R.id.spCustomer);
@@ -83,7 +82,7 @@ public class EditPetActivity extends AppCompatActivity {
         sYear = sBirthdate.substring(0, 4);
         sMonth = sBirthdate.substring(5, 7);
         sDate = sBirthdate.substring(8, 10);
-        etDate.setText(sDate+"/"+sMonth+"/"+sYear);
+        etBirthdate.setText(sDate+"/"+sMonth+"/"+sYear);
 
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +92,7 @@ public class EditPetActivity extends AppCompatActivity {
             }
     });
 
-        etDate.setOnClickListener(new View.OnClickListener() {
+        etBirthdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Calendar mCalendar =  Calendar.getInstance();
@@ -118,7 +117,7 @@ public class EditPetActivity extends AppCompatActivity {
                 month = month+1;
                 String mDate = dayOfMonth+"/"+month+"/"+year;
                 sBirthdate = year+"-"+month+"/"+dayOfMonth;
-                etDate.setText(mDate);
+                etBirthdate.setText(mDate);
             }
         };
 
@@ -129,8 +128,21 @@ public class EditPetActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog.show();
-                Edit();
+                if(etName.getText().toString().equalsIgnoreCase(""))
+                {
+                    etName.setError("Kosong!");
+                    etName.requestFocus();
+                }
+                else if(etBirthdate.getText().toString().equalsIgnoreCase(""))
+                {
+                    etBirthdate.setError("Kosong!");
+                    etBirthdate.requestFocus();
+                }
+                else
+                {
+                    progressDialog.show();
+                    Edit();
+                }
             }
         });
     }
@@ -170,7 +182,6 @@ public class EditPetActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         idPetType = nameListPetType.indexOf(spPetType.getText().toString());
-                        Toast.makeText(EditPetActivity.this, "POS"+idPetType, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -247,8 +258,6 @@ public class EditPetActivity extends AppCompatActivity {
                         idCustomer = nameListCustomer.indexOf(spCustomer.getText().toString());
                     }
                 });
-
-                Toast.makeText(EditPetActivity.this, "IDCustomer"+idListCustomer.get(idCustomer), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -267,16 +276,15 @@ public class EditPetActivity extends AppCompatActivity {
         update.enqueue(new Callback<PetDAO>(){
             @Override
             public void onResponse(Call<PetDAO> call, Response<PetDAO> response) {
-                Toast.makeText(EditPetActivity.this, "Success"+sId, Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditPetActivity.this, "Sukses mengubah data", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
                 onBackPressed();
             }
 
             @Override
             public void onFailure(Call<PetDAO> call, Throwable t) {
-                Toast.makeText(EditPetActivity.this, "Fail"+sId, Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditPetActivity.this, "Gagal mengubah data", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
-                onBackPressed();
             }
         });
     }

@@ -22,12 +22,12 @@
         <activity android:name=".Activity.TransactionProductActivity" />
         <activity android:name=".Activity.DetailTransactionProductActivity" />
         <activity android:name=".Activity.DetailTransactionServiceActivity" />
-        <activity android:name=".Activity.DetailCustomerActivity" />
-        <activity android:name=".Activity.DetailSupplierActivity" />
-        <activity android:name=".Activity.DetailProductActivity" />
+        <activity android:name=".Activity.ViewCustomerActivity" />
+        <activity android:name=".Activity.ViewSupplierActivity" />
+        <activity android:name=".Activity.ViewProductActivity" />
         <activity android:name=".Activity.EditSupplierActivity" />
         <activity android:name=".Activity.EditCustomerActivity" />
-        <activity android:name=".Activity.DetailPetActivity" />
+        <activity android:name=".Activity.ViewPetActivity" />
         <activity android:name=".Activity.EditPetActivity" />
         <activity android:name=".Activity.AddPetActivity" />
         <activity android:name=".Activity.AddSupplierActivity" />

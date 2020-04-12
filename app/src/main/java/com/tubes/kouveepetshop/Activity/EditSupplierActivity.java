@@ -60,8 +60,26 @@ public class EditSupplierActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog.show();
-                Update();
+                if(etName.getText().toString().equalsIgnoreCase(""))
+                {
+                    etName.setError("Kosong!");
+                    etName.requestFocus();
+                }
+                else if(etAddress.getText().toString().equalsIgnoreCase(""))
+                {
+                    etAddress.setError("Kosong!");
+                    etAddress.requestFocus();
+                }
+                else if(etPhoneNumber.getText().toString().equalsIgnoreCase(""))
+                {
+                    etPhoneNumber.setError("Kosong!");
+                    etPhoneNumber.requestFocus();
+                }
+                else
+                {
+                    progressDialog.show();
+                    Edit();
+                }
             }
         });
     }
@@ -72,7 +90,7 @@ public class EditSupplierActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
-    private void Update() {
+    private void Edit() {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<SupplierDAO> update = apiService.updateSupplier(sId, etName.getText().toString(), etPhoneNumber.getText().toString()
                 ,etAddress.getText().toString());
@@ -80,16 +98,15 @@ public class EditSupplierActivity extends AppCompatActivity {
         update.enqueue(new Callback<SupplierDAO>(){
             @Override
             public void onResponse(Call<SupplierDAO> call, Response<SupplierDAO> response) {
-                Toast.makeText(EditSupplierActivity.this, "Success"+sId, Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditSupplierActivity.this, "Sukses mengubah data", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
                 onBackPressed();
             }
 
             @Override
             public void onFailure(Call<SupplierDAO> call, Throwable t) {
-                Toast.makeText(EditSupplierActivity.this, "Fail"+sId, Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditSupplierActivity.this, "Gagal mengubah data", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
-                onBackPressed();
             }
         });
     }

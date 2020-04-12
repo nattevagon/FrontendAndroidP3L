@@ -1,5 +1,6 @@
 package com.tubes.kouveepetshop.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -22,16 +23,19 @@ import retrofit2.Response;
 public class EditPetSizeActivity extends AppCompatActivity {
     private Button btnSave;
     private ImageView btnBack;
-    private EditText etNama;
+    private EditText etName;
     private String sId, sName;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_pet_size);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-        etNama = findViewById(R.id.etNama);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        progressDialog = new ProgressDialog(this);
+
+        etName = findViewById(R.id.etName);
         btnBack = findViewById(R.id.btnBack);
         btnSave = findViewById(R.id.btnSave);
 
@@ -39,7 +43,7 @@ public class EditPetSizeActivity extends AppCompatActivity {
         sId = i.getStringExtra("id");
         sName = i.getStringExtra("name");
 
-        etNama.setText(sName);
+        etName.setText(sName);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,12 +55,14 @@ public class EditPetSizeActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(etNama.getText().toString().equalsIgnoreCase(""))
+                if(etName.getText().toString().equalsIgnoreCase(""))
                 {
-                    Toast.makeText(EditPetSizeActivity.this, "Kosong", Toast.LENGTH_SHORT).show();
+                    etName.setError("Kosong!");
+                    etName.requestFocus();
                 }
                 else
                 {
+                    progressDialog.show();
                     Edit();
                 }
             }
@@ -64,18 +70,20 @@ public class EditPetSizeActivity extends AppCompatActivity {
     }
     private void Edit() {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<PetSizeDAO> add = apiService.updatePetSize(sId, etNama.getText().toString());
+        Call<PetSizeDAO> add = apiService.updatePetSize(sId, etName.getText().toString());
 
         add.enqueue(new Callback<PetSizeDAO>(){
             @Override
             public void onResponse(Call<PetSizeDAO> call, Response<PetSizeDAO> response) {
-                Toast.makeText(EditPetSizeActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                finish();
+                Toast.makeText(EditPetSizeActivity.this, "Sukses mengubah data", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+                onBackPressed();
             }
 
             @Override
             public void onFailure(Call<PetSizeDAO> call, Throwable t) {
-                Toast.makeText(EditPetSizeActivity.this, "Fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditPetSizeActivity.this, "Gagal mengubah data", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             }
         });
     }

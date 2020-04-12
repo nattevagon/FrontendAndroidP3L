@@ -25,43 +25,48 @@
   <androidx.cardview.widget.CardView
       android:id="@+id/cvProfile"
       android:layout_width="match_parent"
-      android:layout_height="70dp"
+      android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
       android:layout_marginTop="20dp"
       android:layout_marginHorizontal="20dp"
       android:clickable="true"
       android:foreground="?android:attr/selectableItemBackground"
-      app:cardCornerRadius="6dp">
+      app:cardCornerRadius="@dimen/normal_radius">
 
-    <TextView
-        android:id="@+id/twName"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="15dp"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Guest"
-        android:textSize="20dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"/>
+        android:layout_margin="20dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/twRole"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="40dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Guest"
-        android:textSize="15dp"
-        android:textColor="@color/black"/>
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Guest"
+          android:textColor="@color/black"
+          android:textSize="20dp"
+          android:textStyle="bold" />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Customer"
+          android:textColor="@color/black"
+          android:textSize="20dp" />
+
+    </LinearLayout>
   </androidx.cardview.widget.CardView>
 
   <androidx.cardview.widget.CardView
+      android:id="@+id/cvAboutUs"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
       android:layout_marginTop="20dp"
       android:layout_marginHorizontal="20dp"
-      app:cardCornerRadius="6dp">
+      android:clickable="true"
+      android:foreground="?android:attr/selectableItemBackground"
+      app:cardCornerRadius="@dimen/normal_radius">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -71,42 +76,21 @@
       <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="60dp"
-          android:background="@drawable/border_line"
-          android:clickable="true"
-          android:foreground="?android:attr/selectableItemBackground"
           android:orientation="vertical">
-
-        <TextView
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tentang Toko"
-            android:textSize="20dp"
-            android:layout_centerVertical="true"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
 
         <ImageView
+            android:id="@+id/icon_about"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_chevron_right"
+            android:src="@drawable/ic_error"
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"/>
-      </RelativeLayout>
-      <RelativeLayout
-          android:layout_width="match_parent"
-          android:layout_height="60dp"
-          android:clickable="true"
-          android:foreground="?android:attr/selectableItemBackground"
-          android:orientation="vertical">
+            android:layout_marginHorizontal="20dp"/>
 
         <TextView
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/icon_about"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Alamat Toko"
+            android:text="Tentang Kami"
             android:textSize="20dp"
             android:layout_centerVertical="true"
             android:textColor="@color/black"
@@ -122,6 +106,15 @@
     </LinearLayout>
   </androidx.cardview.widget.CardView>
 
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="20dp"
+      android:layout_marginBottom="10dp"
+      android:layout_marginTop="30dp"
+      android:text="Anda pegawai?"
+      android:textSize="15dp"/>
+
   <Button
       android:id="@+id/btnLogin"
       style="?android:attr/borderlessButtonStyle"
@@ -129,7 +122,6 @@
       android:layout_height="50dp"
       android:layout_gravity="center"
       android:layout_marginHorizontal="20dp"
-      android:layout_marginTop="30dp"
       android:background="@drawable/button"
       android:fontFamily="sans-serif-black"
       android:foreground="@drawable/ripple_button_primary"

@@ -45,6 +45,7 @@
                     android:layout_gravity="center_horizontal"
                     android:textSize="15dp"
                     android:hint="Nama"
+                    android:singleLine="true"
                     android:textColor="@color/black"/>
 
                 <LinearLayout

@@ -3,6 +3,7 @@ package com.tubes.kouveepetshop.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -34,13 +35,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddPetActivity extends AppCompatActivity {
-    private EditText etName, etDate;
+    private EditText etName, etBirthdate;
     private ImageView btnBack;
     private String sBirthdate;
     private int idPetType, idPetSize, idCustomer;
     private AutoCompleteTextView spPetType, spPetSize, spCustomer;
     private Button btnAdd;
     private DatePickerDialog.OnDateSetListener mOnDateSetListener;
+    private ProgressDialog progressDialog;
     List<String> idListPetType = new ArrayList<String>();
     List<String> idListPetSize = new ArrayList<String>();
     List<String> idListCustomer = new ArrayList<String>();
@@ -53,8 +55,11 @@ public class AddPetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_pet);
 
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        progressDialog = new ProgressDialog(this);
+
         etName = findViewById(R.id.etName);
-        etDate = findViewById(R.id.etDate);
+        etBirthdate = findViewById(R.id.etBirthdate);
         spPetType = findViewById(R.id.spPetType);
         spPetSize = findViewById(R.id.spPetSize);
         spCustomer = findViewById(R.id.spCustomer);
@@ -68,7 +73,7 @@ public class AddPetActivity extends AppCompatActivity {
             }
         });
 
-        etDate.setOnClickListener(new View.OnClickListener() {
+        etBirthdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Calendar mCalendar =  Calendar.getInstance();
@@ -92,7 +97,7 @@ public class AddPetActivity extends AppCompatActivity {
                 month = month+1;
                 String mDate = dayOfMonth+"/"+month+"/"+year;
                 sBirthdate = year+"-"+month+"/"+dayOfMonth;
-                etDate.setText(mDate);
+                etBirthdate.setText(mDate);
             }
         };
 
@@ -103,7 +108,21 @@ public class AddPetActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Add();
+                if(etName.getText().toString().equalsIgnoreCase(""))
+                {
+                    etName.setError("Kosong!");
+                    etName.requestFocus();
+                }
+                else if(etBirthdate.getText().toString().equalsIgnoreCase(""))
+                {
+                    etBirthdate.setError("Kosong!");
+                    etBirthdate.requestFocus();
+                }
+                else
+                {
+                    progressDialog.show();
+                    Add();
+                }
             }
         });
     }
@@ -136,7 +155,6 @@ public class AddPetActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         idPetType = nameListPetType.indexOf(spPetType.getText().toString());
-                        Toast.makeText(AddPetActivity.this, "POS"+idPetType, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -177,7 +195,6 @@ public class AddPetActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         idPetSize = nameListPetSize.indexOf(spPetSize.getText().toString());
-                        Toast.makeText(AddPetActivity.this, "POS"+idPetSize, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -210,7 +227,6 @@ public class AddPetActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         idCustomer = nameListCustomer.indexOf(spCustomer.getText().toString());
-                        Toast.makeText(AddPetActivity.this, "POS"+idCustomer, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -234,12 +250,14 @@ public class AddPetActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<PetDAO> call, Response<PetDAO> response) {
                 Toast.makeText(AddPetActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
                 onBackPressed();
             }
 
             @Override
             public void onFailure(Call<PetDAO> call, Throwable t) {
                 Toast.makeText(AddPetActivity.this, "Fail", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             }
         });
     }

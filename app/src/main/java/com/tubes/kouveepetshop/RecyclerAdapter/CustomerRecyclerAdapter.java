@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tubes.kouveepetshop.Activity.DetailCustomerActivity;
+import com.tubes.kouveepetshop.Activity.ViewCustomerActivity;
 import com.tubes.kouveepetshop.Model.CustomerDAO;
 import com.tubes.kouveepetshop.R;
 
@@ -53,7 +53,7 @@ public class CustomerRecyclerAdapter extends RecyclerView.Adapter<CustomerRecycl
             public void onClick(View view){
                 id = brg.getId_customer();
 
-                Intent i = new Intent(context, DetailCustomerActivity.class);
+                Intent i = new Intent(context, ViewCustomerActivity.class);
                 i.putExtra("id",id);
                 context.startActivity(i);
             }

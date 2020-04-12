@@ -33,7 +33,6 @@ public class MenuCustomerActivity extends AppCompatActivity {
         Fragment selectedFragment = new HomeFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
 
-        Toast.makeText(MenuCustomerActivity.this, "Is Login Owner : "+sessionManager.isLoggin(), Toast.LENGTH_SHORT).show();
         if(sessionManager.isLoggin())
         {
             HashMap<String, String> user = sessionManager.getUserDetail();

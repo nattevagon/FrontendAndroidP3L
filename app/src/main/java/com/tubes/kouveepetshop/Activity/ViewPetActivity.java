@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
-import com.tubes.kouveepetshop.Model.SupplierDAO;
+import com.tubes.kouveepetshop.Model.PetDAO;
 import com.tubes.kouveepetshop.R;
 
 import java.util.List;
@@ -23,17 +23,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailSupplierActivity extends AppCompatActivity {
-    private TextView twName, twAddress, twPhoneNumber;
+public class ViewPetActivity extends AppCompatActivity {
+    private TextView twName, twBirthdate, twPetType, twPetSize, twCustomer;
     private ImageView btnBack, btnDelete, btnEdit;
-    private String sId, sName, sAddress, sPhoneNumber;
+    private String sId, sName, sBirthdate, sPetType, sPetSize, sCustomer;
     private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_supplier);
-
+        setContentView(R.layout.activity_view_pet);
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         progressDialog = new ProgressDialog(this);
@@ -48,8 +47,10 @@ public class DetailSupplierActivity extends AppCompatActivity {
         });
 
         twName = findViewById(R.id.twName);
-        twAddress = findViewById(R.id.twAddress);
-        twPhoneNumber = findViewById(R.id.twPhoneNumber);
+        twBirthdate = findViewById(R.id.twBirthdate);
+        twPetType = findViewById(R.id.twPetType);
+        twPetSize = findViewById(R.id.twPetSize);
+        twCustomer = findViewById(R.id.twCustomer);
         btnDelete = findViewById(R.id.btnDelete);
         btnEdit = findViewById(R.id.btnEdit);
 
@@ -61,21 +62,20 @@ public class DetailSupplierActivity extends AppCompatActivity {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(DetailSupplierActivity.this, EditSupplierActivity.class);
+                Intent i = new Intent(ViewPetActivity.this, EditPetActivity.class);
                 i.putExtra("id",sId);
                 i.putExtra("name",sName);
-                i.putExtra("address",sAddress);
-                i.putExtra("phonenumber",sPhoneNumber);
+                i.putExtra("birthdate",sBirthdate);
+                i.putExtra("pettype",sPetType);
+                i.putExtra("petsize",sPetSize);
+                i.putExtra("customer",sCustomer);
                 startActivity(i);
             }
         });
 
-        Toast.makeText(DetailSupplierActivity.this, "Coba hapus"+sId, Toast.LENGTH_SHORT).show();
-
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 deleteItemFromList(view);
             }
         });
@@ -85,6 +85,7 @@ public class DetailSupplierActivity extends AppCompatActivity {
     public void onRestart() {
         super.onRestart();
         getData();
+        Toast.makeText(ViewPetActivity.this, "Coba hapus"+sId, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -96,31 +97,33 @@ public class DetailSupplierActivity extends AppCompatActivity {
     private void getData()
     {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<List<SupplierDAO>> get = apiService.getBySupplier(sId);
+        Call<List<PetDAO>> get = apiService.getByPet(sId);
 
-        get.enqueue(new Callback<List<SupplierDAO>>() {
+        get.enqueue(new Callback<List<PetDAO>>() {
             @Override
-            public void onResponse(Call<List<SupplierDAO>> call, Response<List<SupplierDAO>> response) {
+            public void onResponse(Call<List<PetDAO>> call, Response<List<PetDAO>> response) {
 
                 for(int i=0;i<response.body().size();i++)
                 {
-                    sId = sName = response.body().get(i).getId_supplier();
+                    sId = response.body().get(i).getId_hewan();
                     sName = response.body().get(i).getNama();
-                    sAddress = response.body().get(i).getAlamat();
-                    sPhoneNumber = response.body().get(i).getNo_telp();
+                    sBirthdate = response.body().get(i).getTgl_lahir();
+                    sPetType = response.body().get(i).getJenis_hewan();
+                    sPetSize = response.body().get(i).getUkuran_hewan();
+                    sCustomer = response.body().get(i).getCustomer();
                 }
 
                 twName.setText(sName);
-                twAddress.setText(sAddress);
-                twPhoneNumber.setText(sPhoneNumber);
-
+                twBirthdate.setText(sBirthdate);
+                twPetType.setText(sPetType);
+                twPetSize.setText(sPetSize);
+                twCustomer.setText(sCustomer);
                 progressDialog.dismiss();
             }
 
             @Override
-            public void onFailure(Call<List<SupplierDAO>> call, Throwable t) {
-                Toast.makeText(DetailSupplierActivity.this, "Koneksi hilang", Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
+            public void onFailure(Call<List<PetDAO>> call, Throwable t) {
+                Toast.makeText(ViewPetActivity.this, "Koneksi hilang", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -151,20 +154,21 @@ public class DetailSupplierActivity extends AppCompatActivity {
     {
         progressDialog.show();
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<SupplierDAO> delete = apiService.deleteSupplier(sId);
+        Call<PetDAO> delete = apiService.deletePet(sId);
 
-        delete.enqueue(new Callback<SupplierDAO>() {
+        delete.enqueue(new Callback<PetDAO>() {
             @Override
-            public void onResponse(Call<SupplierDAO> call, Response<SupplierDAO> response) {
-                Toast.makeText(DetailSupplierActivity.this, "Berhasil dihapus", Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<PetDAO> call, Response<PetDAO> response) {
+                Toast.makeText(ViewPetActivity.this, "Berhasil dihapus", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
                 onBackPressed();
             }
 
             @Override
-            public void onFailure(Call<SupplierDAO> call, Throwable t) {
-                Toast.makeText(DetailSupplierActivity.this, "Koneksi hilang", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<PetDAO> call, Throwable t) {
+                Toast.makeText(ViewPetActivity.this, "Koneksi hilang", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 }

@@ -75,12 +75,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <include layout="@layout/placeholder_service" />
-            <include layout="@layout/placeholder_service" />
-            <include layout="@layout/placeholder_service" />
-            <include layout="@layout/placeholder_service" />
-            <include layout="@layout/placeholder_service" />
-            <include layout="@layout/placeholder_service" />
+            <include layout="@layout/placeholder_service_supplier" />
+            <include layout="@layout/placeholder_service_supplier" />
+            <include layout="@layout/placeholder_service_supplier" />
+            <include layout="@layout/placeholder_service_supplier" />
+            <include layout="@layout/placeholder_service_supplier" />
+            <include layout="@layout/placeholder_service_supplier" />
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
 

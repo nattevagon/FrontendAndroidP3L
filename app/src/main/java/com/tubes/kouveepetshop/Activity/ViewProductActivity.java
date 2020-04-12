@@ -27,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailProductActivity extends AppCompatActivity {
+public class ViewProductActivity extends AppCompatActivity {
     private TextView twName, twStock, twMinimal, twUnit, twPrice;
     private ImageButton btnEdit;
     private ImageView btnBack, btnDelete, imgProduct;
@@ -72,7 +72,7 @@ public class DetailProductActivity extends AppCompatActivity {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(DetailProductActivity.this, EditProductActivity.class);
+                Intent i = new Intent(ViewProductActivity.this, EditProductActivity.class);
                 i.putExtra("id",sId);
                 i.putExtra("name",sName);
                 i.putExtra("price",sPrice);
@@ -84,7 +84,7 @@ public class DetailProductActivity extends AppCompatActivity {
             }
         });
 
-        Toast.makeText(DetailProductActivity.this, "Coba hapus"+sId, Toast.LENGTH_SHORT).show();
+        Toast.makeText(ViewProductActivity.this, "Coba hapus"+sId, Toast.LENGTH_SHORT).show();
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,14 +133,14 @@ public class DetailProductActivity extends AppCompatActivity {
                 twUnit.setText(sUnit);
                 twPrice.setText(formatRupiah.format((double)Double.parseDouble(sPrice)));
                 url = "https://kouvee.modifierisme.com/upload/"+sImage;
-                Picasso.with(DetailProductActivity.this).load(url).resize(300,300).centerCrop().into(imgProduct);
+                Picasso.with(ViewProductActivity.this).load(url).resize(300,300).centerCrop().into(imgProduct);
                 mShimmerViewContainer.stopShimmerAnimation();
                 mShimmerViewContainer.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<List<ProductDAO>> call, Throwable t) {
-                Toast.makeText(DetailProductActivity.this, "Koneksi hilang", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewProductActivity.this, "Koneksi hilang", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -176,7 +176,7 @@ public class DetailProductActivity extends AppCompatActivity {
         delete.enqueue(new Callback<ProductDAO>() {
             @Override
             public void onResponse(Call<ProductDAO> call, Response<ProductDAO> response) {
-                Toast.makeText(DetailProductActivity.this, "Berhasil dihapus", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewProductActivity.this, "Berhasil dihapus", Toast.LENGTH_SHORT).show();
                 mShimmerViewContainer.stopShimmerAnimation();
                 mShimmerViewContainer.setVisibility(View.GONE);
                 onBackPressed();
@@ -184,7 +184,7 @@ public class DetailProductActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ProductDAO> call, Throwable t) {
-                Toast.makeText(DetailProductActivity.this, "Koneksi hilang", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewProductActivity.this, "Koneksi hilang", Toast.LENGTH_SHORT).show();
             }
         });
     }
