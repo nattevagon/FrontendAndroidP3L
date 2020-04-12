@@ -10,7 +10,7 @@
     <color name="greyMedium">#E0E0E0</color>
     <color name="greyDark">#2e3131</color>
     <color name="choco">#DEAE8D</color>
-    <color name="chocoDark">#CD8452</color>
+    <color name="chocoDark">#d6a582</color>
     <color name="chocoDark2">#523420</color>
     <color name="purpleScampi">#736598</color>
     <color name="softPink">#ff9478</color>
@@ -28,6 +28,7 @@
     <color name="gold">#ffb947</color>
     <color name="darkGrey">#3f3931</color>
     <color name="blue">#3b5998</color>
+    <color name="background">#dddddd</color>
 
     <color name="transparent">#00000000</color>
 </resources>

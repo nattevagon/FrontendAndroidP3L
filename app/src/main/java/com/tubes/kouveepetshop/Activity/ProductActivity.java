@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
@@ -31,11 +32,12 @@ public class ProductActivity extends AppCompatActivity {
     private ImageButton btnBack;
     private SearchView searchView;
     private FloatingActionButton btnAdd;
-    private ProgressDialog progressDialog;
+    private ShimmerFrameLayout mShimmerViewContainer;
 
     private List<ProductDAO> productList;
     private RecyclerView recyclerView;
     private ProductRecyclerAdapter recyclerAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +45,11 @@ public class ProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product);
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        progressDialog = new ProgressDialog(this);
-        progressDialog.show();
 
-        btnBack = findViewById(R.id.btnBackProduct);
+        mShimmerViewContainer = findViewById(R.id.shimmer_view_container);
+        mShimmerViewContainer.startShimmerAnimation();
+
+        btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,14 +68,6 @@ public class ProductActivity extends AppCompatActivity {
         });
 
         searchView = findViewById(R.id.searchView);
-
-        productList = new ArrayList<>();
-        recyclerView = findViewById(R.id.productRecyclerView);
-        recyclerAdapter = new ProductRecyclerAdapter(ProductActivity.this,productList);
-        RecyclerView.LayoutManager LayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(LayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(recyclerAdapter);
         load();
     }
 
@@ -85,7 +80,7 @@ public class ProductActivity extends AppCompatActivity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        progressDialog.show();
+        mShimmerViewContainer.startShimmerAnimation();
         load();
     }
 
@@ -97,14 +92,13 @@ public class ProductActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<ProductDAO>> call, Response<List<ProductDAO>> response) {
                 generateDataList(response.body());
-                progressDialog.dismiss();
+                mShimmerViewContainer.stopShimmerAnimation();
+                mShimmerViewContainer.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<List<ProductDAO>> call, Throwable t) {
                 Toast.makeText(ProductActivity.this, "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
-
             }
         });
     }
@@ -113,6 +107,7 @@ public class ProductActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.productRecyclerView);
         recyclerAdapter = new ProductRecyclerAdapter(this,productList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ProductActivity.this);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerAdapter);
 

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PetRecyclerAdapter extends RecyclerView.Adapter<PetRecyclerAdapter.RoomViewHolder> implements Filterable {
-    private String id, nama, tglLahir, jenis, ukuran, customer;
+    private String id, name, birthdate, petType, petSize, customer;
     private List<PetDAO> dataList;
     private List<PetDAO> filteredDataList;
     private Context context;
@@ -43,10 +43,10 @@ public class PetRecyclerAdapter extends RecyclerView.Adapter<PetRecyclerAdapter.
     @Override
     public void onBindViewHolder(@NonNull PetRecyclerAdapter.RoomViewHolder holder, int position) {
         final PetDAO brg = filteredDataList.get(position);
-        holder.mNama.setText(brg.getNama());
-        holder.mTglLahir.setText(brg.getTgl_lahir());
-        holder.mJenisHewan.setText(brg.getJenis_hewan());
-        holder.mUkuranHewan.setText(brg.getUkuran_hewan());
+        holder.mName.setText(brg.getNama());
+        holder.mBirthdate.setText(brg.getTgl_lahir());
+        holder.mPetType.setText(brg.getJenis_hewan());
+        holder.mPetSize.setText(brg.getUkuran_hewan());
         holder.mCustomer.setText(brg.getCustomer());
 
         holder.mParent.setOnClickListener(new View.OnClickListener() {
@@ -67,15 +67,15 @@ public class PetRecyclerAdapter extends RecyclerView.Adapter<PetRecyclerAdapter.
     }
 
     public class RoomViewHolder extends RecyclerView.ViewHolder{
-        private TextView mNama, mTglLahir, mJenisHewan, mUkuranHewan, mCustomer;
+        private TextView mName, mBirthdate, mPetSize, mPetType, mCustomer;
         private LinearLayout mParent;
 
         public RoomViewHolder(@NonNull View itemView) {
             super(itemView);
-            mNama = itemView.findViewById(R.id.twName);
-            mTglLahir = itemView.findViewById(R.id.twPetBirthdate);
-            mJenisHewan = itemView.findViewById(R.id.twPetType);
-            mUkuranHewan = itemView.findViewById(R.id.twPetSize);
+            mName = itemView.findViewById(R.id.twName);
+            mBirthdate = itemView.findViewById(R.id.twPetBirthdate);
+            mPetType = itemView.findViewById(R.id.twPetType);
+            mPetSize = itemView.findViewById(R.id.twPetSize);
             mCustomer = itemView.findViewById(R.id.twCustomer);
             mParent = itemView.findViewById(R.id.linearLayout);
         }

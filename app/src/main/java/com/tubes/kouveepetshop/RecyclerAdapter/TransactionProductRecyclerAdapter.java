@@ -17,14 +17,19 @@ import com.tubes.kouveepetshop.Activity.DetailTransactionProductActivity;
 import com.tubes.kouveepetshop.Model.TransactionProductDAO;
 import com.tubes.kouveepetshop.R;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class TransactionProductRecyclerAdapter extends RecyclerView.Adapter<TransactionProductRecyclerAdapter.RoomViewHolder> implements Filterable {
     private String id, code;
     private List<TransactionProductDAO> dataList;
     private List<TransactionProductDAO> filteredDataList;
     private Context context;
+
+    Locale localeID = new Locale("in", "ID");
+    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
     public TransactionProductRecyclerAdapter(Context context, List<TransactionProductDAO> dataList) {
         this.context=context;
@@ -43,11 +48,10 @@ public class TransactionProductRecyclerAdapter extends RecyclerView.Adapter<Tran
     @Override
     public void onBindViewHolder(@NonNull TransactionProductRecyclerAdapter.RoomViewHolder holder, int position) {
         final TransactionProductDAO brg = filteredDataList.get(position);
+
         holder.mCode.setText(brg.getKode());
         holder.mPet.setText(brg.getHewan());
-        holder.mDate.setText(brg.getTanggal());
-        holder.mStatus.setText(brg.getStatus());
-        holder.mTotal.setText(brg.getTotal_harga());
+        holder.mSubTotal.setText(formatRupiah.format((double)Double.parseDouble(brg.getSub_total())));
 
         holder.mParent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,16 +73,14 @@ public class TransactionProductRecyclerAdapter extends RecyclerView.Adapter<Tran
     }
 
     public class RoomViewHolder extends RecyclerView.ViewHolder{
-        private TextView mCode, mPet, mDate, mTotal, mStatus;
+        private TextView mCode, mPet, mSubTotal, mStatus;
         private LinearLayout mParent;
 
         public RoomViewHolder(@NonNull View itemView) {
             super(itemView);
             mCode = itemView.findViewById(R.id.twCode);
             mPet = itemView.findViewById(R.id.twPet);
-            mDate = itemView.findViewById(R.id.twDate);
-            mStatus = itemView.findViewById(R.id.twStatus);
-            mTotal = itemView.findViewById(R.id.twPriceTotal);
+            mSubTotal = itemView.findViewById(R.id.twSubTotal);
             mParent = itemView.findViewById(R.id.linearLayout);
         }
     }
@@ -94,7 +96,7 @@ public class TransactionProductRecyclerAdapter extends RecyclerView.Adapter<Tran
                 } else {
                     List<TransactionProductDAO> filteredList = new ArrayList<>();
                     for (TransactionProductDAO TransactionProductDAO : dataList) {
-                        if (TransactionProductDAO.getKode().toLowerCase().contains(charSequenceString.toLowerCase())) {
+                        if (TransactionProductDAO.getKode().toLowerCase().contains(charSequenceString.toLowerCase()) || TransactionProductDAO.getHewan().contains(charSequenceString.toLowerCase())) {
                             filteredList.add(TransactionProductDAO);
                         }
                         filteredDataList = filteredList;

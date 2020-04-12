@@ -14,18 +14,26 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.tubes.kouveepetshop.Fragment.ServiceBottomFragment;
+import com.tubes.kouveepetshop.Fragment.ServiceCustomerBottomFragment;
 import com.tubes.kouveepetshop.Model.ServiceDAO;
-import com.tubes.kouveepetshop.Fragment.MasterBottomFragment;
+import com.tubes.kouveepetshop.Fragment.PetTypeSizeBottomFragment;
 import com.tubes.kouveepetshop.R;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ServiceRecyclerAdapter extends RecyclerView.Adapter<ServiceRecyclerAdapter.RoomViewHolder> implements Filterable {
-    private String nama, id;
+    private String id;
     private List<ServiceDAO> dataList;
     private List<ServiceDAO> filteredDataList;
     private Context context;
+
+    Locale localeID = new Locale("in", "ID");
+    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
     public ServiceRecyclerAdapter(Context context, List<ServiceDAO> dataList) {
         this.context = context;
@@ -37,7 +45,7 @@ public class ServiceRecyclerAdapter extends RecyclerView.Adapter<ServiceRecycler
     @Override
     public RoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.recycle_adapter_service, parent, false);
+        View view = layoutInflater.inflate(R.layout.recycle_adapter_service_customer, parent, false);
         return new RoomViewHolder(view);
     }
 
@@ -45,21 +53,20 @@ public class ServiceRecyclerAdapter extends RecyclerView.Adapter<ServiceRecycler
     public void onBindViewHolder(@NonNull ServiceRecyclerAdapter.RoomViewHolder holder, int position) {
         final ServiceDAO brg = filteredDataList.get(position);
         holder.mName.setText(brg.getNama());
+        holder.mPetSize.setText(brg.getUkuran_hewan());
+        holder.mPrice.setText(formatRupiah.format((double)Double.parseDouble(brg.getHarga())));
 
         holder.mParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
-                MasterBottomFragment bottomSheet = new MasterBottomFragment();
+                ServiceBottomFragment bottomSheet = new ServiceBottomFragment();
                 bottomSheet.show(manager, "bottomSheet");
 
                 id = brg.getId_layanan();
-                nama = brg.getNama();
 
                 Bundle args = new Bundle();
                 args.putString("id", id);
-                args.putString("name", nama);
-                args.putString("menu", "Service");
                 bottomSheet.setArguments(args);
             }
         });
@@ -71,12 +78,14 @@ public class ServiceRecyclerAdapter extends RecyclerView.Adapter<ServiceRecycler
     }
 
     public class RoomViewHolder extends RecyclerView.ViewHolder{
-        private TextView mName;
+        private TextView mName, mPetSize, mPrice;
         private LinearLayout mParent;
 
         public RoomViewHolder(@NonNull View itemView) {
             super(itemView);
             mName = itemView.findViewById(R.id.twName);
+            mPetSize = itemView.findViewById(R.id.twPetSize);
+            mPrice = itemView.findViewById(R.id.twPrice);
             mParent = itemView.findViewById(R.id.linearLayout);
         }
     }

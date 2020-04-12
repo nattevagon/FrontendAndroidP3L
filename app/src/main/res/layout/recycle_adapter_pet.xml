@@ -40,25 +40,40 @@
                     android:hint="Tanggal Lahir"
                     android:textColor="@color/black"/>
 
-                <TextView
-                    android:id="@+id/twPetType"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Jenis Hewan"
-                    android:textColor="@color/black"/>
+                    android:layout_marginVertical="5dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/twPetType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:paddingHorizontal="5dp"
+                        android:background="@drawable/border_grey"
+                        android:hint="Jenis Hewan"
+                        android:textColor="@color/black"/>
 
-                <TextView
-                    android:id="@+id/twPetSize"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Ukuran Hewan"
-                    android:textColor="@color/black"/>
+                    <TextView
+                        android:id="@+id/twPetSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:paddingHorizontal="5dp"
+                        android:layout_marginLeft="4dp"
+                        android:background="@drawable/border_grey"
+                        android:hint="Ukuran Hewan"
+                        android:textColor="@color/black"/>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/twCustomer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="Pelanggan"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
                     android:textColor="@color/black"/>
             </LinearLayout>
     </LinearLayout>

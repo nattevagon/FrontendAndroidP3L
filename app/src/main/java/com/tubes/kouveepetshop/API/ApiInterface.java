@@ -2,7 +2,9 @@ package com.tubes.kouveepetshop.API;
 
 import com.tubes.kouveepetshop.Model.CustomerDAO;
 import com.tubes.kouveepetshop.Model.DetailTransactionProductDAO;
+import com.tubes.kouveepetshop.Model.EmployeeDAO;
 import com.tubes.kouveepetshop.Model.FileProductDAO;
+import com.tubes.kouveepetshop.Model.LoginDAO;
 import com.tubes.kouveepetshop.Model.PetDAO;
 import com.tubes.kouveepetshop.Model.PetSizeDAO;
 import com.tubes.kouveepetshop.Model.PetTypeDAO;
@@ -10,6 +12,7 @@ import com.tubes.kouveepetshop.Model.ProductDAO;
 import com.tubes.kouveepetshop.Model.ServiceDAO;
 import com.tubes.kouveepetshop.Model.SupplierDAO;
 import com.tubes.kouveepetshop.Model.TransactionProductDAO;
+import com.tubes.kouveepetshop.Model.TransactionServiceDAO;
 
 import java.util.List;
 
@@ -60,6 +63,11 @@ public interface ApiInterface {
                                    @Field("satuan") String satuan,
                                    @Field("gambar") String gambar);
 
+    @POST("produk/updatestock")
+    @FormUrlEncoded
+    Call<ProductDAO> updateStockProduct(@Field("id_produk") String id_produk,
+                                        @Field("stok") String stok);
+
     @POST("produk/delete")
     @FormUrlEncoded
     Call<ProductDAO> deleteProduct(@Field("id_produk") String id_produk);
@@ -74,12 +82,16 @@ public interface ApiInterface {
 
     @POST("layanan")
     @FormUrlEncoded
-    Call<ServiceDAO> addService(@Field("nama") String nama);
+    Call<ServiceDAO> addService(@Field("nama") String nama,
+                                @Field("id_ukuran_hewan") String id_ukuran_hewan,
+                                @Field("harga") String harga);
 
     @POST("layanan/update")
     @FormUrlEncoded
     Call<ServiceDAO> updateService(@Field("id_layanan") String id_layanan,
-                                   @Field("nama") String nama);
+                                   @Field("nama") String nama,
+                                   @Field("id_ukuran_hewan") String id_ukuran_hewan,
+                                   @Field("harga") String harga);
 
     @POST("layanan/delete")
     @FormUrlEncoded
@@ -211,7 +223,20 @@ public interface ApiInterface {
 
     //=============================================//
 
-    //=============Transaksi=============//
+    @GET("pegawai")
+    Call<List<EmployeeDAO>> getAllEmployee();
+
+    @GET("pegawai")
+    Call<List<EmployeeDAO>> getByIDEmployee(@Query("id_pegawai") String id_pegawai);
+
+    @POST("pegawai/changepassword")
+    @FormUrlEncoded
+    Call<EmployeeDAO> changePassword(@Field("id_pegawai") String id_pegawai,
+                                   @Field("password") String password);
+
+    //=============================================//
+
+    //=============Transaksi Product=============//
     @GET("transaksiproduk")
     Call<List<TransactionProductDAO>> getAllTransactionProduct();
 
@@ -239,13 +264,11 @@ public interface ApiInterface {
     @FormUrlEncoded
     Call<TransactionProductDAO> updateTransactionProduct(@Field("id_tp") String id_tp,
                                                          @Field("id_hewan") String id_hewan,
-                                                         @Field("id_pegawai_cs") String id_pegawai,
-                                                         @Field("kode") String kode,
-                                                         @Field("tanggal") String tanggal,
-                                                         @Field("sub_total") String sub_total,
-                                                         @Field("total_harga") String total_harga,
-                                                         @Field("status") String status,
-                                                         @Field("created_by") String created_by);
+                                                         @Field("updated_by") String updated_by);
+    @POST("transaksiproduk/updatesubtotal")
+    @FormUrlEncoded
+    Call<TransactionProductDAO> updateSubTotalTransactionProduct(@Field("id_tp") String id_tp,
+                                                         @Field("sub_total") String sub_total);
 
     @POST("transaksiproduk/delete")
     @FormUrlEncoded
@@ -290,6 +313,64 @@ public interface ApiInterface {
     @POST("detailtransaksiproduk/delete")
     @FormUrlEncoded
     Call<DetailTransactionProductDAO> deleteDetailTP(@Field("id_detail_tp") String id_detail_tp);
+
+    //==================================================//
+    //=============Login=============//
+
+    @POST("login")
+    @FormUrlEncoded
+    Call<LoginDAO> login(@Field("username") String username,
+                         @Field("password") String password);
+
+    //==================================================//
+
+    //=============Transaksi Service=============//
+    @GET("transaksilayanan")
+    Call<List<TransactionServiceDAO>> getAllTransactionService();
+
+    @GET("transaksilayanan")
+    Call<List<TransactionServiceDAO>> getByIdTransactionService(@Query("id_tl") String id_tl);
+
+    @GET("transaksilayanan")
+    Call<List<TransactionServiceDAO>> getByCodeTransactionService(@Query("kode") String kode);
+
+    @GET("transaksilayanan/codelength")
+    Call<List<TransactionServiceDAO>> getCodeLengthTransactionService(@Query("kode") String kode);
+
+    @POST("transaksilayanan")
+    @FormUrlEncoded
+    Call<TransactionServiceDAO> addTransactionService(@Field("id_hewan") String id_hewan,
+                                                      @Field("id_pegawai_cs") String id_pegawai_cs,
+                                                      @Field("kode") String kode,
+                                                      @Field("tanggal") String tanggal,
+                                                      @Field("sub_total") String sub_total,
+                                                      @Field("total_harga") String total_harga,
+                                                      @Field("status") String status,
+                                                      @Field("created_by") String created_by);
+
+    @POST("transaksilayanan/update")
+    @FormUrlEncoded
+    Call<TransactionServiceDAO> updateTransactionService(@Field("id_tl") String id_tl,
+                                                         @Field("id_hewan") String id_hewan,
+                                                         @Field("id_pegawai_cs") String id_pegawai,
+                                                         @Field("kode") String kode,
+                                                         @Field("tanggal") String tanggal,
+                                                         @Field("sub_total") String sub_total,
+                                                         @Field("total_harga") String total_harga,
+                                                         @Field("status") String status,
+                                                         @Field("created_by") String created_by);
+    @POST("transaksilayanan/updatesubtotal")
+    @FormUrlEncoded
+    Call<TransactionServiceDAO> updateSubTotalTransactionService(@Field("id_tl") String id_tl,
+                                                                 @Field("sub_total") String sub_total);
+
+    @POST("transaksilayanan/delete")
+    @FormUrlEncoded
+    Call<TransactionServiceDAO> deleteTransactionService(@Field("id_tl") String id_tl);
+
+    @POST("transaksilayanan/confirm")
+    @FormUrlEncoded
+    Call<TransactionServiceDAO> confirmTransactionService(@Field("id_tl") String id_tl);
 
     //==================================================//
 

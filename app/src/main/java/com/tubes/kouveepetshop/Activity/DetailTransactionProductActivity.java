@@ -1,14 +1,11 @@
 package com.tubes.kouveepetshop.Activity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -22,31 +19,36 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
-import com.tubes.kouveepetshop.Fragment.AddDetailProductTransactionFragment;
+import com.tubes.kouveepetshop.Fragment.AddProductDetailTransactionProductFragment;
+import com.tubes.kouveepetshop.Fragment.EditTransactionProductFragment;
 import com.tubes.kouveepetshop.Model.DetailTransactionProductDAO;
-import com.tubes.kouveepetshop.Model.PetDAO;
 import com.tubes.kouveepetshop.Model.TransactionProductDAO;
 import com.tubes.kouveepetshop.R;
 import com.tubes.kouveepetshop.RecyclerAdapter.DetailTransactionProductRecyclerAdapter;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailTransactionProductActivity extends AppCompatActivity {
-    private ImageButton btnBack;
-    private Button btnAddProduct;
+    private ImageButton btnBack, btnCancel, btnEdit;
+    private Button btnAddProduct, btnConfirmDone;
     private String sId, sCode, sDate, sPet, sSubtotal, sTotalPrice, sCustomerService, sStatus;
-    private TextView twCode, twDate, twCS;
-    private AutoCompleteTextView spPet;
-    private int idPet;
+    private TextView twCode, twDate, twCS, twSubTotal, twPet;
+    private int idPet, sumSubTotal, subTotal;
     List<String> idListPet = new ArrayList<String>();
     List<String> nameListPet = new ArrayList<String>();
 
+    Locale localeID = new Locale("in", "ID");
+    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+
     private List<DetailTransactionProductDAO> detailTPProductList;
+    private List<TransactionProductDAO> transactionProduct;
     private RecyclerView recyclerView;
     private DetailTransactionProductRecyclerAdapter recyclerAdapter;
 
@@ -55,7 +57,7 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_product_transaction);
+        setContentView(R.layout.activity_detail_transaction_product);
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         progressDialog = new ProgressDialog(this);
@@ -63,8 +65,12 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
         twCode = findViewById(R.id.twCode);
         twDate = findViewById(R.id.twDate);
         twCS = findViewById(R.id.twCS);
-        spPet = findViewById(R.id.spPet);
+        twSubTotal = findViewById(R.id.twSubTotal);
+        twPet = findViewById(R.id.twPet);
         btnAddProduct = findViewById(R.id.btnAddProduct);
+        btnConfirmDone = findViewById(R.id.btnConfirmDone);
+        btnCancel = findViewById(R.id.btnCancel);
+        btnEdit = findViewById(R.id.btnEdit);
 
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -78,28 +84,55 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
         sCode = i.getStringExtra("kode");
 
         btnAddProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager manager = DetailTransactionProductActivity.this.getSupportFragmentManager();
-                AddDetailProductTransactionFragment dialog = new AddDetailProductTransactionFragment();
-                dialog.show(manager, "dialog");
+    @Override
+    public void onClick(View view) {
+            FragmentManager manager = DetailTransactionProductActivity.this.getSupportFragmentManager();
+            AddProductDetailTransactionProductFragment dialog = new AddProductDetailTransactionProductFragment();
+            dialog.show(manager, "dialog");
 
-                Bundle args = new Bundle();
-                args.putString("id", sId);
-                dialog.setArguments(args);
+            Bundle args = new Bundle();
+            args.putString("id", sId);
+            dialog.setArguments(args);
             }
         });
 
         detailTPProductList = new ArrayList<>();
         recyclerView = findViewById(R.id.detailTPRecyclerView);
-        recyclerAdapter = new DetailTransactionProductRecyclerAdapter(DetailTransactionProductActivity.this,detailTPProductList);
+        recyclerAdapter = new DetailTransactionProductRecyclerAdapter(DetailTransactionProductActivity.this,detailTPProductList, this);
         RecyclerView.LayoutManager LayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(LayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(recyclerAdapter);
 
         getData();
-        loadSpinnerPet();
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cancelItemFromList(view);
+            }
+        });
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager manager = DetailTransactionProductActivity.this.getSupportFragmentManager();
+                EditTransactionProductFragment dialog = new EditTransactionProductFragment();
+                dialog.show(manager, "dialog");
+
+                Bundle args = new Bundle();
+                args.putString("id", sId);
+                args.putString("pet", sPet);
+                dialog.setArguments(args);
+            }
+        });
+
+        btnConfirmDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                confirmItemFromList(view);
+            }
+        });
     }
 
     @Override
@@ -111,8 +144,9 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
     public void onBack() {
         super.onPostResume();
         progressDialog.show();
-        detailTPProductList.removeAll(detailTPProductList);
+        detailTPProductList.clear();
         getData();
+        recyclerAdapter.notifyDataSetChanged();
     }
 
     private void getData(){
@@ -135,7 +169,7 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
                 twCode.setText(sCode);
                 twDate.setText(sDate);
                 twCS.setText(sCustomerService);
-                spPet.setText(sPet);
+                twPet.setText(sPet);
 
                 loadProduct();
             }
@@ -148,47 +182,7 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
         });
     }
 
-    public void loadSpinnerPet() {
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<List<PetDAO>> call = apiService.getAllPet();
-
-        call.enqueue(new Callback<List<PetDAO>>() {
-            @Override
-            public void onResponse(Call<List<PetDAO>> call, Response<List<PetDAO>> response) {
-                for (int i = 0; i < response.body().size(); i++) {
-                    idListPet.add(response.body().get(i).getId_hewan());
-                    nameListPet.add(response.body().get(i).getNama());
-                }
-
-                ArrayAdapter<String> adapterPet = new ArrayAdapter<String>
-                        (DetailTransactionProductActivity.this, android.R.layout.simple_list_item_1, nameListPet);
-                spPet.setAdapter(adapterPet);
-
-                spPet.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        idPet = nameListPet.indexOf(spPet.getText().toString());
-                    }
-                });
-
-                spPet.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-                        spPet.showDropDown();
-                        return false;
-                    }
-                });
-            }
-
-            @Override
-            public void onFailure(Call<List<PetDAO>> call, Throwable t) {
-                Toast.makeText(DetailTransactionProductActivity.this, "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
-
-    public void loadProduct(){
+    private void loadProduct(){
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<List<DetailTransactionProductDAO>> call = apiService.getByIDTPDetailTP(sId);
 
@@ -197,11 +191,164 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
             public void onResponse(Call<List<DetailTransactionProductDAO>> call, Response<List<DetailTransactionProductDAO>> response) {
                 detailTPProductList.addAll(response.body());
                 recyclerAdapter.notifyDataSetChanged();
+                sumSubTotal = 0;
+                for(int i=0;i<response.body().size();i++)
+                {
+                    sSubtotal = response.body().get(i).getTotal();
+                    subTotal = Integer.parseInt(sSubtotal);
+                    sumSubTotal = sumSubTotal + subTotal;
+                }
+                UpdateTransactionProduct(sumSubTotal);
                 progressDialog.dismiss();
             }
 
+
             @Override
             public void onFailure(Call<List<DetailTransactionProductDAO>> call, Throwable t) {
+                UpdateTransactionProduct(0);
+                progressDialog.dismiss();
+            }
+        });
+    }
+
+    private void UpdateTransactionProduct(final int sumSubTotal) {
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<TransactionProductDAO> call = apiService.updateSubTotalTransactionProduct(sId, Integer.toString(sumSubTotal));
+
+        call.enqueue(new Callback<TransactionProductDAO>() {
+            @Override
+            public void onResponse(Call<TransactionProductDAO> call, Response<TransactionProductDAO> response) {
+                twSubTotal.setText(formatRupiah.format((double)sumSubTotal));
+            }
+
+            @Override
+            public void onFailure(Call<TransactionProductDAO> call, Throwable t) {
+                Toast.makeText(DetailTransactionProductActivity.this, "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void cancelItemFromList(View v) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+
+        builder.setMessage("Batalkan transaksi ?")
+                .setCancelable(false)
+                .setPositiveButton("YA",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                progressDialog.show();
+                                Cancel();
+                            }
+                        })
+                .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+
+        builder.show();
+
+    }
+
+    private void confirmItemFromList(View v) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+
+        builder.setMessage("Yakin untuk menyelesaikan transaksi?")
+                .setCancelable(false)
+                .setPositiveButton("YA",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                progressDialog.show();
+                                Confirm();
+                            }
+                        })
+                .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+
+        builder.show();
+
+    }
+
+    private void Cancel() {
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<TransactionProductDAO> call = apiService.deleteTransactionProduct(sId);
+
+        call.enqueue(new Callback<TransactionProductDAO>() {
+            @Override
+            public void onResponse(Call<TransactionProductDAO> call, Response<TransactionProductDAO> response) {
+                Toast.makeText(DetailTransactionProductActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+                onBackPressed();
+            }
+
+            @Override
+            public void onFailure(Call<TransactionProductDAO> call, Throwable t) {
+                Toast.makeText(DetailTransactionProductActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void Confirm() {
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<TransactionProductDAO> call = apiService.confirmTransactionProduct(sId);
+
+        call.enqueue(new Callback<TransactionProductDAO>() {
+            @Override
+            public void onResponse(Call<TransactionProductDAO> call, Response<TransactionProductDAO> response) {
+                Toast.makeText(DetailTransactionProductActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+                onBackPressed();
+            }
+
+            @Override
+            public void onFailure(Call<TransactionProductDAO> call, Throwable t) {
+                Toast.makeText(DetailTransactionProductActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void DeleteDetailItemList(View v, final String idDetail) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+
+        builder.setMessage("Batalkan transaksi ?")
+                .setCancelable(false)
+                .setPositiveButton("YA",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                progressDialog.show();
+                                DeleteDetail(idDetail);
+                            }
+                        })
+                .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+
+        builder.show();
+
+    }
+
+    public void DeleteDetail(final String id) {
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<DetailTransactionProductDAO> call = apiService.deleteDetailTP(id);
+
+        call.enqueue(new Callback<DetailTransactionProductDAO>() {
+            @Override
+            public void onResponse(Call<DetailTransactionProductDAO> call, Response<DetailTransactionProductDAO> response) {
+                Toast.makeText(DetailTransactionProductActivity.this, "Sukses"+id, Toast.LENGTH_SHORT).show();
+                onBack();
+            }
+
+            @Override
+            public void onFailure(Call<DetailTransactionProductDAO> call, Throwable t) {
+                Toast.makeText(DetailTransactionProductActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             }
         });

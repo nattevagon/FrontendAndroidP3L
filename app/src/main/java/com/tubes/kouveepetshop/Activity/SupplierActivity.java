@@ -64,14 +64,6 @@ public class SupplierActivity extends AppCompatActivity {
         });
 
         searchView = findViewById(R.id.searchView);
-
-        supplierList = new ArrayList<>();
-        recyclerView = findViewById(R.id.supplierRecyclerView);
-        recyclerAdapter = new SupplierRecyclerAdapter(SupplierActivity.this, supplierList);
-        RecyclerView.LayoutManager LayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(LayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(recyclerAdapter);
         load();
     }
 
@@ -88,7 +80,6 @@ public class SupplierActivity extends AppCompatActivity {
         load();
     }
 
-    //Menangkap nilai dari API
     public void load(){
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<List<SupplierDAO>> call = apiService.getAllSupplier();
@@ -113,6 +104,7 @@ public class SupplierActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.supplierRecyclerView);
         recyclerAdapter = new SupplierRecyclerAdapter(this,supplierList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SupplierActivity.this);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerAdapter);
 

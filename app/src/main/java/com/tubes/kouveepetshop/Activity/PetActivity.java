@@ -67,12 +67,6 @@ public class PetActivity extends AppCompatActivity {
         searchView = findViewById(R.id.searchView);
 
         petList = new ArrayList<>();
-        recyclerView = findViewById(R.id.petRecyclerView);
-        recyclerAdapter = new PetRecyclerAdapter(PetActivity.this, petList);
-        RecyclerView.LayoutManager LayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(LayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(recyclerAdapter);
         load();
     }
 
@@ -114,6 +108,7 @@ public class PetActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.petRecyclerView);
         recyclerAdapter = new PetRecyclerAdapter(this,petList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PetActivity.this);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerAdapter);
 

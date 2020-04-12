@@ -2,8 +2,9 @@
     <string name="app_name">KouveePetShop</string>
 
     <string-array name="satuan">
-        <item>Item</item>
+        <item>Bungkus</item>
         <item>Botol</item>
+        <item>Kotak</item>
         <item>Pax</item>
     </string-array>
 

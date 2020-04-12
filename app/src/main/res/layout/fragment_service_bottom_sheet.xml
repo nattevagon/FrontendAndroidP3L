@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/ic_drag"
+            android:layout_gravity="center_horizontal" />
+
+        <ImageButton
+            android:id="@+id/btnClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center_horizontal"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/ic_close" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/upper_sheet"
+        android:paddingHorizontal="15dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/border_line"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/twName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:text="Nama"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:textAlignment="textStart"
+                android:backgroundTint="@color/black"
+                android:text="Ukuran Hewan"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/twPetSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textAlignment="textEnd"
+                android:backgroundTint="@color/black"
+                android:text="Ukuran Hewan"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:textAlignment="textStart"
+                android:backgroundTint="@color/black"
+                android:text="Harga"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/twPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textAlignment="textEnd"
+                android:backgroundTint="@color/black"
+                android:text="Harga"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="30dp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="40dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:drawableLeft="@drawable/ic_edit"
+            android:background="@drawable/button"
+            android:id="@+id/btnEditSheet"
+            android:paddingHorizontal="20dp"
+            android:textSize="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="180dp"
+            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content"
+            android:text="Ubah"/>
+
+        <Button
+            android:id="@+id/btnDeleteSheet"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/btnEdit"
+            android:paddingHorizontal="20dp"
+            android:drawableLeft="@drawable/ic_delete"
+            android:background="@drawable/button2"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="180dp"
+            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Hapus"/>
+
+    </RelativeLayout>
+</LinearLayout>

@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.squareup.picasso.Picasso;
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
@@ -107,6 +108,7 @@ public class AddProductActivity extends AppCompatActivity {
             Uri imageUri = data.getData();
             imagePath = getRealPathFromUri(imageUri);
             Picasso.with(this).load(imageUri).resize(400,400).centerCrop().into(imgProduct);
+            statusPickImage = true;
         }
     }
 
@@ -138,7 +140,7 @@ public class AddProductActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<FileProductDAO> call, Response<FileProductDAO> response) {
                 String filename = response.body().getFileName();
-                Toast.makeText(AddProductActivity.this, "Success : ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddProductActivity.this, "Success : "+statusPickImage, Toast.LENGTH_SHORT).show();
                 Add(filename);
             }
 

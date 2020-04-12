@@ -16,14 +16,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tubes.kouveepetshop.Model.PetTypeDAO;
-import com.tubes.kouveepetshop.Fragment.MasterBottomFragment;
+import com.tubes.kouveepetshop.Fragment.PetTypeSizeBottomFragment;
 import com.tubes.kouveepetshop.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PetTypeRecyclerAdapter extends RecyclerView.Adapter<PetTypeRecyclerAdapter.RoomViewHolder> implements Filterable {
-    private String nama, id;
+    private String name, id;
     private List<PetTypeDAO> dataList;
     private List<PetTypeDAO> filteredDataList;
     private Context context;
@@ -51,15 +51,15 @@ public class PetTypeRecyclerAdapter extends RecyclerView.Adapter<PetTypeRecycler
             @Override
             public void onClick(View view) {
                 FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
-                MasterBottomFragment bottomSheet = new MasterBottomFragment();
+                PetTypeSizeBottomFragment bottomSheet = new PetTypeSizeBottomFragment();
                 bottomSheet.show(manager, "bottomSheet");
 
                 id = brg.getId_jenis_hewan();
-                nama = brg.getNama();
+                name = brg.getNama();
 
                 Bundle args = new Bundle();
                 args.putString("id", id);
-                args.putString("name", nama);
+                args.putString("name", name);
                 args.putString("menu", "PetType");
                 bottomSheet.setArguments(args);
             }

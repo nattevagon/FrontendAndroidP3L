@@ -65,14 +65,6 @@ public class PetSizeActivity extends AppCompatActivity {
         });
 
         searchView = findViewById(R.id.searchView);
-
-        petsizeList = new ArrayList<>();
-        recyclerView = findViewById(R.id.petSizeRecyclerView);
-        recyclerAdapter = new PetSizeRecyclerAdapter(PetSizeActivity.this,petsizeList);
-        RecyclerView.LayoutManager LayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(LayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(recyclerAdapter);
         load();
     }
 
@@ -113,6 +105,7 @@ public class PetSizeActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.petSizeRecyclerView);
         recyclerAdapter = new PetSizeRecyclerAdapter(this,petsizeList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PetSizeActivity.this);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerAdapter);
 

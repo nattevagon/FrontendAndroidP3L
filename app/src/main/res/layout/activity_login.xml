@@ -9,12 +9,39 @@
     android:background="@color/grey"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/upper_title">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center_vertical"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="Login"/>
+    </LinearLayout>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cvLogo"
-        android:layout_width="250dp"
-        android:layout_height="160dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="50dp"
         app:cardElevation="6dp"
         app:cardCornerRadius="6dp"
         android:clickable="true"
@@ -29,41 +56,59 @@
     </androidx.cardview.widget.CardView>
 
 
-    <EditText
-        android:id="@+id/etUsername"
-        android:hint="Username"
-        android:inputType="text"
-        android:layout_width="800px"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:background="@drawable/field_text"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_marginTop="80dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="50dp">
 
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="800px"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/field_text"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:inputType="textPassword"
-        android:hint="Password" />
+        <EditText
+            android:id="@+id/etUsername"
+            android:hint="Username"
+            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/field_text"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_marginTop="80dp"/>
 
-    <Button
-        android:id="@+id/btnMasuk"
-        android:layout_marginTop="50dp"
-        android:layout_width="800px"
-        android:layout_height="50dp"
-        android:background="@drawable/button"
-        android:layout_gravity="center"
-        android:text="MASUK"
-        android:textColor="@color/black"
-        android:fontFamily="sans-serif-black"
-        android:textSize="25dp"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:passwordToggleEnabled="true"
+            app:hintEnabled="false">
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@drawable/field_text"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnMasuk"
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/button"
+            android:foreground="@drawable/ripple_button_primary"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_gravity="center"
+            android:text="MASUK"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-black"
+            android:textSize="25dp"/>
+
+    </LinearLayout>
 
 
 </LinearLayout>

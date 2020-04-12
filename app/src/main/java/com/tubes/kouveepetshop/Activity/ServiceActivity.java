@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
@@ -31,7 +32,7 @@ public class ServiceActivity extends AppCompatActivity {
     private ImageButton btnBack;
     private SearchView searchView;
     private FloatingActionButton btnAdd;
-    private ProgressDialog progressDialog;
+    private ShimmerFrameLayout mShimmerViewContainer;
 
     private List<ServiceDAO> serviceList;
     private RecyclerView recyclerView;
@@ -43,8 +44,8 @@ public class ServiceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_service);
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        progressDialog = new ProgressDialog(this);
-        progressDialog.show();
+        mShimmerViewContainer = findViewById(R.id.shimmer_view_container);
+        mShimmerViewContainer.startShimmerAnimation();
 
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -65,14 +66,6 @@ public class ServiceActivity extends AppCompatActivity {
         });
 
         searchView = findViewById(R.id.searchView);
-
-        serviceList = new ArrayList<>();
-        recyclerView = findViewById(R.id.serviceRecyclerView);
-        recyclerAdapter = new ServiceRecyclerAdapter(ServiceActivity.this,serviceList);
-        RecyclerView.LayoutManager LayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(LayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(recyclerAdapter);
         load();
     }
 
@@ -85,7 +78,7 @@ public class ServiceActivity extends AppCompatActivity {
     @Override
     public void onPostResume() {
         super.onPostResume();
-        progressDialog.show();
+        mShimmerViewContainer.startShimmerAnimation();
         load();
     }
 
@@ -97,14 +90,13 @@ public class ServiceActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<ServiceDAO>> call, Response<List<ServiceDAO>> response) {
                 generateDataList(response.body());
-                progressDialog.dismiss();
+                mShimmerViewContainer.stopShimmerAnimation();
+                mShimmerViewContainer.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<List<ServiceDAO>> call, Throwable t) {
                 Toast.makeText(ServiceActivity.this, "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
-
             }
         });
     }
@@ -113,6 +105,7 @@ public class ServiceActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.serviceRecyclerView);
         recyclerAdapter = new ServiceRecyclerAdapter(this,serviceList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ServiceActivity.this);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerAdapter);
 

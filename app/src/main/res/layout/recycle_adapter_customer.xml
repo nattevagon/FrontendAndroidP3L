@@ -25,19 +25,19 @@
 
             <LinearLayout
                 android:layout_margin="5dp"
-                android:layout_width="80dp"
+                android:layout_width="60dp"
                 android:layout_height="match_parent"
-                android:background="@color/redLight">
+                android:background="@color/green">
 
                 <TextView
                     android:id="@+id/twIcon"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="C"
-                    android:gravity="center"
+                    android:textAlignment="center"
                     android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:textSize="60dp"/>
+                    android:textSize="45dp"/>
 
             </LinearLayout>
 
@@ -56,21 +56,14 @@
                     android:textColor="@color/black"/>
 
                 <TextView
-                    android:id="@+id/twTglLahir"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Tanggal Lahir"
-                    android:textColor="@color/black"/>
-
-                <TextView
-                    android:id="@+id/twAlamat"
+                    android:id="@+id/twAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="Alamat"
                     android:textColor="@color/black"/>
 
                 <TextView
-                    android:id="@+id/twNoTelp"
+                    android:id="@+id/twPhoneNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"

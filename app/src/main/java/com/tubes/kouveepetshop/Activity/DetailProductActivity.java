@@ -3,23 +3,25 @@ package com.tubes.kouveepetshop.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.squareup.picasso.Picasso;
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
 import com.tubes.kouveepetshop.Model.ProductDAO;
 import com.tubes.kouveepetshop.R;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,19 +29,23 @@ import retrofit2.Response;
 
 public class DetailProductActivity extends AppCompatActivity {
     private TextView twName, twStock, twMinimal, twUnit, twPrice;
-    private Button btnEdit;
+    private ImageButton btnEdit;
     private ImageView btnBack, btnDelete, imgProduct;
     private String sId, sName, sPrice, sStock, sMinimal, sUnit, sImage, url;
-    private ProgressDialog progressDialog;
+    private ShimmerFrameLayout mShimmerViewContainer;
+
+    private Locale localeID = new Locale("in", "ID");
+    private NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_product);
+        setContentView(R.layout.activity_view_product);
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        progressDialog = new ProgressDialog(this);
-        progressDialog.show();
+
+        mShimmerViewContainer = findViewById(R.id.shimmer_loading);
+        mShimmerViewContainer.startShimmerAnimation();
 
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -125,10 +131,11 @@ public class DetailProductActivity extends AppCompatActivity {
                 twStock.setText(sStock);
                 twMinimal.setText(sMinimal);
                 twUnit.setText(sUnit);
-                twPrice.setText(sPrice);
+                twPrice.setText(formatRupiah.format((double)Double.parseDouble(sPrice)));
                 url = "https://kouvee.modifierisme.com/upload/"+sImage;
                 Picasso.with(DetailProductActivity.this).load(url).resize(300,300).centerCrop().into(imgProduct);
-                progressDialog.dismiss();
+                mShimmerViewContainer.stopShimmerAnimation();
+                mShimmerViewContainer.setVisibility(View.GONE);
             }
 
             @Override
@@ -147,9 +154,7 @@ public class DetailProductActivity extends AppCompatActivity {
                 .setPositiveButton("HAPUS",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-
                                 deleteData();
-
                             }
                         })
                 .setNegativeButton("BATAL", new DialogInterface.OnClickListener() {
@@ -164,7 +169,7 @@ public class DetailProductActivity extends AppCompatActivity {
 
     private void deleteData()
     {
-        progressDialog.show();
+        mShimmerViewContainer.startShimmerAnimation();
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<ProductDAO> delete = apiService.deleteProduct(sId);
 
@@ -172,7 +177,8 @@ public class DetailProductActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ProductDAO> call, Response<ProductDAO> response) {
                 Toast.makeText(DetailProductActivity.this, "Berhasil dihapus", Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
+                mShimmerViewContainer.stopShimmerAnimation();
+                mShimmerViewContainer.setVisibility(View.GONE);
                 onBackPressed();
             }
 

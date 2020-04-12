@@ -14,21 +14,26 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
-import com.tubes.kouveepetshop.Fragment.AddDetailProductTransactionFragment;
+import com.tubes.kouveepetshop.Fragment.AddProductDetailTransactionProductFragment;
 import com.tubes.kouveepetshop.Model.ProductDAO;
 import com.tubes.kouveepetshop.R;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AddDetailTPRecyclerAdapter extends RecyclerView.Adapter<AddDetailTPRecyclerAdapter.RoomViewHolder> implements Filterable {
     private String id, price, url;
     private List<ProductDAO> dataList;
     private List<ProductDAO> filteredDataList;
     private Context context;
-    private AddDetailProductTransactionFragment fragment;
+    private AddProductDetailTransactionProductFragment fragment;
 
-    public AddDetailTPRecyclerAdapter(Context context, List<ProductDAO> dataList, AddDetailProductTransactionFragment fragment) {
+    Locale localeID = new Locale("in", "ID");
+    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+
+    public AddDetailTPRecyclerAdapter(Context context, List<ProductDAO> dataList, AddProductDetailTransactionProductFragment fragment) {
         this.fragment = fragment;
         this.context=context;
         this.dataList = dataList;
@@ -49,7 +54,7 @@ public class AddDetailTPRecyclerAdapter extends RecyclerView.Adapter<AddDetailTP
         holder.mName.setText(brg.getNama());
         holder.mUnit.setText(brg.getSatuan());
         holder.mStock.setText(brg.getStok());
-        holder.mPrice.setText(brg.getHarga());
+        holder.mPrice.setText(formatRupiah.format((double)Double.parseDouble(brg.getHarga())));
 
         url = "https://kouvee.modifierisme.com/upload/"+brg.getGambar();
         Picasso.with(context).load(url).resize(300,300).centerCrop().into(holder.mImage);
@@ -61,14 +66,6 @@ public class AddDetailTPRecyclerAdapter extends RecyclerView.Adapter<AddDetailTP
                 price = brg.getHarga();
 
                 fragment.Add(id, price);
-
-//                Intent i = new Intent(context, DetailTransactionProductActivity.class);
-//                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                context.startActivity(i);
-//
-//                Intent i = new Intent(context, DetailProductActivity.class);
-//                i.putExtra("id",id);
-//                context.startActivity(i);
             }
         });
     }

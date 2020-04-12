@@ -17,18 +17,23 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
-import com.tubes.kouveepetshop.Fragment.ProductBottomFragment;
+import com.tubes.kouveepetshop.Fragment.ProductCustomerBottomFragment;
 import com.tubes.kouveepetshop.Model.ProductDAO;
 import com.tubes.kouveepetshop.R;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ProductCustomerRecyclerAdapter extends RecyclerView.Adapter<ProductCustomerRecyclerAdapter.RoomViewHolder> implements Filterable {
     private String id, url, nama;
     private List<ProductDAO> dataList;
     private List<ProductDAO> filteredDataList;
     private Context context;
+
+    Locale localeID = new Locale("in", "ID");
+    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
     public ProductCustomerRecyclerAdapter(Context context, List<ProductDAO> dataList) {
         this.context = context;
@@ -50,7 +55,7 @@ public class ProductCustomerRecyclerAdapter extends RecyclerView.Adapter<Product
         holder.mName.setText(brg.getNama());
         holder.mUnit.setText(brg.getSatuan());
         holder.mStock.setText(brg.getStok());
-        holder.mPrice.setText(brg.getHarga());
+        holder.mPrice.setText(formatRupiah.format((double)Double.parseDouble(brg.getHarga())));
 
         url = "https://kouvee.modifierisme.com/upload/"+brg.getGambar();
         Picasso.with(context).load(url).resize(300,300).centerCrop().into(holder.mImage);
@@ -59,7 +64,7 @@ public class ProductCustomerRecyclerAdapter extends RecyclerView.Adapter<Product
             @Override
             public void onClick(View view){
                 FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
-                ProductBottomFragment bottomSheet = new ProductBottomFragment();
+                ProductCustomerBottomFragment bottomSheet = new ProductCustomerBottomFragment();
                 bottomSheet.show(manager, "bottomSheet");
 
                 id = brg.getId_produk();

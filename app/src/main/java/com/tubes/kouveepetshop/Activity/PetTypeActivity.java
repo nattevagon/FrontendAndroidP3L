@@ -42,6 +42,7 @@ public class PetTypeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet_type);
 
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         progressDialog = new ProgressDialog(this);
         progressDialog.show();
 
@@ -64,14 +65,6 @@ public class PetTypeActivity extends AppCompatActivity {
         });
 
         searchView = findViewById(R.id.searchView);
-
-        pettypeList = new ArrayList<>();
-        recyclerView = findViewById(R.id.petTypeRecyclerView);
-        recyclerAdapter = new PetTypeRecyclerAdapter(PetTypeActivity.this,pettypeList);
-        RecyclerView.LayoutManager LayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(LayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(recyclerAdapter);
         load();
     }
 
@@ -112,6 +105,7 @@ public class PetTypeActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.petTypeRecyclerView);
         recyclerAdapter = new PetTypeRecyclerAdapter(this,pettypeList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PetTypeActivity.this);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerAdapter);
 

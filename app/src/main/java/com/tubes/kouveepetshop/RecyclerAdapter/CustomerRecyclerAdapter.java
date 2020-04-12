@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerRecyclerAdapter extends RecyclerView.Adapter<CustomerRecyclerAdapter.RoomViewHolder> implements Filterable {
-    private String nama, tglLahir, id, alamat, noTelp;
+    private String id;
     private List<CustomerDAO> dataList;
     private List<CustomerDAO> filteredDataList;
     private Context context;
@@ -44,10 +44,9 @@ public class CustomerRecyclerAdapter extends RecyclerView.Adapter<CustomerRecycl
     public void onBindViewHolder(@NonNull CustomerRecyclerAdapter.RoomViewHolder holder, int position) {
         final CustomerDAO brg = filteredDataList.get(position);
         holder.mIcon.setText(brg.getNama().substring(0, 1));
-        holder.mNama.setText(brg.getNama());
-        holder.mTglLahir.setText(brg.getTgl_lahir());
-        holder.mAlamat.setText(brg.getAlamat());
-        holder.mNoTelp.setText(brg.getNo_telp());
+        holder.mName.setText(brg.getNama());
+        holder.mAddress.setText(brg.getAlamat());
+        holder.mPhoneNumber.setText(brg.getNo_telp());
 
         holder.mParent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,16 +66,15 @@ public class CustomerRecyclerAdapter extends RecyclerView.Adapter<CustomerRecycl
     }
 
     public class RoomViewHolder extends RecyclerView.ViewHolder{
-        private TextView mNama, mTglLahir, mAlamat, mNoTelp, mIcon;
+        private TextView mName, mAddress, mPhoneNumber, mIcon;
         private LinearLayout mParent;
 
         public RoomViewHolder(@NonNull View itemView) {
             super(itemView);
             mIcon = itemView.findViewById(R.id.twIcon);
-            mNama = itemView.findViewById(R.id.twName);
-            mTglLahir = itemView.findViewById(R.id.twTglLahir);
-            mAlamat = itemView.findViewById(R.id.twAlamat);
-            mNoTelp = itemView.findViewById(R.id.twNoTelp);
+            mName = itemView.findViewById(R.id.twName);
+            mAddress = itemView.findViewById(R.id.twAddress);
+            mPhoneNumber = itemView.findViewById(R.id.twPhoneNumber);
             mParent = itemView.findViewById(R.id.linearLayout);
         }
     }

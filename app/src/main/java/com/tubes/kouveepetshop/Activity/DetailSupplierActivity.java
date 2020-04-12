@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,15 +25,14 @@ import retrofit2.Response;
 
 public class DetailSupplierActivity extends AppCompatActivity {
     private TextView twName, twAddress, twPhoneNumber;
-    private Button btnEdit;
-    private ImageView btnBack, btnDelete;
+    private ImageView btnBack, btnDelete, btnEdit;
     private String sId, sName, sAddress, sPhoneNumber;
     private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_supplier);
+        setContentView(R.layout.activity_view_supplier);
 
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -136,9 +134,7 @@ public class DetailSupplierActivity extends AppCompatActivity {
                 .setPositiveButton("HAPUS",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-
                                 deleteData();
-
                             }
                         })
                 .setNegativeButton("BATAL", new DialogInterface.OnClickListener() {

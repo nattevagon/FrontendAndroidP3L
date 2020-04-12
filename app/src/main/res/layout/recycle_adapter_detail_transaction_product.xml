@@ -10,36 +10,70 @@
     app:cardCornerRadius="6dp"
     app:cardElevation="3dp">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:orientation="vertical">
+        android:layout_height="60dp"
+        android:orientation="horizontal">
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/qty"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:background="@color/greyDark">
+
+            <TextView
+                android:id="@+id/twAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:text="10"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_toRightOf="@id/qty"
+            android:layout_toLeftOf="@+id/btnEdit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:padding="10dp">
 
             <TextView
                 android:id="@+id/twProduct"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
                 android:hint="Produk"
-                android:textColor="@color/black"/>
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
 
-            <TextView
-                android:id="@+id/twAmount"
-                android:layout_below="@id/twProduct"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Jumlah"
-                android:textColor="@color/black"/>
+        </LinearLayout>
 
-        </RelativeLayout>
-    </LinearLayout>
+        <ImageButton
+            android:id="@+id/btnEdit"
+            android:layout_toLeftOf="@id/btnDelete"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@drawable/ic_edit" />
+
+        <ImageButton
+            android:id="@+id/btnDelete"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+        android:background="@drawable/ic_delete" />
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

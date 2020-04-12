@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/grey"
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     tools:context=".Activity.ProductActivity">
 
     <LinearLayout
@@ -22,7 +23,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/btnBackProduct"
+                android:id="@+id/btnBack"
                 android:layout_marginLeft="20dp"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
@@ -60,6 +61,28 @@
 
             </LinearLayout>
     </LinearLayout>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical"
+        shimmer:duration="1500">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <include layout="@layout/placeholder_product_activity" />
+            <include layout="@layout/placeholder_product_activity" />
+            <include layout="@layout/placeholder_product_activity" />
+            <include layout="@layout/placeholder_product_activity" />
+            <include layout="@layout/placeholder_product_activity" />
+            <include layout="@layout/placeholder_product_activity" />
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productRecyclerView"

@@ -19,14 +19,19 @@ import com.tubes.kouveepetshop.Activity.DetailProductActivity;
 import com.tubes.kouveepetshop.Model.ProductDAO;
 import com.tubes.kouveepetshop.R;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecyclerAdapter.RoomViewHolder> implements Filterable {
-    private String nama, satuan, id, minimal, stok, harga, gambar, url;
+    private String id, url;
     private List<ProductDAO> dataList;
     private List<ProductDAO> filteredDataList;
     private Context context;
+
+    Locale localeID = new Locale("in", "ID");
+    NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
     public ProductRecyclerAdapter(Context context, List<ProductDAO> dataList) {
         this.context=context;
@@ -48,7 +53,7 @@ public class ProductRecyclerAdapter extends RecyclerView.Adapter<ProductRecycler
         holder.mName.setText(brg.getNama());
         holder.mUnit.setText(brg.getSatuan());
         holder.mStock.setText(brg.getStok());
-        holder.mPrice.setText(brg.getHarga());
+        holder.mPrice.setText(formatRupiah.format((double)Double.parseDouble(brg.getHarga())));
 
         url = "https://kouvee.modifierisme.com/upload/"+brg.getGambar();
         Picasso.with(context).load(url).resize(300,300).centerCrop().into(holder.mImage);

@@ -64,14 +64,6 @@ public class CustomerActivity extends AppCompatActivity {
         });
 
         searchView = findViewById(R.id.searchView);
-
-        customerList = new ArrayList<>();
-        recyclerView = findViewById(R.id.customerRecyclerView);
-        recyclerAdapter = new CustomerRecyclerAdapter(CustomerActivity.this, customerList);
-        RecyclerView.LayoutManager LayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(LayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(recyclerAdapter);
         load();
     }
 
@@ -112,6 +104,7 @@ public class CustomerActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.customerRecyclerView);
         recyclerAdapter = new CustomerRecyclerAdapter(this,customerList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CustomerActivity.this);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerAdapter);
 
