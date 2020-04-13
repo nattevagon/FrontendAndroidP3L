@@ -35,10 +35,10 @@ public interface ApiInterface {
     Call<List<ProductDAO>> getByProduct(@Query("id_produk") String id_produk);
 
     @GET("produk/sortbyprice")
-    Call<List<ProductDAO>> getSortPrice();
+    Call<List<ProductDAO>> getSortPrice(@Query("sort") String sort);
 
     @GET("produk/sortbystock")
-    Call<List<ProductDAO>> getSortStock();
+    Call<List<ProductDAO>> getSortStock(@Query("sort") String sort);
 
     @POST("produk")
     @FormUrlEncoded
@@ -110,7 +110,8 @@ public interface ApiInterface {
     Call<CustomerDAO> addCustomer(@Field("nama") String nama,
                                   @Field("tgl_lahir") String tgl_lahir,
                                   @Field("alamat") String alamat,
-                                  @Field("no_telp") String no_telp);
+                                  @Field("no_telp") String no_telp,
+                                  @Field("created_by") String created_by);
 
     @POST("customer/update")
     @FormUrlEncoded
@@ -118,11 +119,13 @@ public interface ApiInterface {
                                      @Field("nama") String nama,
                                      @Field("tgl_lahir") String tgl_lahir,
                                      @Field("alamat") String alamat,
-                                     @Field("no_telp") String no_telp);
+                                     @Field("no_telp") String no_telp,
+                                     @Field("updated_by") String updated_by);
 
     @POST("customer/delete")
     @FormUrlEncoded
-    Call<CustomerDAO> deleteCustomer(@Field("id_customer") String id_customer);
+    Call<CustomerDAO> deleteCustomer(@Field("id_customer") String id_customer,
+                                     @Field("deleted_by") String deleted_by);
 
     //=============================================//
 
@@ -138,7 +141,8 @@ public interface ApiInterface {
                         @Field("id_jenis_hewan") String id_jenis_hewan,
                         @Field("id_ukuran_hewan") String id_ukuran_hewan,
                         @Field("id_customer") String id_customer,
-                        @Field("tgl_lahir") String tgl_lahir);
+                        @Field("tgl_lahir") String tgl_lahir,
+                        @Field("created_by") String created_by);
 
     @POST("hewan/update")
     @FormUrlEncoded
@@ -147,11 +151,13 @@ public interface ApiInterface {
                            @Field("id_jenis_hewan") String id_jenis_hewan,
                            @Field("id_ukuran_hewan") String id_ukuran_hewan,
                            @Field("id_customer") String id_customer,
-                           @Field("tgl_lahir") String tgl_lahir);
+                           @Field("tgl_lahir") String tgl_lahir,
+                           @Field("updated_by") String updated_by);
 
     @POST("hewan/delete")
     @FormUrlEncoded
-    Call<PetDAO> deletePet(@Field("id_hewan") String id_hewan);
+    Call<PetDAO> deletePet(@Field("id_hewan") String id_hewan,
+                           @Field("deleted_by") String deleted_by);
 
     //=============================================//
 

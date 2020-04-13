@@ -14,9 +14,11 @@ import android.widget.Toast;
 
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
+import com.tubes.kouveepetshop.Java.SessionManager;
 import com.tubes.kouveepetshop.Model.PetDAO;
 import com.tubes.kouveepetshop.R;
 
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -26,8 +28,9 @@ import retrofit2.Response;
 public class ViewPetActivity extends AppCompatActivity {
     private TextView twName, twBirthdate, twPetType, twPetSize, twCustomer;
     private ImageView btnBack, btnDelete, btnEdit;
-    private String sId, sName, sBirthdate, sPetType, sPetSize, sCustomer;
+    private String sId, sName, sBirthdate, sPetType, sPetSize, sCustomer, sEmployee;
     private ProgressDialog progressDialog;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,11 @@ public class ViewPetActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         progressDialog = new ProgressDialog(this);
         progressDialog.show();
+
+        sessionManager = new SessionManager(this);
+        HashMap<String, String> user = sessionManager.getUserDetail();
+        sEmployee = user.get(sessionManager.NAME);
+
 
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +93,6 @@ public class ViewPetActivity extends AppCompatActivity {
     public void onRestart() {
         super.onRestart();
         getData();
-        Toast.makeText(ViewPetActivity.this, "Coba hapus"+sId, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -154,7 +161,7 @@ public class ViewPetActivity extends AppCompatActivity {
     {
         progressDialog.show();
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<PetDAO> delete = apiService.deletePet(sId);
+        Call<PetDAO> delete = apiService.deletePet(sId, sEmployee);
 
         delete.enqueue(new Callback<PetDAO>() {
             @Override

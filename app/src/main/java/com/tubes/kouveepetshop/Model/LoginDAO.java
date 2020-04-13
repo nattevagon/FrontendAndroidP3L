@@ -1,16 +1,23 @@
 package com.tubes.kouveepetshop.Model;
 
 public class LoginDAO {
-    String id_pegawai, nama, username, password, peran, token, status;
+    String status, id_pegawai, nama, username, password, peran, tgl_lahir, alamat,  no_telp, token;
 
-    public LoginDAO(String id_pegawai, String nama, String username, String password, String peran, String token, String status) {
+    public LoginDAO(String status, String id_pegawai, String nama, String username, String password, String peran, String tgl_lahir, String alamat, String no_telp, String token) {
+        this.status = status;
         this.id_pegawai = id_pegawai;
         this.nama = nama;
         this.username = username;
         this.password = password;
         this.peran = peran;
+        this.tgl_lahir = tgl_lahir;
+        this.alamat = alamat;
+        this.no_telp = no_telp;
         this.token = token;
-        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public String getId_pegawai() {
@@ -33,12 +40,24 @@ public class LoginDAO {
         return peran;
     }
 
+    public String getTgl_lahir() {
+        return tgl_lahir;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public String getNo_telp() {
+        return no_telp;
+    }
+
     public String getToken() {
         return token;
     }
 
-    public String getStatus() {
-        return status;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public void setId_pegawai(String id_pegawai) {
@@ -61,11 +80,19 @@ public class LoginDAO {
         this.peran = peran;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setTgl_lahir(String tgl_lahir) {
+        this.tgl_lahir = tgl_lahir;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
+    }
+
+    public void setNo_telp(String no_telp) {
+        this.no_telp = no_telp;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

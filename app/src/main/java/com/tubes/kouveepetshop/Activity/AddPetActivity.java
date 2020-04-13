@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
+import com.tubes.kouveepetshop.Java.SessionManager;
 import com.tubes.kouveepetshop.Model.CustomerDAO;
 import com.tubes.kouveepetshop.Model.PetDAO;
 import com.tubes.kouveepetshop.Model.PetSizeDAO;
@@ -28,6 +29,7 @@ import com.tubes.kouveepetshop.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,12 +39,13 @@ import retrofit2.Response;
 public class AddPetActivity extends AppCompatActivity {
     private EditText etName, etBirthdate;
     private ImageView btnBack;
-    private String sBirthdate;
+    private String sBirthdate, sEmployee;
     private int idPetType, idPetSize, idCustomer;
     private AutoCompleteTextView spPetType, spPetSize, spCustomer;
     private Button btnAdd;
     private DatePickerDialog.OnDateSetListener mOnDateSetListener;
     private ProgressDialog progressDialog;
+    private SessionManager sessionManager;
     List<String> idListPetType = new ArrayList<String>();
     List<String> idListPetSize = new ArrayList<String>();
     List<String> idListCustomer = new ArrayList<String>();
@@ -55,8 +58,12 @@ public class AddPetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_pet);
 
+        sessionManager = new SessionManager(this);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         progressDialog = new ProgressDialog(this);
+
+        HashMap<String, String> user = sessionManager.getUserDetail();
+        sEmployee = user.get(sessionManager.NAME);
 
         etName = findViewById(R.id.etName);
         etBirthdate = findViewById(R.id.etBirthdate);
@@ -117,6 +124,21 @@ public class AddPetActivity extends AppCompatActivity {
                 {
                     etBirthdate.setError("Kosong!");
                     etBirthdate.requestFocus();
+                }
+                else if(!spPetType.getText().toString().equals(nameListPetType.get(idPetType)))
+                {
+                    spPetType.setError("Jenis hewan tidak ada!");
+                    spPetType.requestFocus();
+                }
+                else if(!spPetSize.getText().toString().equals(nameListPetSize.get(idPetSize)))
+                {
+                    spPetSize.setError("Ukuran hewan tidak ada!");
+                    spPetSize.requestFocus();
+                }
+                else if(!spCustomer.getText().toString().equals(nameListCustomer.get(idCustomer)))
+                {
+                    spCustomer.setError("Customer tidak ada!");
+                    spCustomer.requestFocus();
                 }
                 else
                 {
@@ -244,7 +266,7 @@ public class AddPetActivity extends AppCompatActivity {
     private void Add() {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<PetDAO> add = apiService.addPet(etName.getText().toString(), idListPetType.get(idPetType),
-                idListPetSize.get(idPetSize), idListCustomer.get(idCustomer), sBirthdate);
+                idListPetSize.get(idPetSize), idListCustomer.get(idCustomer), sBirthdate, sEmployee);
 
         add.enqueue(new Callback<PetDAO>(){
             @Override

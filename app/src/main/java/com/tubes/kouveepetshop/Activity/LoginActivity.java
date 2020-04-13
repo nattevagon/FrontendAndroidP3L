@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     private ImageButton btnBack;
     private Button btnMasuk;
     private EditText etUsername, etPassword;
-    private String sId, sStatus, sRole;
+    private String sStatus, sId, sName, sBirthdate, sAddress, sRole, sUsername, sPassword, sPhoneNumber;
     private SessionManager sessionManager;
     private ProgressDialog progressDialog;
 
@@ -85,11 +85,18 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(sStatus.equalsIgnoreCase("true")) {
                     sId = response.body().getId_pegawai();
+                    sName = response.body().getNama();
+                    sBirthdate = response.body().getTgl_lahir();
+                    sAddress = response.body().getAlamat();
                     sRole = response.body().getPeran();
+                    sUsername = response.body().getUsername();
+                    sPassword = response.body().getPassword();
+                    sPhoneNumber = response.body().getNo_telp();
+
                     if(sRole.equalsIgnoreCase("Owner"))
                     {
                         progressDialog.dismiss();
-                        sessionManager.createSession(sId, sRole);
+                        sessionManager.createSession(sId, sName, sBirthdate, sAddress, sRole, sUsername, sPassword, sPhoneNumber);
                         Intent i = new Intent(LoginActivity.this, MenuOwnerActivity.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -99,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                     else if(sRole.equalsIgnoreCase("Customer Service"))
                     {
                         progressDialog.dismiss();
-                        sessionManager.createSession(sId, sRole);
+                        sessionManager.createSession(sId, sName, sBirthdate, sAddress, sRole, sUsername, sPassword, sPhoneNumber);
                         Intent i = new Intent(LoginActivity.this, MenuCustomerServiceActivity.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

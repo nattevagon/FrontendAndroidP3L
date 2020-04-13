@@ -21,7 +21,13 @@ public class SessionManager {
     private static final String PREF_NAME = "LOGIN";
     private static final String LOGIN = "IS_LOGIN";
     public static final String ID = "ID";
+    public static final String NAME = "NAME";
+    public static final String BIRTHDATE = "BIRTHDATE";
+    public static final String ADDRESS = "ADDRESS";
     public static final String ROLE = "ROLE";
+    public static final String USERNAME = "USERNAME";
+    public static final String PASSWORD = "PASSWORD";
+    public static final String PHONENUMBER = "PHONENUMBER";
 
     public SessionManager(Context context) {
         this.context = context;
@@ -29,11 +35,17 @@ public class SessionManager {
         editor = sharedPreferences.edit();
     }
 
-    public void createSession(String id, String role){
+    public void createSession(String id, String name, String birthdate, String address, String role, String username, String password, String phonenumber){
 
         editor.putBoolean(LOGIN, true);
         editor.putString(ID, id);
+        editor.putString(NAME, name);
+        editor.putString(BIRTHDATE, birthdate);
+        editor.putString(ADDRESS, address);
         editor.putString(ROLE, role);
+        editor.putString(USERNAME, username);
+        editor.putString(PASSWORD, password);
+        editor.putString(PHONENUMBER, phonenumber);
         editor.commit();
 
     }
@@ -64,8 +76,13 @@ public class SessionManager {
 
         HashMap<String, String> user = new HashMap<>();
         user.put(ID, sharedPreferences.getString(ID, null));
+        user.put(NAME, sharedPreferences.getString(NAME, null));
+        user.put(BIRTHDATE, sharedPreferences.getString(BIRTHDATE, null));
+        user.put(ADDRESS, sharedPreferences.getString(ADDRESS, null));
         user.put(ROLE, sharedPreferences.getString(ROLE, null));
-
+        user.put(USERNAME, sharedPreferences.getString(USERNAME, null));
+        user.put(PASSWORD, sharedPreferences.getString(PASSWORD, null));
+        user.put(PHONENUMBER, sharedPreferences.getString(PHONENUMBER, null));
         return user;
     }
 

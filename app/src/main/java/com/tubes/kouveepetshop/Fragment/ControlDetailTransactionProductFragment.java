@@ -107,7 +107,6 @@ public class ControlDetailTransactionProductFragment extends BottomSheetDialogFr
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "idDetail: "+sIdDetailTP+"ID TP: "+sIdTP+"id produk : "+sIdProduct+"amount : "+amount+"Sub Total : "+subTotal, Toast.LENGTH_SHORT).show();
                 UpdateDetail(sIdDetailTP, sIdTP, sIdProduct, Integer.toString(amount), Integer.toString(subTotal));
             }
         });
@@ -198,7 +197,7 @@ public class ControlDetailTransactionProductFragment extends BottomSheetDialogFr
 
             @Override
             public void onFailure(Call<DetailTransactionProductDAO> call, Throwable t) {
-                Toast.makeText(getContext(), "Fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Gagal", Toast.LENGTH_SHORT).show();
                 dismiss();
                 DetailTransactionProductActivity detailTP = (DetailTransactionProductActivity) getActivity();
                 detailTP.onBack();

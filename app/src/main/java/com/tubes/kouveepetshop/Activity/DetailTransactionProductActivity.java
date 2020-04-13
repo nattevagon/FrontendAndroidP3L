@@ -342,7 +342,7 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
         call.enqueue(new Callback<DetailTransactionProductDAO>() {
             @Override
             public void onResponse(Call<DetailTransactionProductDAO> call, Response<DetailTransactionProductDAO> response) {
-                Toast.makeText(DetailTransactionProductActivity.this, "Sukses"+id, Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailTransactionProductActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
                 onBack();
             }
 

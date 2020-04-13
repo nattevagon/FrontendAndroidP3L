@@ -28,7 +28,7 @@
                     android:id="@+id/twName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20dp"
+                    android:textSize="25dp"
                     android:textStyle="bold"
                     android:hint="Nama"
                     android:textColor="@color/black"/>
@@ -71,7 +71,7 @@
                     android:id="@+id/twCustomer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Pelanggan"
+                    android:hint="Customer"
                     android:textSize="18dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"/>

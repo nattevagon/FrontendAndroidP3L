@@ -43,7 +43,6 @@ public class ProductCustomerBottomFragment extends BottomSheetDialogFragment{
         View v = inflater.inflate(R.layout.fragment_product_bottom_sheet, container, false);
 
         sId = getArguments().getString("id", "");
-        Toast.makeText(getContext(), "ID : "+sId, Toast.LENGTH_SHORT).show();
 
         twName = v.findViewById(R.id.twName);
         twStock = v.findViewById(R.id.twStock);

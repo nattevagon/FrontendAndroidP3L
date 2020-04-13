@@ -184,7 +184,7 @@ public class AddTransactionServiceFragment extends DialogFragment {
         add.enqueue(new Callback<TransactionServiceDAO>() {
             @Override
             public void onResponse(Call<TransactionServiceDAO> call, Response<TransactionServiceDAO> response) {
-                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Sukses menambah transaksi", Toast.LENGTH_SHORT).show();
                 dismiss();
 
                 Intent i = new Intent(getContext(), DetailTransactionServiceActivity.class);
@@ -194,7 +194,7 @@ public class AddTransactionServiceFragment extends DialogFragment {
 
             @Override
             public void onFailure(Call<TransactionServiceDAO> call, Throwable t) {
-                Toast.makeText(getContext(), "Fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Gagal menambah transaksi", Toast.LENGTH_SHORT).show();
                 dismiss();
             }
         });

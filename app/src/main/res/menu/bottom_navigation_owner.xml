@@ -3,11 +3,11 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:title="Beranda" />
     <item
         android:id="@+id/navigation_data_master"
         android:icon="@drawable/ic_data_master"
-        android:title="Data Master" />
+        android:title="Master" />
     <item
         android:id="@+id/navigation_procurement"
         android:icon="@drawable/ic_procurement"

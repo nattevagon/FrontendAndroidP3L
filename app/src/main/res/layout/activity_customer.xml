@@ -39,7 +39,7 @@
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:text="Pelanggan"/>
+                android:text="Customer"/>
         </LinearLayout>
 
         <LinearLayout
@@ -55,7 +55,7 @@
                 android:layout_height="40dp"
                 android:iconifiedByDefault="false"
                 android:layout_marginLeft="10dp"
-                android:queryHint="Cari Pelanggan"
+                android:queryHint="Cari Customer"
                 android:layout_marginRight="10dp">
             </SearchView>
 

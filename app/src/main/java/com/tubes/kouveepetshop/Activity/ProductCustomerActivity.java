@@ -1,23 +1,21 @@
 package com.tubes.kouveepetshop.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.PopupMenu;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
+import com.tubes.kouveepetshop.Fragment.SortProductFragment;
 import com.tubes.kouveepetshop.Model.ProductDAO;
 import com.tubes.kouveepetshop.R;
 import com.tubes.kouveepetshop.RecyclerAdapter.ProductCustomerRecyclerAdapter;
@@ -68,7 +66,9 @@ public class ProductCustomerActivity extends AppCompatActivity {
         btnSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Sort(view);
+                FragmentManager manager = ProductCustomerActivity.this.getSupportFragmentManager();
+                SortProductFragment dialog = new SortProductFragment();
+                dialog.show(manager, "dialog");
             }
         });
     }
@@ -97,9 +97,10 @@ public class ProductCustomerActivity extends AppCompatActivity {
         });
     }
 
-    public void loadByPrice(){
+    public void loadByPrice(String sort){
+        productList.removeAll(productList);
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<List<ProductDAO>> call = apiService.getSortPrice();
+        Call<List<ProductDAO>> call = apiService.getSortPrice(sort);
 
         call.enqueue(new Callback<List<ProductDAO>>() {
             @Override
@@ -115,9 +116,10 @@ public class ProductCustomerActivity extends AppCompatActivity {
         });
     }
 
-    public void loadByStock(){
+    public void loadByStock(String sort){
+        productList.removeAll(productList);
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<List<ProductDAO>> call = apiService.getSortStock();
+        Call<List<ProductDAO>> call = apiService.getSortStock(sort);
 
         call.enqueue(new Callback<List<ProductDAO>>() {
             @Override
@@ -154,32 +156,4 @@ public class ProductCustomerActivity extends AppCompatActivity {
             }
         });
     }
-
-    public void Sort(View v){
-        PopupMenu popup = new PopupMenu(ProductCustomerActivity.this, v);
-        popup.getMenuInflater().inflate(R.menu.product_sort_menu, popup.getMenu());
-        popup.show();
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item2) {
-
-                switch (item2.getItemId()) {
-                    case R.id.sort_by_stock:
-                        productList.removeAll(productList);
-                        loadByStock();
-                        break;
-                    case R.id.sort_by_price:
-                        productList.removeAll(productList);
-                        loadByPrice();
-                        break;
-
-                    default:
-                        break;
-                }
-                return true;
-            }
-        });
-
-    }
-
 }

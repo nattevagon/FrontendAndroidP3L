@@ -20,8 +20,10 @@ import com.tubes.kouveepetshop.Activity.MenuOwnerActivity;
 import com.tubes.kouveepetshop.Java.SessionManager;
 import com.tubes.kouveepetshop.R;
 
+import java.util.HashMap;
+
 public class AccountCustomerServiceFragment extends Fragment {
-  private String sId, sName, sRole, sBirthdate, sAddress, sPhoneNumber, sUsername, sPassword;
+  private String sId, sName, sRole, sBirthdate, sAddress, sPhoneNumber, sUsername;
   private TextView twName, twRole, twBirthdate, twAddress, twPhoneNumber, twUsername;
   private Button btnLogout;
   private CardView cvChangePassword;
@@ -38,7 +40,6 @@ public class AccountCustomerServiceFragment extends Fragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    sessionManager = new SessionManager(getContext());
 
     twName = view.findViewById(R.id.twName);
     twBirthdate = view.findViewById(R.id.twBirthdate);
@@ -46,11 +47,12 @@ public class AccountCustomerServiceFragment extends Fragment {
     btnLogout = view.findViewById(R.id.btnLogout);
     cvChangePassword = view.findViewById(R.id.cvChangePassword);
 
-    sId = MenuCustomerServiceActivity.sId;
-    sName = MenuCustomerServiceActivity.sName;
-    sBirthdate = MenuCustomerServiceActivity.sBirthdate;
-    sRole = MenuCustomerServiceActivity.sRole;
-    sPassword = MenuCustomerServiceActivity.sPassword;
+    sessionManager = new SessionManager(getContext());
+    HashMap<String, String> user = sessionManager.getUserDetail();
+    sId = user.get(sessionManager.ID);
+    sName = user.get(sessionManager.NAME);
+    sBirthdate = user.get(sessionManager.BIRTHDATE);
+    sRole = user.get(sessionManager.ROLE);
 
     twName.setText(sName);
     twBirthdate.setText(sBirthdate);
@@ -65,7 +67,6 @@ public class AccountCustomerServiceFragment extends Fragment {
 
         Bundle args = new Bundle();
         args.putString("id", sId);
-        args.putString("pastpassword", sPassword);
         dialog.setArguments(args);
       }
     });

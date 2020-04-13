@@ -14,9 +14,11 @@ import android.widget.Toast;
 
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
+import com.tubes.kouveepetshop.Java.SessionManager;
 import com.tubes.kouveepetshop.Model.CustomerDAO;
 import com.tubes.kouveepetshop.R;
 
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -26,8 +28,9 @@ import retrofit2.Response;
 public class ViewCustomerActivity extends AppCompatActivity {
     private TextView twName, twBirthdate, twAddress, twPhoneNumber, twInitial;
     private ImageView btnBack, btnDelete, btnEdit;
-    private String sId, sName, sBirthdate, sAddress, sPhoneNumber;
+    private String sId, sName, sBirthdate, sAddress, sPhoneNumber, sEmployee;
     private ProgressDialog progressDialog;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,11 @@ public class ViewCustomerActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         progressDialog = new ProgressDialog(this);
         progressDialog.show();
+
+        sessionManager = new SessionManager(this);
+        HashMap<String, String> user = sessionManager.getUserDetail();
+        sEmployee = user.get(sessionManager.NAME);
+
 
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -72,8 +80,6 @@ public class ViewCustomerActivity extends AppCompatActivity {
             }
         });
 
-        Toast.makeText(ViewCustomerActivity.this, "Coba hapus"+sId, Toast.LENGTH_SHORT).show();
-
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,7 +93,6 @@ public class ViewCustomerActivity extends AppCompatActivity {
     public void onRestart() {
         super.onRestart();
         getData();
-        Toast.makeText(ViewCustomerActivity.this, "Coba hapus"+sId, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -155,7 +160,7 @@ public class ViewCustomerActivity extends AppCompatActivity {
     {
         progressDialog.show();
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<CustomerDAO> delete = apiService.deleteCustomer(sId);
+        Call<CustomerDAO> delete = apiService.deleteCustomer(sId, sEmployee);
 
         delete.enqueue(new Callback<CustomerDAO>() {
             @Override

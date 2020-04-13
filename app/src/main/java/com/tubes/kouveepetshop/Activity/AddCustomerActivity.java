@@ -16,10 +16,12 @@ import android.widget.Toast;
 
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
+import com.tubes.kouveepetshop.Java.SessionManager;
 import com.tubes.kouveepetshop.Model.CustomerDAO;
 import com.tubes.kouveepetshop.R;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,9 +31,10 @@ public class AddCustomerActivity extends AppCompatActivity {
     private ImageButton btnBack;
     private EditText etName, etBirthdate, etAddress, etPhoneNumber;
     private Button btnAdd;
-    private String sBirthdate;
+    private String sBirthdate, sEmployee;
     private DatePickerDialog.OnDateSetListener mOnDateSetListener;
     private ProgressDialog progressDialog;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,10 @@ public class AddCustomerActivity extends AppCompatActivity {
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         progressDialog = new ProgressDialog(this);
+
+        sessionManager = new SessionManager(this);
+        HashMap<String, String> user = sessionManager.getUserDetail();
+        sEmployee = user.get(sessionManager.NAME);
 
         etName = findViewById(R.id.etName);
         etBirthdate = findViewById(R.id.etBirthdate);
@@ -124,7 +131,7 @@ public class AddCustomerActivity extends AppCompatActivity {
     private void Add() {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<CustomerDAO> add = apiService.addCustomer(etName.getText().toString(),sBirthdate
-                ,etAddress.getText().toString(),etPhoneNumber.getText().toString());
+                ,etAddress.getText().toString(),etPhoneNumber.getText().toString(), sEmployee);
 
         add.enqueue(new Callback<CustomerDAO>(){
             @Override

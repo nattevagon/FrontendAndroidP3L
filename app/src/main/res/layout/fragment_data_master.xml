@@ -188,7 +188,7 @@
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="30dp"
-                android:text="Pelanggan"/>
+                android:text="Customer"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -196,7 +196,7 @@
                 android:layout_marginLeft="40dp"
                 android:textColor="@color/white"
                 android:textSize="15dp"
-                android:text="Mengelola data pelanggan"/>
+                android:text="Mengelola data customer"/>
 
           </LinearLayout>
         </LinearLayout>

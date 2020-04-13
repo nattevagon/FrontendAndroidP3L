@@ -17,6 +17,8 @@ import androidx.fragment.app.DialogFragment;
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
 import com.tubes.kouveepetshop.Activity.EditSupplierActivity;
+import com.tubes.kouveepetshop.Activity.ViewCustomerActivity;
+import com.tubes.kouveepetshop.Model.EmployeeDAO;
 import com.tubes.kouveepetshop.Model.EmployeeDAO;
 import com.tubes.kouveepetshop.Model.EmployeeDAO;
 import com.tubes.kouveepetshop.Model.TransactionServiceDAO;
@@ -47,6 +49,7 @@ public class ChangePasswordFragment extends DialogFragment {
         View v = inflater.inflate(R.layout.fragment_change_password, container, false);
 
         progressDialog = new ProgressDialog(getContext());
+        progressDialog.show();
 
         btnClose = v.findViewById(R.id.btnClose);
         etPastPassword = v.findViewById(R.id.etPastPassword);
@@ -55,7 +58,7 @@ public class ChangePasswordFragment extends DialogFragment {
         btnSave = v.findViewById(R.id.btnSave);
 
         sId = getArguments().getString("id", "");
-        sPastPassword = getArguments().getString("pastpassword", "");
+        getData(sId);
 
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +108,29 @@ public class ChangePasswordFragment extends DialogFragment {
         });
 
         return v;
+    }
+
+    private void getData(String id)
+    {
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<List<EmployeeDAO>> get = apiService.getByIDEmployee(id);
+
+        get.enqueue(new Callback<List<EmployeeDAO>>() {
+            @Override
+            public void onResponse(Call<List<EmployeeDAO>> call, Response<List<EmployeeDAO>> response) {
+
+                for(int i=0;i<response.body().size();i++)
+                {
+                    sPastPassword = response.body().get(i).getPassword();
+                }
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<List<EmployeeDAO>> call, Throwable t) {
+                Toast.makeText(getContext(), "Koneksi hilang", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void Update() {

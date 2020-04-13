@@ -67,6 +67,11 @@ public class AddServiceActivity extends AppCompatActivity {
                     etName.setError("Kosong!");
                     etName.requestFocus();
                 }
+                else if(!spPetSize.getText().toString().equals(nameListPetSize.get(idPetSize)))
+                {
+                    spPetSize.setError("Ukuran hewan tidak ada!");
+                    spPetSize.requestFocus();
+                }
                 else if(etPrice.getText().toString().equalsIgnoreCase(""))
                 {
                     etPrice.setError("Kosong!");

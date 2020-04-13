@@ -22,6 +22,7 @@ import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
 import com.tubes.kouveepetshop.Activity.DetailTransactionProductActivity;
 import com.tubes.kouveepetshop.Activity.MenuCustomerServiceActivity;
+import com.tubes.kouveepetshop.Java.SessionManager;
 import com.tubes.kouveepetshop.Model.PetDAO;
 import com.tubes.kouveepetshop.Model.TransactionProductDAO;
 import com.tubes.kouveepetshop.R;
@@ -30,6 +31,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -45,6 +47,7 @@ public class EditTransactionProductFragment extends DialogFragment {
     private boolean statusGuest;
     private String sId, sCustomerService, sCode, sDate, sYear, sMonth, sDay, sCodeTP, sIdPet, sPet;
     private int idPet, tpLength = 0;
+    private SessionManager sessionManager;
     List<String> idListPet = new ArrayList<String>();
     List<String> nameListPet = new ArrayList<String>();
 
@@ -68,7 +71,8 @@ public class EditTransactionProductFragment extends DialogFragment {
 
         sId = getArguments().getString("id", "");
         sPet = getArguments().getString("pet", "");
-        sCustomerService = MenuCustomerServiceActivity.sId;
+        HashMap<String, String> user = sessionManager.getUserDetail();
+        sCustomerService = user.get(sessionManager.NAME);
 
         imgClose.setOnClickListener(new View.OnClickListener() {
             @Override

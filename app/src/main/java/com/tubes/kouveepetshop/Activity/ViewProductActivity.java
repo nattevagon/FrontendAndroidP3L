@@ -84,8 +84,6 @@ public class ViewProductActivity extends AppCompatActivity {
             }
         });
 
-        Toast.makeText(ViewProductActivity.this, "Coba hapus"+sId, Toast.LENGTH_SHORT).show();
-
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

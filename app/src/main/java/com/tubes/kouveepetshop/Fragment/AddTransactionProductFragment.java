@@ -21,6 +21,7 @@ import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
 import com.tubes.kouveepetshop.Activity.DetailTransactionProductActivity;
 import com.tubes.kouveepetshop.Activity.MenuCustomerServiceActivity;
+import com.tubes.kouveepetshop.Java.SessionManager;
 import com.tubes.kouveepetshop.Model.PetDAO;
 import com.tubes.kouveepetshop.Model.TransactionProductDAO;
 import com.tubes.kouveepetshop.R;
@@ -29,6 +30,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -44,6 +46,7 @@ public class AddTransactionProductFragment extends DialogFragment {
     private boolean statusGuest;
     private String sIdCS, sCustomerService, sCode, sDate, sYear, sMonth, sDay, sCodeTP, sIdPet;
     private int idPet, tpLength = 0;
+    private SessionManager sessionManager;
     List<String> idListPet = new ArrayList<String>();
     List<String> nameListPet = new ArrayList<String>();
 
@@ -65,8 +68,10 @@ public class AddTransactionProductFragment extends DialogFragment {
         cbGuest = v.findViewById(R.id.cbGuest);
         btnClose = v.findViewById(R.id.btnClose);
 
-        sIdCS = MenuCustomerServiceActivity.sId;
-        sCustomerService = MenuCustomerServiceActivity.sName;
+        sessionManager = new SessionManager(getContext());
+        HashMap<String, String> user = sessionManager.getUserDetail();
+        sIdCS = user.get(sessionManager.ID);
+        sCustomerService = user.get(sessionManager.NAME);
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
@@ -114,7 +119,6 @@ public class AddTransactionProductFragment extends DialogFragment {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Name List"+nameListPet.get(idPet), Toast.LENGTH_SHORT).show();
                 if(statusGuest == false)
                 {
                     if(spPet.getText().toString().equals(nameListPet.get(idPet)))
@@ -202,7 +206,7 @@ public class AddTransactionProductFragment extends DialogFragment {
         add.enqueue(new Callback<TransactionProductDAO>() {
             @Override
             public void onResponse(Call<TransactionProductDAO> call, Response<TransactionProductDAO> response) {
-                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Sukses menambah transaksi", Toast.LENGTH_SHORT).show();
                 dismiss();
 
                 Intent i = new Intent(getContext(), DetailTransactionProductActivity.class);
@@ -212,7 +216,7 @@ public class AddTransactionProductFragment extends DialogFragment {
 
             @Override
             public void onFailure(Call<TransactionProductDAO> call, Throwable t) {
-                Toast.makeText(getContext(), "Fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Gagal menambah transaksi", Toast.LENGTH_SHORT).show();
                 dismiss();
             }
         });

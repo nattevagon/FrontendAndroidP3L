@@ -174,7 +174,7 @@ public class AddProductActivity extends AppCompatActivity {
         add.enqueue(new Callback<ProductDAO>(){
             @Override
             public void onResponse(Call<ProductDAO> call, Response<ProductDAO> response) {
-                Toast.makeText(AddProductActivity.this, "Success menambah data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddProductActivity.this, "Sukses menambah data", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
                 onBackPressed();            }
 

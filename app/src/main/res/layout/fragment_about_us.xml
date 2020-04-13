@@ -7,7 +7,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/upper_sheet">
 
         <TextView
             android:layout_width="wrap_content"
@@ -87,7 +88,7 @@
                         android:backgroundTint="@color/black"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black"
-                        android:textSize="15dp"
+                        android:textSize="20dp"
                         android:textAlignment="center"
                         android:text="Kouvee Pet Shop adalah salah satu petshop terbesar dan terpercaya di D.I Yogyakarta. Siap melayani anda dengan berbagai penawaran produk dan berbagai macam layanan perawatan hewan peliharaan kesayangan anda"/>
 
@@ -132,7 +133,7 @@
                         android:backgroundTint="@color/black"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black"
-                        android:textSize="15dp"
+                        android:textSize="20dp"
                         android:text="Jalan Moses Gatotkaca No.22 Yogyakarta 55281"/>
 
                 </LinearLayout>
@@ -176,7 +177,7 @@
                         android:backgroundTint="@color/black"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black"
-                        android:textSize="15dp"
+                        android:textSize="20dp"
                         android:text="(0274) 357735"/>
 
                 </LinearLayout>
@@ -220,7 +221,7 @@
                         android:backgroundTint="@color/black"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black"
-                        android:textSize="15dp"
+                        android:textSize="20dp"
                         android:text="http://www.sayanghewan.com"/>
 
                 </LinearLayout>

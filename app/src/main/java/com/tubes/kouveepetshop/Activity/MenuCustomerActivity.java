@@ -25,6 +25,9 @@ public class MenuCustomerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_customer);
+
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
         sessionManager = new SessionManager(this);
 
         bottomNavigation = findViewById(R.id.bottom_navigation);

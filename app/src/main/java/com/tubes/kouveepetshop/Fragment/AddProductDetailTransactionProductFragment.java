@@ -151,7 +151,6 @@ public class AddProductDetailTransactionProductFragment extends DialogFragment {
     call.enqueue(new Callback<List<DetailTransactionProductDAO>>() {
       @Override
       public void onResponse(Call<List<DetailTransactionProductDAO>> call, Response<List<DetailTransactionProductDAO>> response) {
-        Toast.makeText(getContext(), "Udah ada : "+response.body().size(), Toast.LENGTH_SHORT).show();
         for(int i=0;i<response.body().size();i++)
         {
           sIdDTP = response.body().get(i).getId_detail_tp();
