@@ -182,9 +182,16 @@ public class EditProductActivity extends AppCompatActivity {
         call.enqueue(new Callback<FileProductDAO>() {
             @Override
             public void onResponse(Call<FileProductDAO> call, Response<FileProductDAO> response) {
-                String filename = response.body().getFileName();
-                Toast.makeText(EditProductActivity.this, "Sukses mengunggah gambar", Toast.LENGTH_SHORT).show();
-                Edit(filename);
+                if(response.body().getStatus().equalsIgnoreCase("false"))
+                {
+                    Toast.makeText(EditProductActivity.this, "Gagal mengunggah gambar, gambar tidak mendukung atau terlalu besar", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }
+                else {
+                    String filename = response.body().getFileName();
+                    Toast.makeText(EditProductActivity.this, "Sukses mengunggah gambar", Toast.LENGTH_SHORT).show();
+                    Edit(filename);
+                }
             }
 
             @Override

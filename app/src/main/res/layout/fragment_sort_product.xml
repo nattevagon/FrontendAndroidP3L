@@ -73,7 +73,7 @@
                     android:layout_marginVertical="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_gravity="center"
-                    android:text="Stok (Termurah ke Termahal)"
+                    android:text="Stok (Tersedikit ke Terbanyak)"
                     android:textSize="18dp"
                     android:textColor="@color/black"/>
 
@@ -102,7 +102,7 @@
                     android:layout_marginVertical="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_gravity="center"
-                    android:text="Stok (Termahal ke Termurah)"
+                    android:text="Stok (Terbanyak ke Tersedikit)"
                     android:textSize="18dp"
                     android:textColor="@color/black"/>
 

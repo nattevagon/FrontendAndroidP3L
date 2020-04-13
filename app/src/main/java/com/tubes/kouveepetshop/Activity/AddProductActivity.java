@@ -155,8 +155,16 @@ public class AddProductActivity extends AppCompatActivity {
         call.enqueue(new Callback<FileProductDAO>() {
             @Override
             public void onResponse(Call<FileProductDAO> call, Response<FileProductDAO> response) {
-                String filename = response.body().getFileName();
-                Add(filename);
+                if(response.body().getStatus().equalsIgnoreCase("false"))
+                {
+                    Toast.makeText(AddProductActivity.this, "Gagal mengunggah gambar, gambar tidak mendukung atau terlalu besar", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }
+                else
+                {
+                    String filename = response.body().getFileName();
+                    Add(filename);
+                }
             }
 
             @Override
