@@ -13,6 +13,7 @@ public class ProductDAO {
         this.gambar = gambar;
     }
 
+
     public String getId_produk() {
         return id_produk;
     }

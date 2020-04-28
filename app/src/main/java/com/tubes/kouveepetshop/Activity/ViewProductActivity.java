@@ -174,7 +174,7 @@ public class ViewProductActivity extends AppCompatActivity {
         delete.enqueue(new Callback<ProductDAO>() {
             @Override
             public void onResponse(Call<ProductDAO> call, Response<ProductDAO> response) {
-                Toast.makeText(ViewProductActivity.this, "Berhasil dihapus", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewProductActivity.this, "Sukses menghapus data", Toast.LENGTH_SHORT).show();
                 mShimmerViewContainer.stopShimmerAnimation();
                 mShimmerViewContainer.setVisibility(View.GONE);
                 onBackPressed();
@@ -182,7 +182,7 @@ public class ViewProductActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ProductDAO> call, Throwable t) {
-                Toast.makeText(ViewProductActivity.this, "Koneksi hilang", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewProductActivity.this, "Gagal menghapus data", Toast.LENGTH_SHORT).show();
             }
         });
     }

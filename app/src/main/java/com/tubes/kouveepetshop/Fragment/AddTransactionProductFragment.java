@@ -1,5 +1,6 @@
 package com.tubes.kouveepetshop.Fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -50,6 +51,8 @@ public class AddTransactionProductFragment extends DialogFragment {
     List<String> idListPet = new ArrayList<String>();
     List<String> nameListPet = new ArrayList<String>();
 
+    private ProgressDialog progressDialog;
+
     @Override
     public void onStart() {
         super.onStart();
@@ -61,6 +64,10 @@ public class AddTransactionProductFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_add_transaction_product, container, false);
 
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.show();
+
+        twCode = v.findViewById(R.id.twCode);
         twCustomerService = v.findViewById(R.id.twCS);
         twDate = v.findViewById(R.id.twDate);
         spPet = v.findViewById(R.id.spPet);
@@ -180,11 +187,17 @@ public class AddTransactionProductFragment extends DialogFragment {
             @Override
             public void onResponse(Call<List<TransactionProductDAO>> call, Response<List<TransactionProductDAO>> response) {
                 tpLength = response.body().size();
+
+                sCodeTP = sCode+"-"+String.format("%02d", tpLength+1);
+                twCode.setText(sCodeTP);
+                progressDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<List<TransactionProductDAO>> call, Throwable t) {
-                Toast.makeText(getContext(), "Tidak ditemukan atau jaringan tidak ada", Toast.LENGTH_SHORT).show();
+                sCodeTP = sCode+"-"+String.format("%02d", 1);
+                twCode.setText(sCodeTP);
+                progressDialog.dismiss();
             }
         });
     }
@@ -198,15 +211,13 @@ public class AddTransactionProductFragment extends DialogFragment {
             sIdPet = "0";
         }
 
-        sCodeTP = sCode+"-"+String.format("%02d", tpLength+1);
-
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<TransactionProductDAO> add = apiService.addTransactionProduct(sIdPet, sIdCS, sCodeTP, sDate, "0", "0", "Penjualan", sCustomerService);
 
         add.enqueue(new Callback<TransactionProductDAO>() {
             @Override
             public void onResponse(Call<TransactionProductDAO> call, Response<TransactionProductDAO> response) {
-                Toast.makeText(getContext(), "Sukses menambah transaksi", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Sukses menambah transaksi produk", Toast.LENGTH_SHORT).show();
                 dismiss();
 
                 Intent i = new Intent(getContext(), DetailTransactionProductActivity.class);
@@ -216,7 +227,7 @@ public class AddTransactionProductFragment extends DialogFragment {
 
             @Override
             public void onFailure(Call<TransactionProductDAO> call, Throwable t) {
-                Toast.makeText(getContext(), "Gagal menambah transaksi", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Gagal menambah transaksi produk", Toast.LENGTH_SHORT).show();
                 dismiss();
             }
         });

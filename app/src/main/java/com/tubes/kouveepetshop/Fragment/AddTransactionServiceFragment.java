@@ -1,5 +1,6 @@
 package com.tubes.kouveepetshop.Fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import androidx.fragment.app.DialogFragment;
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
 import com.tubes.kouveepetshop.Activity.DetailTransactionServiceActivity;
+import com.tubes.kouveepetshop.Java.SessionManager;
 import com.tubes.kouveepetshop.Model.PetDAO;
 import com.tubes.kouveepetshop.Model.TransactionServiceDAO;
 import com.tubes.kouveepetshop.R;
@@ -29,6 +31,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -42,10 +45,13 @@ public class AddTransactionServiceFragment extends DialogFragment {
     private AutoCompleteTextView spPet;
     private ImageView imgClose;
     private boolean statusGuest;
-    private String sCustomerService, sCode, sDate, sYear, sMonth, sDay, sCodeTP, sIdPet;
+    private String sIdCS, sCustomerService, sCode, sDate, sYear, sMonth, sDay, sCodeTS, sIdPet;
     private int idPet, tpLength = 0;
+    private SessionManager sessionManager;
     List<String> idListPet = new ArrayList<String>();
     List<String> nameListPet = new ArrayList<String>();
+
+    private ProgressDialog progressDialog;
 
     @Override
     public void onStart() {
@@ -58,6 +64,10 @@ public class AddTransactionServiceFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_add_transaction_service, container, false);
 
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.show();
+
+        twCode = v.findViewById(R.id.twCode);
         twCustomerService = v.findViewById(R.id.twCS);
         twDate = v.findViewById(R.id.twDate);
         spPet = v.findViewById(R.id.spPet);
@@ -65,7 +75,10 @@ public class AddTransactionServiceFragment extends DialogFragment {
         cbGuest = v.findViewById(R.id.cbGuest);
         imgClose = v.findViewById(R.id.imgClose);
 
-        sCustomerService = "Ruben";
+        sessionManager = new SessionManager(getContext());
+        HashMap<String, String> user = sessionManager.getUserDetail();
+        sIdCS = user.get(sessionManager.ID);
+        sCustomerService = user.get(sessionManager.NAME);
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
@@ -73,11 +86,13 @@ public class AddTransactionServiceFragment extends DialogFragment {
         System.out.println(sDate);
 
         twDate.setText(dateFormat.format(date));
+        twCustomerService.setText(sCustomerService);
+
         sYear = sDate.substring(2, 4);
         sMonth = sDate.substring(5, 7);
         sDay = sDate.substring(8, 10);
 
-        sCode = "PR-"+sYear+sMonth+sDay;
+        sCode = "LY-"+sYear+sMonth+sDay;
         getCode(sCode);
 
         imgClose.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +126,21 @@ public class AddTransactionServiceFragment extends DialogFragment {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Add();
+                if(statusGuest == false)
+                {
+                    if(spPet.getText().toString().equals(nameListPet.get(idPet)))
+                    {
+                        Add();
+                    }
+                    else
+                    {
+                        spPet.setError("Hewan tidak ada!");
+                    }
+                }
+                else
+                {
+                    Add();
+                }
             }
         });
 
@@ -158,11 +187,17 @@ public class AddTransactionServiceFragment extends DialogFragment {
             @Override
             public void onResponse(Call<List<TransactionServiceDAO>> call, Response<List<TransactionServiceDAO>> response) {
                 tpLength = response.body().size();
+
+                sCodeTS = sCode+"-"+String.format("%02d", tpLength+1);
+                twCode.setText(sCodeTS);
+                progressDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<List<TransactionServiceDAO>> call, Throwable t) {
-                Toast.makeText(getContext(), "Tidak ditemukan atau jaringan tidak ada", Toast.LENGTH_SHORT).show();
+                sCodeTS = sCode+"-"+String.format("%02d", 1);
+                twCode.setText(sCodeTS);
+                progressDialog.dismiss();
             }
         });
     }
@@ -176,10 +211,8 @@ public class AddTransactionServiceFragment extends DialogFragment {
             sIdPet = "0";
         }
 
-        sCodeTP = sCode+"-"+String.format("%02d", tpLength+1);
-
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<TransactionServiceDAO> add = apiService.addTransactionService(sIdPet, "1", sCodeTP, sDate, "0", "0", "Penjualan", sCustomerService);
+        Call<TransactionServiceDAO> add = apiService.addTransactionService(sIdPet, sIdCS, sCodeTS, sDate, "0", "0", "Penjualan", sCustomerService);
 
         add.enqueue(new Callback<TransactionServiceDAO>() {
             @Override
@@ -188,7 +221,7 @@ public class AddTransactionServiceFragment extends DialogFragment {
                 dismiss();
 
                 Intent i = new Intent(getContext(), DetailTransactionServiceActivity.class);
-                i.putExtra("kode",sCodeTP);
+                i.putExtra("kode",sCodeTS);
                 getContext().startActivity(i);
             }
 

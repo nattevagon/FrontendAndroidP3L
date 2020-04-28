@@ -186,7 +186,7 @@ public class PetTypeSizeBottomFragment extends BottomSheetDialogFragment{
                                 delete.enqueue(new Callback<PetTypeDAO>() {
                                     @Override
                                     public void onResponse(Call<PetTypeDAO> call, Response<PetTypeDAO> response) {
-                                        Toast.makeText(getContext(), "Berhasil dihapus", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Sukses menghapus data", Toast.LENGTH_SHORT).show();
                                         dismiss();
                                         PetTypeActivity petTypeActivity = (PetTypeActivity) getActivity();
                                         petTypeActivity.onPostResume();
@@ -194,7 +194,7 @@ public class PetTypeSizeBottomFragment extends BottomSheetDialogFragment{
 
                                     @Override
                                     public void onFailure(Call<PetTypeDAO> call, Throwable t) {
-                                        Toast.makeText(getContext(), "Koneksi hilang", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Gagal menghapus data", Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
@@ -223,7 +223,7 @@ public class PetTypeSizeBottomFragment extends BottomSheetDialogFragment{
                                 delete.enqueue(new Callback<PetSizeDAO>() {
                                     @Override
                                     public void onResponse(Call<PetSizeDAO> call, Response<PetSizeDAO> response) {
-                                        Toast.makeText(getContext(), "Berhasil dihapus", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Sukses menghapus data", Toast.LENGTH_SHORT).show();
                                         dismiss();
                                         PetSizeActivity petSizeActivity = (PetSizeActivity) getActivity();
                                         petSizeActivity.onPostResume();
@@ -231,7 +231,7 @@ public class PetTypeSizeBottomFragment extends BottomSheetDialogFragment{
 
                                     @Override
                                     public void onFailure(Call<PetSizeDAO> call, Throwable t) {
-                                        Toast.makeText(getContext(), "Koneksi hilang", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Gagal menghapus data", Toast.LENGTH_SHORT).show();
                                     }
                                 });
 

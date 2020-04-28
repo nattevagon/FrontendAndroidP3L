@@ -165,14 +165,15 @@ public class ViewCustomerActivity extends AppCompatActivity {
         delete.enqueue(new Callback<CustomerDAO>() {
             @Override
             public void onResponse(Call<CustomerDAO> call, Response<CustomerDAO> response) {
-                Toast.makeText(ViewCustomerActivity.this, "Berhasil dihapus", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewCustomerActivity.this, "Sukses menghapus data", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
                 onBackPressed();
             }
 
             @Override
             public void onFailure(Call<CustomerDAO> call, Throwable t) {
-                Toast.makeText(ViewCustomerActivity.this, "Koneksi hilang", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewCustomerActivity.this, "Gagal menghapus data", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             }
         });
     }

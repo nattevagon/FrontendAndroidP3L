@@ -61,6 +61,7 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         progressDialog = new ProgressDialog(this);
+        progressDialog.show();
 
         twCode = findViewById(R.id.twCode);
         twDate = findViewById(R.id.twDate);
@@ -171,7 +172,7 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
                 twCS.setText(sCustomerService);
                 twPet.setText(sPet);
 
-                loadProduct();
+                loadProduct(sId);
             }
 
             @Override
@@ -182,9 +183,9 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
         });
     }
 
-    private void loadProduct(){
+    private void loadProduct(String id){
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<List<DetailTransactionProductDAO>> call = apiService.getByIDTPDetailTP(sId);
+        Call<List<DetailTransactionProductDAO>> call = apiService.getByIDTPDetailTP(id);
 
         call.enqueue(new Callback<List<DetailTransactionProductDAO>>() {
             @Override
@@ -316,16 +317,16 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
-        builder.setMessage("Batalkan transaksi ?")
+        builder.setMessage("Hapus produk ?")
                 .setCancelable(false)
-                .setPositiveButton("YA",
+                .setPositiveButton("HAPUS",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 progressDialog.show();
                                 DeleteDetail(idDetail);
                             }
                         })
-                .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
+                .setNegativeButton("BATAL", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                     }
@@ -342,13 +343,11 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
         call.enqueue(new Callback<DetailTransactionProductDAO>() {
             @Override
             public void onResponse(Call<DetailTransactionProductDAO> call, Response<DetailTransactionProductDAO> response) {
-                Toast.makeText(DetailTransactionProductActivity.this, "Sukses", Toast.LENGTH_SHORT).show();
                 onBack();
             }
 
             @Override
             public void onFailure(Call<DetailTransactionProductDAO> call, Throwable t) {
-                Toast.makeText(DetailTransactionProductActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             }
         });

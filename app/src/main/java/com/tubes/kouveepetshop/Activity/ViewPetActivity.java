@@ -166,14 +166,14 @@ public class ViewPetActivity extends AppCompatActivity {
         delete.enqueue(new Callback<PetDAO>() {
             @Override
             public void onResponse(Call<PetDAO> call, Response<PetDAO> response) {
-                Toast.makeText(ViewPetActivity.this, "Berhasil dihapus", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewPetActivity.this, "Sukses menghapus data", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
                 onBackPressed();
             }
 
             @Override
             public void onFailure(Call<PetDAO> call, Throwable t) {
-                Toast.makeText(ViewPetActivity.this, "Koneksi hilang", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewPetActivity.this, "Gagal memghapus data", Toast.LENGTH_SHORT).show();
             }
         });
     }

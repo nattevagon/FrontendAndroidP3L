@@ -20,7 +20,7 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="20dp"
-            android:text="Selamat Datang di Kouve Pet Shop"
+            android:text="Selamat Datang di Kouvee Pet Shop"
             android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold" />

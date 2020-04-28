@@ -2,6 +2,7 @@ package com.tubes.kouveepetshop.API;
 
 import com.tubes.kouveepetshop.Model.CustomerDAO;
 import com.tubes.kouveepetshop.Model.DetailTransactionProductDAO;
+import com.tubes.kouveepetshop.Model.DetailTransactionServiceDAO;
 import com.tubes.kouveepetshop.Model.EmployeeDAO;
 import com.tubes.kouveepetshop.Model.FileProductDAO;
 import com.tubes.kouveepetshop.Model.LoginDAO;
@@ -79,6 +80,13 @@ public interface ApiInterface {
 
     @GET("layanan")
     Call<List<ServiceDAO>> getByService(@Query("id_layanan") String id_layanan);
+
+    @GET("layanan/detail")
+    Call<List<ServiceDAO>> getByIdTS(@Query("id_tl") String id_tl);
+
+    @GET("layanan/detail")
+    Call<List<ServiceDAO>> getByIdPetSize(@Query("id_tl") String id_tl,
+                                          @Query("id_ukuran_hewan") String id_ukuran_hewan);
 
     @POST("layanan")
     @FormUrlEncoded
@@ -358,13 +366,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     Call<TransactionServiceDAO> updateTransactionService(@Field("id_tl") String id_tl,
                                                          @Field("id_hewan") String id_hewan,
-                                                         @Field("id_pegawai_cs") String id_pegawai,
-                                                         @Field("kode") String kode,
-                                                         @Field("tanggal") String tanggal,
-                                                         @Field("sub_total") String sub_total,
-                                                         @Field("total_harga") String total_harga,
-                                                         @Field("status") String status,
-                                                         @Field("created_by") String created_by);
+                                                         @Field("updated_by") String updated_by);
     @POST("transaksilayanan/updatesubtotal")
     @FormUrlEncoded
     Call<TransactionServiceDAO> updateSubTotalTransactionService(@Field("id_tl") String id_tl,
@@ -377,6 +379,41 @@ public interface ApiInterface {
     @POST("transaksilayanan/confirm")
     @FormUrlEncoded
     Call<TransactionServiceDAO> confirmTransactionService(@Field("id_tl") String id_tl);
+
+    //==================================================//
+    //=============Detail Transaksi=============//
+
+    @GET("detailtransaksilayanan")
+    Call<List<DetailTransactionServiceDAO>> getAllDetailTS();
+
+    @GET("detailtransaksilayanan")
+    Call<List<DetailTransactionServiceDAO>> getByIDDetailTS(@Query("id_detail_tl") String id_detail_tl);
+
+    @GET("detailtransaksilayanan")
+    Call<List<DetailTransactionServiceDAO>> getByIDTSDetailTS(@Query("id_tl") String id_tl);
+
+    @GET("detailtransaksilayanan")
+    Call<List<DetailTransactionServiceDAO>> getBylayananDTS(@Query("id_tl") String id_tl,
+                                                            @Query("id_layanan") String id_layanan);
+
+    @POST("detailtransaksilayanan")
+    @FormUrlEncoded
+    Call<DetailTransactionServiceDAO> addDetailTS(@Field("id_tl") String id_tl,
+                                                  @Field("id_layanan") String id_layanan,
+                                                  @Field("jumlah") String jumlah,
+                                                  @Field("total") String total);
+
+    @POST("detailtransaksilayanan/update")
+    @FormUrlEncoded
+    Call<DetailTransactionServiceDAO> updateDetailTS(@Field("id_detail_tl") String id_detail_tl,
+                                                     @Field("id_tl") String id_tl,
+                                                     @Field("id_layanan") String id_layanan,
+                                                     @Field("jumlah") String jumlah,
+                                                     @Field("total") String total);
+
+    @POST("detailtransaksilayanan/delete")
+    @FormUrlEncoded
+    Call<DetailTransactionServiceDAO> deleteDetailTS(@Field("id_detail_tl") String id_detail_tl);
 
     //==================================================//
 

@@ -48,7 +48,6 @@ public class ControlDetailTransactionProductFragment extends BottomSheetDialogFr
         sIdProduct = getArguments().getString("id_product", "");
         sIdDetailTP = getArguments().getString("id_detail_tp", "");
         sIdTP = getArguments().getString("id_tp", "");
-        Toast.makeText(getContext(), "id P: "+sIdProduct+"id DTP: "+sIdDetailTP+", ID TP: "+sIdTP, Toast.LENGTH_SHORT).show();
 
         twName = v.findViewById(R.id.twName);
         twStock = v.findViewById(R.id.twStock);

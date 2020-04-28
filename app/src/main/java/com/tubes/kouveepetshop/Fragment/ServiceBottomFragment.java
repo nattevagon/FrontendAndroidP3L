@@ -135,7 +135,7 @@ public class ServiceBottomFragment extends BottomSheetDialogFragment{
                                 delete.enqueue(new Callback<ServiceDAO>() {
                                     @Override
                                     public void onResponse(Call<ServiceDAO> call, Response<ServiceDAO> response) {
-                                        Toast.makeText(getContext(), "Berhasil dihapus", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Sukses menghapus data", Toast.LENGTH_SHORT).show();
                                         dismiss();
                                         ServiceActivity serviceActivity = (ServiceActivity) getActivity();
                                         serviceActivity.onPostResume();
@@ -143,7 +143,7 @@ public class ServiceBottomFragment extends BottomSheetDialogFragment{
 
                                     @Override
                                     public void onFailure(Call<ServiceDAO> call, Throwable t) {
-                                        Toast.makeText(getContext(), "Koneksi hilang", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Gagal menghapus data", Toast.LENGTH_SHORT).show();
                                     }
                                 });
 

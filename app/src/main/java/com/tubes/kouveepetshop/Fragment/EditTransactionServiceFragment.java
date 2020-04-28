@@ -19,11 +19,12 @@ import androidx.fragment.app.DialogFragment;
 
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
-import com.tubes.kouveepetshop.Activity.DetailTransactionProductActivity;
+import com.tubes.kouveepetshop.Activity.DetailTransactionServiceActivity;
 import com.tubes.kouveepetshop.Java.SessionManager;
 import com.tubes.kouveepetshop.Model.PetDAO;
-import com.tubes.kouveepetshop.Model.TransactionProductDAO;
+import com.tubes.kouveepetshop.Model.TransactionServiceDAO;
 import com.tubes.kouveepetshop.R;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EditTransactionProductFragment extends DialogFragment {
+public class EditTransactionServiceFragment extends DialogFragment {
     private TextView twCode;
     private Button btnAdd;
     private CheckBox cbGuest;
@@ -54,7 +55,7 @@ public class EditTransactionProductFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_edit_transaction_product, container, false);
+        View v = inflater.inflate(R.layout.fragment_edit_transaction_service, container, false);
 
         spPet = v.findViewById(R.id.spPet);
         btnAdd = v.findViewById(R.id.btnAdd);
@@ -173,23 +174,23 @@ public class EditTransactionProductFragment extends DialogFragment {
         }
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<TransactionProductDAO> add = apiService.updateTransactionProduct(sId, sIdPet, sCustomerService);
+        Call<TransactionServiceDAO> add = apiService.updateTransactionService(sId, sIdPet, sCustomerService);
 
-        add.enqueue(new Callback<TransactionProductDAO>() {
+        add.enqueue(new Callback<TransactionServiceDAO>() {
             @Override
-            public void onResponse(Call<TransactionProductDAO> call, Response<TransactionProductDAO> response) {
-                Toast.makeText(getContext(), "Sukses mengubah transaksi produk", Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<TransactionServiceDAO> call, Response<TransactionServiceDAO> response) {
+                Toast.makeText(getContext(), "Sukses mengubah transaksi layanan", Toast.LENGTH_SHORT).show();
                 dismiss();
-                DetailTransactionProductActivity detailTP = (DetailTransactionProductActivity) getActivity();
-                detailTP.onBack();
+                DetailTransactionServiceActivity detailTS = (DetailTransactionServiceActivity) getActivity();
+                detailTS.onBack();
             }
 
             @Override
-            public void onFailure(Call<TransactionProductDAO> call, Throwable t) {
-                Toast.makeText(getContext(), "Gagal mengubah transaksi produk", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<TransactionServiceDAO> call, Throwable t) {
+                Toast.makeText(getContext(), "Gagal mengubah transaksi layanan", Toast.LENGTH_SHORT).show();
                 dismiss();
-                DetailTransactionProductActivity detailTP = (DetailTransactionProductActivity) getActivity();
-                detailTP.onBack();
+                DetailTransactionServiceActivity detailTS = (DetailTransactionServiceActivity) getActivity();
+                detailTS.onBack();
             }
         });
     }
