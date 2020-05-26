@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Activity.LoginActivity"
-    android:background="@color/grey"
+    android:background="@drawable/background_layout"
     android:orientation="vertical">
 
     <LinearLayout
@@ -21,7 +21,7 @@
             android:layout_marginLeft="20dp"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:foreground="?android:attr/selectableItemBackground"
+            android:foreground="@drawable/ripple_oval"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_back"/>
 
@@ -51,8 +51,9 @@
             android:id="@+id/imageMain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="20dp"
             android:layout_gravity="center"
-            android:background="@drawable/kouveelogo" />
+            android:background="@drawable/kouveepetshop_doglogo" />
     </androidx.cardview.widget.CardView>
 
 
@@ -72,7 +73,7 @@
             android:background="@drawable/field_text"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:layout_marginTop="80dp"/>
+            android:layout_marginTop="60dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"

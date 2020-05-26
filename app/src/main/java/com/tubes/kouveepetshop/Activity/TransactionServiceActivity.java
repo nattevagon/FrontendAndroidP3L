@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -28,7 +30,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TransactionServiceActivity extends AppCompatActivity {
-    private ImageButton btnBack;
+    private ImageButton btnBack, btnRestore;
     private SearchView searchView;
     private FloatingActionButton btnAdd;
     private ShimmerFrameLayout mShimmerViewContainer;
@@ -48,6 +50,7 @@ public class TransactionServiceActivity extends AppCompatActivity {
         mShimmerViewContainer.startShimmerAnimation();
 
         btnBack = findViewById(R.id.btnBack);
+        btnRestore = findViewById(R.id.btnRestore);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,6 +65,14 @@ public class TransactionServiceActivity extends AppCompatActivity {
                 FragmentManager manager = TransactionServiceActivity.this.getSupportFragmentManager();
                 AddTransactionServiceFragment dialog = new AddTransactionServiceFragment();
                 dialog.show(manager, "dialog");
+            }
+        });
+
+        btnRestore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(TransactionServiceActivity.this, RestoreTransactionServiceActivity.class);
+                startActivity(i);
             }
         });
 

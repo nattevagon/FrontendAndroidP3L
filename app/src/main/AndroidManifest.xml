@@ -13,45 +13,133 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
         android:screenOrientation="portrait"
-        android:windowSoftInputMode="adjustPan"
-        android:theme="@style/AppTheme">
-        <activity android:name=".Activity.ProductCustomerActivity"></activity>
-        <activity android:name=".Activity.ServiceCustomerActivity" />
-        <activity android:name=".Activity.TransactionServiceActivity" />
-        <activity android:name=".Activity.TransactionProductActivity" />
-        <activity android:name=".Activity.DetailTransactionProductActivity" />
-        <activity android:name=".Activity.DetailTransactionServiceActivity" />
-        <activity android:name=".Activity.ViewCustomerActivity" />
-        <activity android:name=".Activity.ViewSupplierActivity" />
-        <activity android:name=".Activity.ViewProductActivity" />
-        <activity android:name=".Activity.EditSupplierActivity" />
-        <activity android:name=".Activity.EditCustomerActivity" />
-        <activity android:name=".Activity.ViewPetActivity" />
-        <activity android:name=".Activity.EditPetActivity" />
-        <activity android:name=".Activity.AddPetActivity" />
-        <activity android:name=".Activity.AddSupplierActivity" />
-        <activity android:name=".Activity.EditPetTypeActivity" />
-        <activity android:name=".Activity.AddCustomerActivity" />
-        <activity android:name=".Activity.PetTypeActivity" />
-        <activity android:name=".Activity.AddPetTypeActivity" />
-        <activity android:name=".Activity.PetSizeActivity" />
-        <activity android:name=".Activity.AddPetSizeActivity" />
-        <activity android:name=".Activity.EditPetSizeActivity" />
-        <activity android:name=".Activity.PetActivity" />
-        <activity android:name=".Activity.SupplierActivity" />
-        <activity android:name=".Activity.ServiceActivity" />
-        <activity android:name=".Activity.EditServiceActivity" />
-        <activity android:name=".Activity.AddServiceActivity" />
-        <activity android:name=".Activity.CustomerActivity" />
-        <activity android:name=".Activity.MenuCustomerServiceActivity" />
-        <activity android:name=".Activity.MenuOwnerActivity" />
-        <activity android:name=".Activity.LoginActivity" />
-        <activity android:name=".Activity.AddProductActivity" />
-        <activity android:name=".Activity.EditProductActivity" />
-        <activity android:name=".Activity.ProductActivity" />
-        <activity android:name=".Activity.MenuCustomerActivity">
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:windowSoftInputMode="adjustPan">
+        <activity
+            android:name=".Activity.MinimumStockActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ProductCustomerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ServiceCustomerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.TransactionServiceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.TransactionProductActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.RestoreTransactionServiceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.RestoreTransactionProductActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.DetailTransactionProductActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.DetailTransactionServiceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ViewCustomerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ViewSupplierActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ViewProductActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.EditSupplierActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.EditCustomerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ViewPetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.EditPetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.AddPetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.AddSupplierActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.EditPetTypeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.AddCustomerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.PetTypeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.AddPetTypeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.PetSizeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.AddPetSizeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.EditPetSizeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.PetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.SupplierActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ServiceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.EditServiceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.AddServiceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.CustomerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.MenuCustomerServiceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.MenuOwnerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.AddProductActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.EditProductActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ProductActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ProcurementActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ProcurementHistoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.DetailProcurementActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.MenuCustomerActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

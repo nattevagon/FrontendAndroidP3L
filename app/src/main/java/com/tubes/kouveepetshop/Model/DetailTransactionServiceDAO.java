@@ -1,14 +1,16 @@
 package com.tubes.kouveepetshop.Model;
 
 public class DetailTransactionServiceDAO {
-    String id_detail_tl, id_tl, id_layanan, kode_transaksi, layanan, jumlah, harga, total;
+    String id_detail_tl, id_tl, id_layanan, kode_transaksi, hewan, layanan, ukuran_hewan, jumlah, harga, total;
 
-    public DetailTransactionServiceDAO(String id_detail_tl, String id_tl, String id_layanan, String kode_transaksi, String layanan, String jumlah, String harga, String total) {
+    public DetailTransactionServiceDAO(String id_detail_tl, String id_tl, String id_layanan, String kode_transaksi, String hewan, String layanan, String ukuran_hewan, String jumlah, String harga, String total) {
         this.id_detail_tl = id_detail_tl;
         this.id_tl = id_tl;
         this.id_layanan = id_layanan;
         this.kode_transaksi = kode_transaksi;
+        this.hewan = hewan;
         this.layanan = layanan;
+        this.ukuran_hewan = ukuran_hewan;
         this.jumlah = jumlah;
         this.harga = harga;
         this.total = total;
@@ -30,8 +32,16 @@ public class DetailTransactionServiceDAO {
         return kode_transaksi;
     }
 
+    public String getHewan() {
+        return hewan;
+    }
+
     public String getLayanan() {
         return layanan;
+    }
+
+    public String getUkuran_hewan() {
+        return ukuran_hewan;
     }
 
     public String getJumlah() {
@@ -62,8 +72,16 @@ public class DetailTransactionServiceDAO {
         this.kode_transaksi = kode_transaksi;
     }
 
+    public void setHewan(String hewan) {
+        this.hewan = hewan;
+    }
+
     public void setLayanan(String layanan) {
         this.layanan = layanan;
+    }
+
+    public void setUkuran_hewan(String ukuran_hewan) {
+        this.ukuran_hewan = ukuran_hewan;
     }
 
     public void setJumlah(String jumlah) {

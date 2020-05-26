@@ -6,6 +6,7 @@
     <color name="skyBlue">#45b3e0</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="greyLight">#F2F2F2</color>
     <color name="grey">#eeeeee</color>
     <color name="greyMedium">#E0E0E0</color>
     <color name="greyDark">#2e3131</color>
@@ -16,6 +17,8 @@
     <color name="softPink">#ff9478</color>
     <color name="pink">#e08283</color>
     <color name="yellowCream">#fad859</color>
+    <color name="yellowSoftCream">#FFF0B5</color>
+    <color name="yellowLightCream">#FFF6CF</color>
     <color name="yellow">#f4d03f</color>
     <color name="green">#87d37c</color>
     <color name="cyan">#23cba7</color>

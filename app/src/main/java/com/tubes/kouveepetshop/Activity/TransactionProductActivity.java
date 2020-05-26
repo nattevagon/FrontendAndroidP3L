@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -28,7 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TransactionProductActivity extends AppCompatActivity {
-    private ImageButton btnBack;
+    private ImageButton btnBack, btnRestore;
     private SearchView searchView;
     private FloatingActionButton btnAdd;
     private ShimmerFrameLayout mShimmerViewContainer;
@@ -48,6 +49,7 @@ public class TransactionProductActivity extends AppCompatActivity {
         mShimmerViewContainer.startShimmerAnimation();
 
         btnBack = findViewById(R.id.btnBack);
+        btnRestore = findViewById(R.id.btnRestore);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,6 +64,14 @@ public class TransactionProductActivity extends AppCompatActivity {
                 FragmentManager manager = TransactionProductActivity.this.getSupportFragmentManager();
                 AddTransactionProductFragment dialog = new AddTransactionProductFragment();
                 dialog.show(manager, "dialog");
+            }
+        });
+
+        btnRestore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(TransactionProductActivity.this, RestoreTransactionProductActivity.class);
+                startActivity(i);
             }
         });
 

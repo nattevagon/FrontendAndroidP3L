@@ -1,15 +1,17 @@
 package com.tubes.kouveepetshop.Model;
 
 public class TransactionProductDAO {
-    String id_tp, id_hewan, id_pegawai_k, id_pegawai_cs, hewan, kasir, customer_service, kode, tanggal, sub_total, total_harga, status, created_by, updated_by;
+    String id_tp, id_hewan, id_pegawai_k, id_pegawai_cs, hewan, kasir, id_customer, customer, customer_service, kode, tanggal, sub_total, total_harga, status, created_by, updated_by;
 
-    public TransactionProductDAO(String id_tp, String id_hewan, String id_pegawai_k, String id_pegawai_cs, String hewan, String kasir, String customer_service, String kode, String tanggal, String sub_total, String total_harga, String status, String created_by, String updated_by) {
+    public TransactionProductDAO(String id_tp, String id_hewan, String id_pegawai_k, String id_pegawai_cs, String hewan, String kasir, String id_customer, String customer, String customer_service, String kode, String tanggal, String sub_total, String total_harga, String status, String created_by, String updated_by) {
         this.id_tp = id_tp;
         this.id_hewan = id_hewan;
         this.id_pegawai_k = id_pegawai_k;
         this.id_pegawai_cs = id_pegawai_cs;
         this.hewan = hewan;
         this.kasir = kasir;
+        this.id_customer = id_customer;
+        this.customer = customer;
         this.customer_service = customer_service;
         this.kode = kode;
         this.tanggal = tanggal;
@@ -42,6 +44,14 @@ public class TransactionProductDAO {
 
     public String getKasir() {
         return kasir;
+    }
+
+    public String getId_customer() {
+        return id_customer;
+    }
+
+    public String getCustomer() {
+        return customer;
     }
 
     public String getCustomer_service() {
@@ -98,6 +108,14 @@ public class TransactionProductDAO {
 
     public void setKasir(String kasir) {
         this.kasir = kasir;
+    }
+
+    public void setId_customer(String id_customer) {
+        this.id_customer = id_customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
     }
 
     public void setCustomer_service(String customer_service) {

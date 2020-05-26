@@ -91,8 +91,6 @@ public class AddServiceDetailTransactionServiceFragment extends DialogFragment {
     sPetSize = getArguments().getString("petsize", "");
     spPetSize.setText(sPetSize);
 
-    Toast.makeText(getContext(), "Id Transaksi Layanan: "+sIdTS, Toast.LENGTH_SHORT).show();
-
     serviceList.removeAll(serviceList);
 
     if(sPet.equalsIgnoreCase("Guest"))

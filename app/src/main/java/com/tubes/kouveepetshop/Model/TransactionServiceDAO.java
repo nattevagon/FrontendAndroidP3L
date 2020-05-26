@@ -1,22 +1,25 @@
 package com.tubes.kouveepetshop.Model;
 
 public class TransactionServiceDAO {
-    String id_tl, id_hewan, id_pegawai_k, id_pegawai_cs, hewan, id_customer, kasir, customer_service, kode, tanggal, sub_total, total_harga, status, created_by, updated_by;
+    String id_tl, id_hewan, id_pegawai_k, id_pegawai_cs, hewan, kasir, id_customer, customer, customer_service, kode, tanggal, sub_total, total_harga, status, no_hp, pesan, created_by, updated_by;
 
-    public TransactionServiceDAO(String id_tl, String id_hewan, String id_pegawai_k, String id_pegawai_cs, String hewan, String id_customer, String kasir, String customer_service, String kode, String tanggal, String sub_total, String total_harga, String status, String created_by, String updated_by) {
+    public TransactionServiceDAO(String id_tl, String id_hewan, String id_pegawai_k, String id_pegawai_cs, String hewan, String kasir, String id_customer, String customer, String customer_service, String kode, String tanggal, String sub_total, String total_harga, String status, String no_hp, String pesan, String created_by, String updated_by) {
         this.id_tl = id_tl;
         this.id_hewan = id_hewan;
         this.id_pegawai_k = id_pegawai_k;
         this.id_pegawai_cs = id_pegawai_cs;
         this.hewan = hewan;
-        this.id_customer = id_customer;
         this.kasir = kasir;
+        this.id_customer = id_customer;
+        this.customer = customer;
         this.customer_service = customer_service;
         this.kode = kode;
         this.tanggal = tanggal;
         this.sub_total = sub_total;
         this.total_harga = total_harga;
         this.status = status;
+        this.no_hp = no_hp;
+        this.pesan = pesan;
         this.created_by = created_by;
         this.updated_by = updated_by;
     }
@@ -41,12 +44,16 @@ public class TransactionServiceDAO {
         return hewan;
     }
 
+    public String getKasir() {
+        return kasir;
+    }
+
     public String getId_customer() {
         return id_customer;
     }
 
-    public String getKasir() {
-        return kasir;
+    public String getCustomer() {
+        return customer;
     }
 
     public String getCustomer_service() {
@@ -71,6 +78,14 @@ public class TransactionServiceDAO {
 
     public String getStatus() {
         return status;
+    }
+
+    public String getNo_hp() {
+        return no_hp;
+    }
+
+    public String getPesan() {
+        return pesan;
     }
 
     public String getCreated_by() {
@@ -101,12 +116,16 @@ public class TransactionServiceDAO {
         this.hewan = hewan;
     }
 
+    public void setKasir(String kasir) {
+        this.kasir = kasir;
+    }
+
     public void setId_customer(String id_customer) {
         this.id_customer = id_customer;
     }
 
-    public void setKasir(String kasir) {
-        this.kasir = kasir;
+    public void setCustomer(String customer) {
+        this.customer = customer;
     }
 
     public void setCustomer_service(String customer_service) {
@@ -131,6 +150,14 @@ public class TransactionServiceDAO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public void setNo_hp(String no_hp) {
+        this.no_hp = no_hp;
+    }
+
+    public void setPesan(String pesan) {
+        this.pesan = pesan;
     }
 
     public void setCreated_by(String created_by) {

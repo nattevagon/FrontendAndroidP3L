@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginHorizontal="10dp"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="3dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_toLeftOf="@+id/btnMore"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:id="@+id/llNo"
+                android:layout_alignParentLeft="true"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_line_right_side"
+                android:layout_marginVertical="10dp">
+
+                <TextView
+                    android:id="@+id/twNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:hint="1"
+                    android:layout_marginHorizontal="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llName"
+                android:layout_toRightOf="@id/llNo"
+                android:layout_toLeftOf="@id/llAmount"
+                android:layout_marginVertical="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/twName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Product Name"
+                    android:layout_marginHorizontal="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llAmount"
+                android:layout_alignParentRight="true"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp">
+
+                <TextView
+                    android:id="@+id/twAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:hint="150"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/btnMore"
+            android:layout_alignParentRight="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:foreground="@drawable/ripple_button_primary"
+            android:background="@drawable/ic_more_vert" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

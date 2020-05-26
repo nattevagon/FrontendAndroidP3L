@@ -71,7 +71,7 @@ public class AddPetCareFragment extends BottomSheetDialogFragment{
 
         twName.setText(sName);
         twPetSize.setText(sPetSize);
-        twPrice.setText(sPrice);
+        twPrice.setText(formatRupiah.format((double)Double.parseDouble(sPrice)));
 
         imgClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +90,7 @@ public class AddPetCareFragment extends BottomSheetDialogFragment{
                 }
                 else if(etAmountDay.getText().toString().equalsIgnoreCase("0"))
                 {
-                    etAmountDay.setError("Kurang dari 0!");
+                    etAmountDay.setError("Kurang dari 1!");
                     etAmountDay.requestFocus();
                 }
                 else

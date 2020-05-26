@@ -1,6 +1,7 @@
 package com.tubes.kouveepetshop.API;
 
 import com.tubes.kouveepetshop.Model.CustomerDAO;
+import com.tubes.kouveepetshop.Model.DetailProcurementDAO;
 import com.tubes.kouveepetshop.Model.DetailTransactionProductDAO;
 import com.tubes.kouveepetshop.Model.DetailTransactionServiceDAO;
 import com.tubes.kouveepetshop.Model.EmployeeDAO;
@@ -9,6 +10,7 @@ import com.tubes.kouveepetshop.Model.LoginDAO;
 import com.tubes.kouveepetshop.Model.PetDAO;
 import com.tubes.kouveepetshop.Model.PetSizeDAO;
 import com.tubes.kouveepetshop.Model.PetTypeDAO;
+import com.tubes.kouveepetshop.Model.ProcurementDAO;
 import com.tubes.kouveepetshop.Model.ProductDAO;
 import com.tubes.kouveepetshop.Model.ServiceDAO;
 import com.tubes.kouveepetshop.Model.SupplierDAO;
@@ -18,6 +20,7 @@ import com.tubes.kouveepetshop.Model.TransactionServiceDAO;
 import java.util.List;
 
 import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -26,6 +29,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 public interface ApiInterface {
 
@@ -40,6 +44,9 @@ public interface ApiInterface {
 
     @GET("produk/sortbystock")
     Call<List<ProductDAO>> getSortStock(@Query("sort") String sort);
+
+    @GET("produk/outstock")
+    Call<List<ProductDAO>> getOutStock();
 
     @POST("produk")
     @FormUrlEncoded
@@ -64,10 +71,10 @@ public interface ApiInterface {
                                    @Field("satuan") String satuan,
                                    @Field("gambar") String gambar);
 
-//    @POST("produk/updatestock")
-//    @FormUrlEncoded
-//    Call<ProductDAO> updateStockProduct(@Field("id_produk") String id_produk,
-//                                        @Field("stok") String stok);
+    @POST("produk/updatestock")
+    @FormUrlEncoded
+    Call<ProductDAO> updateStockProduct(@Field("id_produk") String id_produk,
+                                        @Field("stok") String stok);
 
     @POST("produk/delete")
     @FormUrlEncoded
@@ -263,6 +270,9 @@ public interface ApiInterface {
     @GET("transaksiproduk/codelength")
     Call<List<TransactionProductDAO>> getCodeLengthTransactionProduct(@Query("kode") String kode);
 
+    @GET("transaksiproduk/pembatalan")
+    Call<List<TransactionProductDAO>> getAllCanceledTransactionProduct();
+
     @POST("transaksiproduk")
     @FormUrlEncoded
     Call<TransactionProductDAO> addTransactionProduct(@Field("id_hewan") String id_hewan,
@@ -291,6 +301,10 @@ public interface ApiInterface {
     @POST("transaksiproduk/confirm")
     @FormUrlEncoded
     Call<TransactionProductDAO> confirmTransactionProduct(@Field("id_tp") String id_tp);
+
+    @POST("transaksiproduk/restore")
+    @FormUrlEncoded
+    Call<TransactionProductDAO> restoreTransactionProduct(@Field("id_tp") String id_tp);
 
     //==================================================//
 
@@ -351,6 +365,9 @@ public interface ApiInterface {
     @GET("transaksilayanan/codelength")
     Call<List<TransactionServiceDAO>> getCodeLengthTransactionService(@Query("kode") String kode);
 
+    @GET("transaksilayanan/pembatalan")
+    Call<List<TransactionServiceDAO>> getAllCanceledTransactionService();
+
     @POST("transaksilayanan")
     @FormUrlEncoded
     Call<TransactionServiceDAO> addTransactionService(@Field("id_hewan") String id_hewan,
@@ -380,6 +397,16 @@ public interface ApiInterface {
     @FormUrlEncoded
     Call<TransactionServiceDAO> confirmTransactionService(@Field("id_tl") String id_tl);
 
+    @POST("transaksilayanan/restore")
+    @FormUrlEncoded
+    Call<TransactionServiceDAO> restoreTransactionService(@Field("id_tl") String id_tl);
+
+    @POST("transaksilayanan/kirimsms")
+    @FormUrlEncoded
+    Call<TransactionServiceDAO> sendSMS(@Field("no_hp") String no_hp,
+                                        @Field("pesan") String pesan);
+
+
     //==================================================//
     //=============Detail Transaksi=============//
 
@@ -406,14 +433,106 @@ public interface ApiInterface {
     @POST("detailtransaksilayanan/update")
     @FormUrlEncoded
     Call<DetailTransactionServiceDAO> updateDetailTS(@Field("id_detail_tl") String id_detail_tl,
-                                                     @Field("id_tl") String id_tl,
-                                                     @Field("id_layanan") String id_layanan,
                                                      @Field("jumlah") String jumlah,
                                                      @Field("total") String total);
 
     @POST("detailtransaksilayanan/delete")
     @FormUrlEncoded
     Call<DetailTransactionServiceDAO> deleteDetailTS(@Field("id_detail_tl") String id_detail_tl);
+
+    //==================================================//
+
+    //=============Procurement=============//
+    @GET("pengadaan")
+    Call<List<ProcurementDAO>> getAllProcurement();
+
+    @GET("pengadaan")
+    Call<List<ProcurementDAO>> getByIdProcurement(@Query("id_pengadaan") String id_pengadaan);
+
+    @GET("pengadaan")
+    Call<List<ProcurementDAO>> getByCodeProcurement(@Query("kode") String kode);
+
+    @GET("pengadaan/codelength")
+    Call<List<ProcurementDAO>> getCodeLengthProcurement(@Query("kode") String kode);
+
+    @GET("pengadaan/showby")
+    Call<List<ProcurementDAO>> getAllByStatusProcurement(@Query("status") String status);
+
+    @POST("pengadaan")
+    @FormUrlEncoded
+    Call<ProcurementDAO> addProcurement(@Field("id_supplier") String id_supplier,
+                                        @Field("kode") String kode,
+                                        @Field("tanggal") String tanggal,
+                                        @Field("status") String status,
+                                        @Field("total_harga") String total_harga);
+
+    @POST("pengadaan/update")
+    @FormUrlEncoded
+    Call<ProcurementDAO> updateProcurement(@Field("id_pengadaan") String id_tp,
+                                           @Field("id_supplier") String id_supplier,
+                                           @Field("kode") String kode,
+                                           @Field("tanggal") String tanggal);
+    @POST("pengadaan/updatetotal")
+    @FormUrlEncoded
+    Call<ProcurementDAO> updateTotalProcurement(@Field("id_pengadaan") String id_pengadaan,
+                                                @Field("total_harga") String total_harga);
+
+    @POST("pengadaan/delete")
+    @FormUrlEncoded
+    Call<ProcurementDAO> deleteProcurement(@Field("id_pengadaan") String id_pengadaan);
+
+    @POST("pengadaan/order")
+    @FormUrlEncoded
+    Call<ProcurementDAO> confirmProcurement(@Field("id_pengadaan") String id_pengadaan);
+
+    @POST("pengadaan/done")
+    @FormUrlEncoded
+    Call<ProcurementDAO> doneProcurement(@Field("id_pengadaan") String id_pengadaan);
+
+    @POST("pengadaan/return")
+    @FormUrlEncoded
+    Call<ProcurementDAO> returnProcurement(@Field("id_pengadaan") String id_pengadaan);
+
+    //==================================================//
+
+    //=============Procurement=============//
+    @GET("detailpengadaan")
+    Call<List<DetailProcurementDAO>> getAllDetailP();
+
+    @GET("detailpengadaan")
+    Call<List<DetailProcurementDAO>> getByIdDetailP(@Query("id_detail_p") String id_detail_p);
+
+    @GET("detailpengadaan")
+    Call<List<DetailProcurementDAO>> getByIdPDetailP(@Query("id_pengadaan") String id_pengadaan);
+
+    @GET("detailpengadaan")
+    Call<List<DetailProcurementDAO>> getByProdukDP(@Query("id_pengadaan") String id_pengadaan,
+                                                     @Query("id_produk") String id_produk);
+
+    @POST("detailpengadaan")
+    @FormUrlEncoded
+    Call<DetailProcurementDAO> addDetailP(@Field("id_pengadaan") String id_pengadaan,
+                                            @Field("id_produk") String id_produk,
+                                            @Field("jumlah") String jumlah,
+                                            @Field("total") String total);
+
+    @POST("detailpengadaan/update")
+    @FormUrlEncoded
+    Call<DetailProcurementDAO> updateDetailP(@Field("id_detail_p") String id_detail_p,
+                                             @Field("id_pengadaan") String id_pengadaan,
+                                             @Field("id_produk") String id_produk,
+                                             @Field("jumlah") String jumlah,
+                                             @Field("total") String total);
+
+    @POST("detailpengadaan/delete")
+    @FormUrlEncoded
+    Call<DetailProcurementDAO> deleteDetailP(@Field("id_detail_p") String id_detail_p);
+
+    //==================================================//
+    //=============Receipt Procurement=============//
+
+    @GET("struk")
+    Call<ResponseBody> downloadFileWithDynamicUrlSync(@Query("id_pengadaan") String id_pengadaan);
 
     //==================================================//
 

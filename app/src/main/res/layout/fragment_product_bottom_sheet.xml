@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -22,9 +23,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_gravity="center_horizontal"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
+            android:foreground="@drawable/ripple_oval"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/ic_close" />
     </RelativeLayout>
 
@@ -92,6 +94,7 @@
                         android:background="@drawable/border_yellow"
                         android:paddingHorizontal="5dp"
                         android:layout_gravity="end"
+                        android:textAlignment="center"
                         android:text="Stok"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black"
@@ -105,6 +108,7 @@
                         android:background="@drawable/border_green"
                         android:paddingHorizontal="5dp"
                         android:layout_gravity="start"
+                        android:textAlignment="center"
                         android:text="Satuan"
                         android:textColor="@color/black"
                         android:textColorHint="@color/black"

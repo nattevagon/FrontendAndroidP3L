@@ -3,29 +3,119 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_home"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.ProcurementFragment">
 
   <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="50dp"
-      android:background="@drawable/upper_title">
+      android:layout_height="match_parent"
+      android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_gravity="center_vertical"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:text="Pengadaan"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="vertical">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginLeft="30dp"
+          android:layout_marginTop="20dp"
+          android:text="Pengadaan"
+          android:textColor="@color/black"
+          android:textSize="25dp"
+          android:textStyle="bold" />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="30dp"
+          android:text="Kelola pengadaan produk"
+          android:textSize="15dp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+      <GridLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:columnCount="2"
+          android:rowCount="3"
+          android:layout_marginRight="15dp"
+          android:layout_marginLeft="15dp"
+          android:alignmentMode="alignMargins"
+          android:columnOrderPreserved="false">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardElevation="6dp"
+            app:cardCornerRadius="6dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:id="@+id/cvProcurementList"
+            android:layout_margin="12dp">
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="16dp"
+              android:gravity="center">
+
+            <ImageView
+                android:background="@drawable/ic_procurement"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColor="#000000"
+                android:text="Daftar Pengadaan"/>
+          </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            app:cardElevation="6dp"
+            app:cardCornerRadius="6dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:id="@+id/cvMinimumProduct"
+            android:layout_margin="12dp">
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="16dp"
+              android:gravity="center">
+
+            <ImageView
+                android:background="@drawable/ic_product"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColor="#000000"
+                android:text="    Daftar Stock    "/>
+          </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+      </GridLayout>
+    </ScrollView>
+
   </LinearLayout>
-
-  <ImageView
-      android:id="@+id/imageView"
-      android:layout_width="200dp"
-      android:layout_height="200dp"
-      android:layout_gravity="center"
-      android:src="@drawable/ic_procurement"
-      />
 </FrameLayout>

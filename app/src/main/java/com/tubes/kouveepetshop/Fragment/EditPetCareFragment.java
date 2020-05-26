@@ -44,8 +44,6 @@ public class EditPetCareFragment extends BottomSheetDialogFragment{
         View v = inflater.inflate(R.layout.fragment_edit_pet_care, container, false);
 
         sIdDetailTS = getArguments().getString("id_detail_ts", "");
-        sIdService = getArguments().getString("id_service", "");
-        sIdTS = getArguments().getString("id_ts", "");
         sName = getArguments().getString("name", "");
         sPrice = getArguments().getString("price", "");
         sAmountDay = getArguments().getString("amount_day", "");
@@ -57,7 +55,7 @@ public class EditPetCareFragment extends BottomSheetDialogFragment{
         btnSave = v.findViewById(R.id.btnSave);
 
         twName.setText(sName);
-        twPrice.setText(sPrice);
+        twPrice.setText(formatRupiah.format((double)Double.parseDouble(sPrice)));
         etAmountDay.setText(sAmountDay);
 
         imgClose.setOnClickListener(new View.OnClickListener() {
@@ -77,12 +75,12 @@ public class EditPetCareFragment extends BottomSheetDialogFragment{
                 }
                 else if(etAmountDay.getText().toString().equalsIgnoreCase("0"))
                 {
-                    etAmountDay.setError("Kurang dari 0!");
+                    etAmountDay.setError("Kurang dari 1!");
                     etAmountDay.requestFocus();
                 }
                 else
                 {
-                    Update(sIdService, etAmountDay.getText().toString());
+                    Update(etAmountDay.getText().toString());
                 }
             }
         });
@@ -90,11 +88,11 @@ public class EditPetCareFragment extends BottomSheetDialogFragment{
         return v;
     }
 
-    public void Update(String id_service, String amountDay)
+    public void Update(String amountDay)
     {
         total = Integer.parseInt(sPrice)*Integer.parseInt(amountDay);
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<DetailTransactionServiceDAO> add = apiService.updateDetailTS(sIdDetailTS, sIdTS, id_service, amountDay, Integer.toString(total));
+        Call<DetailTransactionServiceDAO> add = apiService.updateDetailTS(sIdDetailTS, amountDay, Integer.toString(total));
 
         add.enqueue(new Callback<DetailTransactionServiceDAO>() {
             @Override

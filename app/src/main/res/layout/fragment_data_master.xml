@@ -274,7 +274,7 @@
             android:padding="16dp">
 
           <ImageView
-              android:background="@drawable/ic_pet"
+              android:background="@drawable/ic_pettype"
               android:layout_width="80dp"
               android:layout_height="80dp"
               android:layout_marginLeft="10dp"/>
@@ -326,7 +326,7 @@
             android:padding="16dp">
 
           <ImageView
-              android:background="@drawable/ic_pet"
+              android:background="@drawable/ic_petsize"
               android:layout_width="80dp"
               android:layout_height="80dp"
               android:layout_marginLeft="10dp"/>

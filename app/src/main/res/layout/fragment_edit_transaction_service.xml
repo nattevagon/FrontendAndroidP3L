@@ -3,11 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_line">
 
         <TextView
             android:layout_width="wrap_content"
@@ -18,7 +20,7 @@
             android:textSize="18dp"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:text="Edit Transaksi Produk"/>
+            android:text="Ubah Transaksi Layanan"/>
 
         <ImageButton
             android:id="@+id/imgClose"
@@ -26,9 +28,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_gravity="center_horizontal"
-            android:foreground="?android:attr/selectableItemBackground"
+            android:foreground="@drawable/ripple_oval"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/ic_close" />
     </RelativeLayout>
 
@@ -60,20 +63,21 @@
                     android:textColor="@color/black"
                     android:hint="Hewan"
                     android:completionThreshold="1"
-                    android:textSize="20dp"
-                    android:layout_marginBottom="10dp"/>
+                    android:textSize="20dp"/>
 
-                <CheckBox
-                    android:id="@+id/cbGuest"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Guest"
-                    android:textSize="20dp"/>
+                    android:layout_alignParentLeft="true"
+                    android:textSize="15dp"
+                    android:text="*Hewan / Customer"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="10dp"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <Button
-            android:id="@+id/btnAdd"
+            android:id="@+id/btnDone"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="bottom"

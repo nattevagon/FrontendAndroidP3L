@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginHorizontal="10dp"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="6dp">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/imgProduct"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/ic_image"
+                android:backgroundTint="@color/greyMedium"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                />
+
+            <LinearLayout
+                android:layout_toRightOf="@+id/imgProduct"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/twName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:hint="Nama"
+                    android:textColor="@color/black"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/twStock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_yellow"
+                        android:hint="Stok"
+                        android:paddingHorizontal="5dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/twUnit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Satuan"
+                        android:textAlignment="center"
+                        android:layout_marginLeft="4dp"
+                        android:paddingHorizontal="5dp"
+                        android:background="@drawable/border_green"
+                        android:textColor="@color/black"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/twPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:hint="Harga"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

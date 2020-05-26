@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_layout"
     tools:context=".Activity.MenuOwnerActivity">
 
     <FrameLayout
@@ -12,7 +13,6 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_navigation">
     </FrameLayout>
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

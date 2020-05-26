@@ -21,6 +21,7 @@ import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
 import com.tubes.kouveepetshop.Fragment.AddProductDetailTransactionProductFragment;
 import com.tubes.kouveepetshop.Fragment.EditTransactionProductFragment;
+import com.tubes.kouveepetshop.Model.CustomerDAO;
 import com.tubes.kouveepetshop.Model.DetailTransactionProductDAO;
 import com.tubes.kouveepetshop.Model.TransactionProductDAO;
 import com.tubes.kouveepetshop.R;
@@ -38,8 +39,8 @@ import retrofit2.Response;
 public class DetailTransactionProductActivity extends AppCompatActivity {
     private ImageButton btnBack, btnCancel, btnEdit;
     private Button btnAddProduct, btnConfirmDone;
-    private String sId, sCode, sDate, sPet, sSubtotal, sTotalPrice, sCustomerService, sStatus;
-    private TextView twCode, twDate, twCS, twSubTotal, twPet;
+    private String sId, sCode, sDate, sPet, sSubtotal, sTotalPrice, sIdCustomer, sCustomerName, sCustomerService, sStatus;
+    private TextView twCode, twDate, twCustomer, twSubTotal, twPet;
     private int idPet, sumSubTotal, subTotal;
     List<String> idListPet = new ArrayList<String>();
     List<String> nameListPet = new ArrayList<String>();
@@ -65,7 +66,7 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
 
         twCode = findViewById(R.id.twCode);
         twDate = findViewById(R.id.twDate);
-        twCS = findViewById(R.id.twCS);
+        twCustomer = findViewById(R.id.twCustomer);
         twSubTotal = findViewById(R.id.twSubTotal);
         twPet = findViewById(R.id.twPet);
         btnAddProduct = findViewById(R.id.btnAddProduct);
@@ -117,14 +118,21 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager manager = DetailTransactionProductActivity.this.getSupportFragmentManager();
-                EditTransactionProductFragment dialog = new EditTransactionProductFragment();
-                dialog.show(manager, "dialog");
+                if(sPet.equalsIgnoreCase("Guest"))
+                {
+                    Toast.makeText(DetailTransactionProductActivity.this, "Guest tidak dapat mengubah data", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    FragmentManager manager = DetailTransactionProductActivity.this.getSupportFragmentManager();
+                    EditTransactionProductFragment dialog = new EditTransactionProductFragment();
+                    dialog.show(manager, "dialog");
 
-                Bundle args = new Bundle();
-                args.putString("id", sId);
-                args.putString("pet", sPet);
-                dialog.setArguments(args);
+                    Bundle args = new Bundle();
+                    args.putString("id", sId);
+                    args.putString("pet", sPet);
+                    args.putString("customer", sCustomerName);
+                    dialog.setArguments(args);
+                }
             }
         });
 
@@ -163,15 +171,15 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
                     sCode = response.body().get(i).getKode();
                     sDate = response.body().get(i).getTanggal();
                     sPet = response.body().get(i).getHewan();
+                    sIdCustomer = response.body().get(i).getId_customer();
                     sCustomerService = response.body().get(i).getCustomer_service();
                     sStatus = response.body().get(i).getStatus();
                 }
 
                 twCode.setText(sCode);
                 twDate.setText(sDate);
-                twCS.setText(sCustomerService);
                 twPet.setText(sPet);
-
+                getCustomer(sIdCustomer);
                 loadProduct(sId);
             }
 
@@ -179,6 +187,37 @@ public class DetailTransactionProductActivity extends AppCompatActivity {
             public void onFailure(Call<List<TransactionProductDAO>> call, Throwable t) {
                 Toast.makeText(DetailTransactionProductActivity.this, "Tidak ditemukan atau jaringan tidak ada", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
+            }
+        });
+    }
+
+    private void getCustomer(String id)
+    {
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<List<CustomerDAO>> get = apiService.getByCustomer(id);
+
+        get.enqueue(new Callback<List<CustomerDAO>>() {
+            @Override
+            public void onResponse(Call<List<CustomerDAO>> call, Response<List<CustomerDAO>> response) {
+
+                for(int i=0;i<response.body().size();i++)
+                {
+                    sCustomerName = response.body().get(i).getNama();
+                }
+
+                if(sPet.equalsIgnoreCase("Guest"))
+                {
+                    twCustomer.setText("Guest");
+                }
+                else
+                {
+                    twCustomer.setText(sCustomerName);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<CustomerDAO>> call, Throwable t) {
+                Toast.makeText(DetailTransactionProductActivity.this, "Koneksi hilang", Toast.LENGTH_SHORT).show();
             }
         });
     }

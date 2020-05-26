@@ -12,40 +12,40 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_toLeftOf="@+id/btnEdit"
+            android:layout_toLeftOf="@+id/btnMore"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/twName"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:hint="Service"
                 android:singleLine="true"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
 
+            <TextView
+                android:id="@+id/twSubTotalAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:hint="Sub Total Amount"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/btnEdit"
-            android:layout_toLeftOf="@id/btnDelete"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="10dp"
-            android:layout_centerVertical="true"
-            android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:background="@drawable/ic_edit" />
-
-        <ImageButton
-            android:id="@+id/btnDelete"
+            android:id="@+id/btnMore"
             android:layout_alignParentRight="true"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -53,7 +53,7 @@
             android:layout_centerVertical="true"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
-        android:background="@drawable/ic_delete" />
+            android:background="@drawable/ic_more_vert" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

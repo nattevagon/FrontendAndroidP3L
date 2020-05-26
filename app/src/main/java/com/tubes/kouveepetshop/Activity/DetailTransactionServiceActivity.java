@@ -1,9 +1,11 @@
 package com.tubes.kouveepetshop.Activity;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.SmsManager;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +26,8 @@ import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
 import com.tubes.kouveepetshop.Fragment.AddServiceDetailTransactionServiceFragment;
 import com.tubes.kouveepetshop.Fragment.EditTransactionServiceFragment;
+import com.tubes.kouveepetshop.Fragment.SMSFragment;
+import com.tubes.kouveepetshop.Fragment.SortProductFragment;
 import com.tubes.kouveepetshop.Model.CustomerDAO;
 import com.tubes.kouveepetshop.Model.DetailTransactionServiceDAO;
 import com.tubes.kouveepetshop.Model.PetDAO;
@@ -43,7 +48,7 @@ public class DetailTransactionServiceActivity extends AppCompatActivity {
     private ImageButton btnBack, btnCancel, btnEdit;
     private Button btnAddService, btnConfirmDone;
     private String sId, sCode, sDate, sPet, sIdPet, sIdPetSize, sPetSize, sSubtotal, sTotalPrice, sIdCustomer, sCustomerService, sStatus, sCustomerName, sPhoneNumber;
-    private TextView twCode, twDate, twCS, twSubTotal, twPet;
+    private TextView twCode, twDate, twCustomer, twSubTotal, twPet;
     private int idPet, sumSubTotal, subTotal;
     List<String> idListPet = new ArrayList<String>();
     List<String> nameListPet = new ArrayList<String>();
@@ -70,7 +75,7 @@ public class DetailTransactionServiceActivity extends AppCompatActivity {
 
         twCode = findViewById(R.id.twCode);
         twDate = findViewById(R.id.twDate);
-        twCS = findViewById(R.id.twCS);
+        twCustomer = findViewById(R.id.twCustomer);
         twSubTotal = findViewById(R.id.twSubTotal);
         twPet = findViewById(R.id.twPet);
         btnAddService = findViewById(R.id.btnAddService);
@@ -91,7 +96,6 @@ public class DetailTransactionServiceActivity extends AppCompatActivity {
         sCode = i.getStringExtra("kode");
 
         getData();
-        Toast.makeText(this, "Id TL: "+sId, Toast.LENGTH_SHORT).show();
 
         btnAddService.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,14 +131,21 @@ public class DetailTransactionServiceActivity extends AppCompatActivity {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentManager manager = DetailTransactionServiceActivity.this.getSupportFragmentManager();
-                EditTransactionServiceFragment dialog = new EditTransactionServiceFragment();
-                dialog.show(manager, "dialog");
+                if(sPet.equalsIgnoreCase("Guest"))
+                {
+                    Toast.makeText(DetailTransactionServiceActivity.this, "Guest tidak dapat mengubah data", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    FragmentManager manager = DetailTransactionServiceActivity.this.getSupportFragmentManager();
+                    EditTransactionServiceFragment dialog = new EditTransactionServiceFragment();
+                    dialog.show(manager, "dialog");
 
-                Bundle args = new Bundle();
-                args.putString("id", sId);
-                args.putString("pet", sPet);
-                dialog.setArguments(args);
+                    Bundle args = new Bundle();
+                    args.putString("id", sId);
+                    args.putString("pet", sPet);
+                    args.putString("customer", sCustomerName);
+                    dialog.setArguments(args);
+                }
             }
         });
 
@@ -181,7 +192,6 @@ public class DetailTransactionServiceActivity extends AppCompatActivity {
 
                 twCode.setText(sCode);
                 twDate.setText(sDate);
-                twCS.setText(sCustomerService);
                 twPet.setText(sPet);
 
                 getCustomer(sIdCustomer);
@@ -212,7 +222,14 @@ public class DetailTransactionServiceActivity extends AppCompatActivity {
                     sPhoneNumber = response.body().get(i).getNo_telp();
                 }
 
-                progressDialog.dismiss();
+                if(sPet.equalsIgnoreCase("Guest"))
+                {
+                    twCustomer.setText("Guest");
+                }
+                else
+                {
+                    twCustomer.setText(sCustomerName);
+                }
             }
 
             @Override
@@ -326,8 +343,8 @@ public class DetailTransactionServiceActivity extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 progressDialog.show();
-//                                Confirm();
-                                sendSMS(sPhoneNumber);
+                                Confirm();
+                                onBackPressed();
                             }
                         })
                 .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
@@ -374,6 +391,7 @@ public class DetailTransactionServiceActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<TransactionServiceDAO> call, Throwable t) {
                 Toast.makeText(DetailTransactionServiceActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
+                onBackPressed();
             }
         });
     }
@@ -418,18 +436,35 @@ public class DetailTransactionServiceActivity extends AppCompatActivity {
         });
     }
 
-    public void sendSMS(String address)
+    public void sendSMSManual(String service, String service_total)
     {
-        String subTotal = formatRupiah.format((double)sumSubTotal);
-        Uri uri = Uri.parse("smsto:"+address);
+        String subTotal = formatRupiah.format((double)Integer.parseInt(service_total));
+        String sTotal = formatRupiah.format((double)sumSubTotal);
+        Uri uri = Uri.parse("smsto:"+sPhoneNumber);
         Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-        intent.putExtra("sms_body", "Layanan anda dengan KODE : "+sCode+" dengan hewan bernama "+sPet+" dan customer bernama "+sCustomerName+" telah selesai, harap untuk mengambil di toko kami Kouvee PetShop, Total biayanya adalah sebesar "+subTotal+" Terima Kasih");
+        intent.putExtra("sms_body", "Hallo Kami dari Kouvee Pet Shop! Transaksi layanan anda dengan kode "+sCode+" pada tanggal "+sDate+" dan hewan bernama "+sPet+" dengan customer bernama "+sCustomerName+" layanan "+service+" sudah selesai. Biaya Grooming "+subTotal+" dan Total Transaksi Anda "+sTotal+" Terimakasih!");
         startActivity(intent);
-
-//        SmsManager smsManager = SmsManager.getDefault();
-//        smsManager.sendTextMessage(address, null, "Layanan anda dengan KODE : "+sCode+" dengan hewan bernama "+sPet+" dan customer bernama "+sCustomerName+" telah selesai, harap untuk mengambil di toko kami Kouvee PetShop, Total biayanya adalah sebesar "+subTotal+" Terima Kasih", null, null);
-        Toast.makeText(DetailTransactionServiceActivity.this, "No Telp: "+address+"Layanan anda dengan KODE : "+sCode+" dengan hewan bernama"+sPet+" dan customer bernama "+sCustomerName+" telah selesai, harap untuk mengambil di toko kami Kouvee PetShop, Terima Kasih", Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(DetailTransactionServiceActivity.this, "Sukses mengirim SMS", Toast.LENGTH_SHORT).show();
     }
 
+    public void sendSMSAuto(String service, String service_total)
+    {
+        String subTotal = formatRupiah.format((double)Integer.parseInt(service_total));
+        String sTotal = formatRupiah.format((double)sumSubTotal);
+        String sText = "Hallo Kami dari Kouvee Pet Shop! Transaksi layanan anda dengan kode "+sCode+" pada tanggal "+sDate+" dan hewan bernama "+sPet+" dengan customer bernama "+sCustomerName+" layanan "+service+" sudah selesai. Biaya Grooming "+subTotal+" dan Total Transaksi Anda "+sTotal+" Terimakasih!";
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<TransactionServiceDAO> call = apiService.sendSMS(sPhoneNumber, sText);
+
+        call.enqueue(new Callback<TransactionServiceDAO>() {
+            @Override
+            public void onResponse(Call<TransactionServiceDAO> call, Response<TransactionServiceDAO> response) {
+                Toast.makeText(DetailTransactionServiceActivity.this, "Sukses mengirim SMS", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<TransactionServiceDAO> call, Throwable t) {
+                Toast.makeText(DetailTransactionServiceActivity.this, "Sukses mengirim SMS", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

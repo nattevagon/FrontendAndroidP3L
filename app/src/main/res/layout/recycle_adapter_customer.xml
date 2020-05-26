@@ -27,7 +27,7 @@
                 android:layout_margin="5dp"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
-                android:background="@color/green">
+                android:background="@drawable/oval">
 
                 <TextView
                     android:id="@+id/twIcon"
@@ -42,7 +42,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:orientation="vertical">
@@ -53,6 +53,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="20dp"
                     android:hint="Nama"
+                    android:textStyle="bold"
                     android:textColor="@color/black"/>
 
                 <TextView

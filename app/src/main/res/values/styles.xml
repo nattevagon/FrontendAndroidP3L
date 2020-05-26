@@ -7,6 +7,6 @@
         <item name="colorPrimary">@color/choco</item>
         <item name="colorPrimaryDark">@color/chocoDark</item>
         <item name="colorAccent">@color/chocoDark2</item>
+        <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
-
 </resources>

@@ -33,13 +33,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EditTransactionProductFragment extends DialogFragment {
-    private TextView twCode;
-    private Button btnAdd;
-    private CheckBox cbGuest;
+    private Button btnDone;
     private AutoCompleteTextView spPet;
     private ImageView imgClose;
-    private boolean statusGuest;
-    private String sId, sCustomerService, sCode, sDate, sYear, sMonth, sDay, sCodeTP, sIdPet, sPet;
+    private String sId, sCustomer, sCustomerService, sCode, sDate, sYear, sMonth, sDay, sCodeTP, sIdPet, sPet;
     private int idPet, tpLength = 0;
     private SessionManager sessionManager;
     List<String> idListPet = new ArrayList<String>();
@@ -57,12 +54,12 @@ public class EditTransactionProductFragment extends DialogFragment {
         View v = inflater.inflate(R.layout.fragment_edit_transaction_product, container, false);
 
         spPet = v.findViewById(R.id.spPet);
-        btnAdd = v.findViewById(R.id.btnAdd);
-        cbGuest = v.findViewById(R.id.cbGuest);
+        btnDone = v.findViewById(R.id.btnDone);
         imgClose = v.findViewById(R.id.imgClose);
 
         sId = getArguments().getString("id", "");
         sPet = getArguments().getString("pet", "");
+        sCustomer = getArguments().getString("customer", "");
 
         sessionManager = new SessionManager(getContext());
         HashMap<String, String> user = sessionManager.getUserDetail();
@@ -76,53 +73,18 @@ public class EditTransactionProductFragment extends DialogFragment {
         });
 
         loadSpinnerPet();
+        spPet.setText(sPet+" / "+sCustomer);
 
-        if(sPet.equalsIgnoreCase("Guest"))
-        {
-            statusGuest = true;
-            cbGuest.setChecked(true);
-            spPet.setEnabled(false);
-        }
-        else
-        {
-            statusGuest = false;
-            cbGuest.setChecked(false);
-            spPet.setText(sPet);
-        }
-        cbGuest.setOnClickListener(new View.OnClickListener() {
+        btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean checked = ((CheckBox) view).isChecked();
-                // Check which checkbox was clicked
-                if (checked){
-                    spPet.setEnabled(false);
-                    statusGuest = true;
-
-                }
-                else{
-                    spPet.setEnabled(true);
-                    statusGuest = false;
-                }
-            }
-        });
-
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(statusGuest == false)
+                if(spPet.getText().toString().equals(nameListPet.get(idPet)))
                 {
-                    if(spPet.getText().toString().equals(nameListPet.get(idPet)))
-                    {
-                        Update();
-                    }
-                    else
-                    {
-                        spPet.setError("Hewan tidak ada!");
-                    }
+                    Update();
                 }
                 else
                 {
-                    Update();
+                    spPet.setError("Hewan tidak ada!");
                 }
             }
         });
@@ -146,6 +108,7 @@ public class EditTransactionProductFragment extends DialogFragment {
                         (getContext(), android.R.layout.simple_list_item_1, nameListPet);
                 spPet.setAdapter(adapterPet);
 
+                idPet = nameListPet.indexOf(sPet+" / "+sCustomer);
                 spPet.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -164,14 +127,7 @@ public class EditTransactionProductFragment extends DialogFragment {
 
 
     private void Update() {
-        if(statusGuest == false)
-        {
-            sIdPet = idListPet.get(idPet);
-        }
-        else {
-            sIdPet = "0";
-        }
-
+        sIdPet = idListPet.get(idPet);
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<TransactionProductDAO> add = apiService.updateTransactionProduct(sId, sIdPet, sCustomerService);
 

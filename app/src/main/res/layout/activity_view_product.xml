@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background_layout"
     tools:context=".Activity.ViewProductActivity">
 
     <RelativeLayout
@@ -26,7 +27,7 @@
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="20dp"
                 android:layout_gravity="center_vertical"
-                android:foreground="?android:attr/selectableItemBackground"
+                android:foreground="@drawable/ripple_oval"
                 android:clickable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,7 +54,7 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/ic_edit"
             android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground" />
+            android:foreground="@drawable/ripple_oval" />
 
         <ImageButton
             android:id="@+id/btnDelete"
@@ -62,31 +63,11 @@
             android:layout_marginBottom="15dp"
             android:layout_marginRight="20dp"
             android:layout_gravity="center_vertical"
-            android:foreground="?android:attr/selectableItemBackground"
+            android:foreground="@drawable/ripple_oval"
             android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_delete"/>
-
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmer_loading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_below="@id/btnDelete"
-            android:orientation="vertical"
-            shimmer:duration="1500">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:background="@color/background" />
-            </LinearLayout>
-        </com.facebook.shimmer.ShimmerFrameLayout>
     </RelativeLayout>
 
     <androidx.cardview.widget.CardView

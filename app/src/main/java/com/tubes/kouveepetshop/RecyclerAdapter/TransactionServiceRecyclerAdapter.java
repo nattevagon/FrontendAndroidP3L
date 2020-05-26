@@ -93,9 +93,9 @@ public class TransactionServiceRecyclerAdapter extends RecyclerView.Adapter<Tran
                     filteredDataList = dataList;
                 } else {
                     List<TransactionServiceDAO> filteredList = new ArrayList<>();
-                    for (TransactionServiceDAO TransactionServiceDAO : dataList) {
-                        if (TransactionServiceDAO.getKode().toLowerCase().contains(charSequenceString.toLowerCase())) {
-                            filteredList.add(TransactionServiceDAO);
+                    for (TransactionServiceDAO transactionServiceDAO : dataList) {
+                        if (transactionServiceDAO.getKode().toLowerCase().contains(charSequenceString.toLowerCase()) || transactionServiceDAO.getHewan().contains(charSequenceString.toLowerCase())) {
+                            filteredList.add(transactionServiceDAO);
                         }
                         filteredDataList = filteredList;
                     }

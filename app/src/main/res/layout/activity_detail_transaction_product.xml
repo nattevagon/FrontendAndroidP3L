@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background_layout"
     tools:context=".Activity.DetailTransactionProductActivity">
 
     <RelativeLayout
@@ -24,7 +25,7 @@
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="20dp"
                 android:layout_gravity="center_vertical"
-                android:foreground="?android:attr/selectableItemBackground"
+                android:foreground="@drawable/ripple_oval"
                 android:clickable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,7 +52,7 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/ic_edit"
             android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground" />
+            android:foreground="@drawable/ripple_oval" />
 
         <ImageButton
             android:id="@+id/btnCancel"
@@ -63,7 +64,7 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/ic_cancel"
             android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground" />
+            android:foreground="@drawable/ripple_oval" />
     </RelativeLayout>
 
     <ScrollView
@@ -145,17 +146,17 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:textSize="15dp"
-                            android:text="Customer Service"
+                            android:text="Customer"
                             android:textColor="@color/black"/>
 
                         <TextView
-                            android:id="@+id/twCS"
+                            android:id="@+id/twCustomer"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_alignParentEnd="true"
                             android:textColor="@color/black"
-                            android:hint="CS"
+                            android:hint="Customer"
                             android:textAlignment="textEnd"
                             android:textSize="15dp"/>
                     </RelativeLayout>
@@ -277,7 +278,7 @@
             android:background="@drawable/button"
             android:foreground="@drawable/ripple_button_primary"
             android:fontFamily="sans-serif-black"
-            android:text="SELESAI"
+            android:text="KONFIRMASI"
             android:textColor="@color/black"
             android:textSize="20dp" />
     </LinearLayout>

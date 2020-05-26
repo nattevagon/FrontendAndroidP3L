@@ -3,6 +3,7 @@ package com.tubes.kouveepetshop.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,7 +33,7 @@ public class ViewProductActivity extends AppCompatActivity {
     private ImageButton btnEdit;
     private ImageView btnBack, btnDelete, imgProduct;
     private String sId, sName, sPrice, sStock, sMinimal, sUnit, sImage, url;
-    private ShimmerFrameLayout mShimmerViewContainer;
+    private ProgressDialog progressDialog;
 
     private Locale localeID = new Locale("in", "ID");
     private NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
@@ -44,8 +45,8 @@ public class ViewProductActivity extends AppCompatActivity {
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-        mShimmerViewContainer = findViewById(R.id.shimmer_loading);
-        mShimmerViewContainer.startShimmerAnimation();
+        progressDialog = new ProgressDialog(this);
+        progressDialog.show();
 
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -132,8 +133,7 @@ public class ViewProductActivity extends AppCompatActivity {
                 twPrice.setText(formatRupiah.format((double)Double.parseDouble(sPrice)));
                 url = "https://kouvee.modifierisme.com/upload/"+sImage;
                 Picasso.with(ViewProductActivity.this).load(url).resize(300,300).centerCrop().into(imgProduct);
-                mShimmerViewContainer.stopShimmerAnimation();
-                mShimmerViewContainer.setVisibility(View.GONE);
+                progressDialog.dismiss();
             }
 
             @Override
@@ -167,7 +167,7 @@ public class ViewProductActivity extends AppCompatActivity {
 
     private void deleteData()
     {
-        mShimmerViewContainer.startShimmerAnimation();
+        progressDialog.show();
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<ProductDAO> delete = apiService.deleteProduct(sId);
 
@@ -175,8 +175,7 @@ public class ViewProductActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ProductDAO> call, Response<ProductDAO> response) {
                 Toast.makeText(ViewProductActivity.this, "Sukses menghapus data", Toast.LENGTH_SHORT).show();
-                mShimmerViewContainer.stopShimmerAnimation();
-                mShimmerViewContainer.setVisibility(View.GONE);
+                progressDialog.dismiss();
                 onBackPressed();
             }
 

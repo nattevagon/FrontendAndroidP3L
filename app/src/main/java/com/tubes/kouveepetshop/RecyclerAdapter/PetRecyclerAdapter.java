@@ -44,7 +44,6 @@ public class PetRecyclerAdapter extends RecyclerView.Adapter<PetRecyclerAdapter.
     public void onBindViewHolder(@NonNull PetRecyclerAdapter.RoomViewHolder holder, int position) {
         final PetDAO brg = filteredDataList.get(position);
         holder.mName.setText(brg.getNama());
-        holder.mBirthdate.setText(brg.getTgl_lahir());
         holder.mPetType.setText(brg.getJenis_hewan());
         holder.mPetSize.setText(brg.getUkuran_hewan());
         holder.mCustomer.setText(brg.getCustomer());
@@ -67,13 +66,12 @@ public class PetRecyclerAdapter extends RecyclerView.Adapter<PetRecyclerAdapter.
     }
 
     public class RoomViewHolder extends RecyclerView.ViewHolder{
-        private TextView mName, mBirthdate, mPetSize, mPetType, mCustomer;
+        private TextView mName, mPetSize, mPetType, mCustomer;
         private LinearLayout mParent;
 
         public RoomViewHolder(@NonNull View itemView) {
             super(itemView);
             mName = itemView.findViewById(R.id.twName);
-            mBirthdate = itemView.findViewById(R.id.twPetBirthdate);
             mPetType = itemView.findViewById(R.id.twPetType);
             mPetSize = itemView.findViewById(R.id.twPetSize);
             mCustomer = itemView.findViewById(R.id.twCustomer);
