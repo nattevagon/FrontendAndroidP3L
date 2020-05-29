@@ -1,15 +1,16 @@
 package com.tubes.kouveepetshop.Model;
 
 public class ProcurementDAO {
-    String id_pengadaan, id_supplier, supplier, kode, tanggal, status, total_harga;
+    String id_pengadaan, id_supplier, supplier, kode, tanggal, status, alamat, total_harga;
 
-    public ProcurementDAO(String id_pengadaan, String id_supplier, String supplier, String kode, String tanggal, String status, String total_harga) {
+    public ProcurementDAO(String id_pengadaan, String id_supplier, String supplier, String kode, String tanggal, String status, String alamat, String total_harga) {
         this.id_pengadaan = id_pengadaan;
         this.id_supplier = id_supplier;
         this.supplier = supplier;
         this.kode = kode;
         this.tanggal = tanggal;
         this.status = status;
+        this.alamat = alamat;
         this.total_harga = total_harga;
     }
 
@@ -35,6 +36,10 @@ public class ProcurementDAO {
 
     public String getStatus() {
         return status;
+    }
+
+    public String getAlamat() {
+        return alamat;
     }
 
     public String getTotal_harga() {
@@ -63,6 +68,10 @@ public class ProcurementDAO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
     }
 
     public void setTotal_harga(String total_harga) {

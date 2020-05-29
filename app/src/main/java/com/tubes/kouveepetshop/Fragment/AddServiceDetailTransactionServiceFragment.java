@@ -45,7 +45,6 @@ public class AddServiceDetailTransactionServiceFragment extends DialogFragment {
   private List<ServiceDAO> serviceList;
   private RecyclerView recyclerView;
   private AddDetailTSRecyclerAdapter recyclerAdapter;
-  private ProgressDialog progressDialog;
   List<String> idListPetSize = new ArrayList<String>();
   List<String> nameListPetSize = new ArrayList<String>();
 
@@ -69,7 +68,6 @@ public class AddServiceDetailTransactionServiceFragment extends DialogFragment {
       Bundle savedInstanceState) {
     View v = inflater.inflate(R.layout.fragment_add_service_detail_transaction_service, container, false);
 
-    progressDialog = new ProgressDialog(getContext());
     searchView = v.findViewById(R.id.searchView);
     spPetSize = v.findViewById(R.id.spPetSize);
     btnClose = v.findViewById(R.id.btnClose);

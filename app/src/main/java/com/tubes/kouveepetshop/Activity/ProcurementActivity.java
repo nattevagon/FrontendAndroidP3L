@@ -3,7 +3,9 @@ package com.tubes.kouveepetshop.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -29,10 +31,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProcurementActivity extends AppCompatActivity {
-    private ImageButton btnBack, btnHistory;
+    private ImageButton btnBack;
+    private Button btnHistory;
     private SearchView searchView;
     private FloatingActionButton btnAdd;
     private ShimmerFrameLayout mShimmerViewContainer;
+    private ImageView imEmpty;
 
     private List<ProcurementDAO> procurementProductList;
     private RecyclerView recyclerView;
@@ -47,6 +51,9 @@ public class ProcurementActivity extends AppCompatActivity {
 
         mShimmerViewContainer = findViewById(R.id.shimmer_view_container);
         mShimmerViewContainer.startShimmerAnimation();
+
+        imEmpty = findViewById(R.id.imEmpty);
+        imEmpty.setVisibility(View.INVISIBLE);
 
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +84,7 @@ public class ProcurementActivity extends AppCompatActivity {
 
         searchView = findViewById(R.id.searchView);
 
+        recyclerView = findViewById(R.id.procurementRecyclerView);
         load();
     }
 
@@ -105,11 +113,13 @@ public class ProcurementActivity extends AppCompatActivity {
 
                     if(id.equalsIgnoreCase("false"))
                     {
-                        Toast.makeText(ProcurementActivity.this, "Pengadaan Kosong", Toast.LENGTH_SHORT).show();
+                        recyclerView.setAdapter(null);
+                        imEmpty.setVisibility(View.VISIBLE);
                     }
                     else
                     {
                         generateDataList(response.body());
+                        recyclerAdapter.notifyDataSetChanged();
                     }
                 }
                 mShimmerViewContainer.stopShimmerAnimation();
@@ -124,7 +134,6 @@ public class ProcurementActivity extends AppCompatActivity {
     }
 
     private void generateDataList(List<ProcurementDAO> procurementProductList) {
-        recyclerView = findViewById(R.id.procurementRecyclerView);
         recyclerAdapter = new ProcurementRecyclerAdapter(this, procurementProductList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);

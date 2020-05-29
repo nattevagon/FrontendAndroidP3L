@@ -76,21 +76,27 @@ public class AddProductDetailProcurementFragment extends DialogFragment {
     recyclerView.setItemAnimator(new DefaultItemAnimator());
 
     productList.removeAll(productList);
-    load();
 
     sId = getArguments().getString("id", "");
+    load();
 
     return v;
   }
 
+  public void onBack() {
+    super.onResume();
+    load();
+  }
+
   public void load(){
     ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-    Call<List<ProductDAO>> call = apiService.getAllProduct();
+    Call<List<ProductDAO>> call = apiService.getAllProductProcurement(sId);
 
     call.enqueue(new Callback<List<ProductDAO>>() {
       @Override
       public void onResponse(Call<List<ProductDAO>> call, Response<List<ProductDAO>> response) {
         generateDataList(response.body());
+        recyclerAdapter.notifyDataSetChanged();
       }
 
       @Override

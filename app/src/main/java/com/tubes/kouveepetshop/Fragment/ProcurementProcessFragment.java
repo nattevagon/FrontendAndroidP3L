@@ -118,9 +118,11 @@ public class ProcurementProcessFragment extends Fragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
-        builder.setMessage("Pesanan pegadaan "+code+" sudah datang ?")
+        builder.setTitle("Konfirmasi datang pesanan pengadaan ?")
+                .setMessage("Anda yakin pesanan pegadaan "+code+" sudah datang ?, " +
+                        "jika sudah dikonfirmasi maka pengadaan akan ditempatkan pada history pengadaan bagian selesai")
                 .setCancelable(false)
-                .setPositiveButton("SELESAI",
+                .setPositiveButton("KONFIRMASI",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 mShimmerViewContainer.startShimmerAnimation();

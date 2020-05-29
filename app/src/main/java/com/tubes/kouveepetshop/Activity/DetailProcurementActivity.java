@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,11 +18,14 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
 import com.tubes.kouveepetshop.Fragment.AddProductDetailProcurementFragment;
 import com.tubes.kouveepetshop.Fragment.AddProductDetailTransactionProductFragment;
+import com.tubes.kouveepetshop.Fragment.EditProcurementFragment;
 import com.tubes.kouveepetshop.Fragment.EditTransactionProductFragment;
+import com.tubes.kouveepetshop.Fragment.EditTransactionServiceFragment;
 import com.tubes.kouveepetshop.Model.CustomerDAO;
 import com.tubes.kouveepetshop.Model.DetailProcurementDAO;
 import com.tubes.kouveepetshop.Model.ProcurementDAO;
@@ -39,11 +43,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailProcurementActivity extends AppCompatActivity {
-    private ImageButton btnBack, btnCancel;
-    private Button btnAddProduct, btnConfirmDone;
-    private String sId, sCode, sDate, sSupplier, sTotal, sTotalPrice, sStatus;
-    private TextView twCode, twDate, twTotal, twSupplier;
+    private ImageButton btnBack, btnCancel, btnEdit;
+    private Button btnAddProduct, btnConfirm, btnDone;
+    private String sId, sCode, sDate, sSupplier, sTotal, sAddress;
+    private TextView twCode, twDate, twTotal, twSupplier, twAddress;
     private int sumTotal, total;
+    private Snackbar sbProduct;
 
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
@@ -67,10 +72,13 @@ public class DetailProcurementActivity extends AppCompatActivity {
         twCode = findViewById(R.id.twCode);
         twDate = findViewById(R.id.twDate);
         twSupplier = findViewById(R.id.twSupplier);
+        twAddress = findViewById(R.id.twAddress);
         twTotal = findViewById(R.id.twTotal);
         btnAddProduct = findViewById(R.id.btnAddProduct);
-        btnConfirmDone = findViewById(R.id.btnConfirmDone);
+        btnConfirm = findViewById(R.id.btnConfirm);
+        btnDone = findViewById(R.id.btnDone);
         btnCancel = findViewById(R.id.btnCancel);
+        btnEdit = findViewById(R.id.btnEdit);
 
         btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +114,22 @@ public class DetailProcurementActivity extends AppCompatActivity {
 
         getData();
 
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager manager = DetailProcurementActivity.this.getSupportFragmentManager();
+                EditProcurementFragment dialog = new EditProcurementFragment();
+                dialog.show(manager, "dialog");
+
+                Bundle args = new Bundle();
+                args.putString("id", sId);
+                args.putString("supplier", sSupplier);
+                args.putString("code", sCode);
+                args.putString("date", sDate);
+                dialog.setArguments(args);
+            }
+        });
+
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,7 +137,13 @@ public class DetailProcurementActivity extends AppCompatActivity {
             }
         });
 
-        btnConfirmDone.setOnClickListener(new View.OnClickListener() {
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();            }
+        });
+
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 confirmItemFromList(view);
@@ -148,13 +178,13 @@ public class DetailProcurementActivity extends AppCompatActivity {
                     sCode = response.body().get(i).getKode();
                     sDate = response.body().get(i).getTanggal();
                     sSupplier = response.body().get(i).getSupplier();
-                    sStatus = response.body().get(i).getStatus();
+                    sAddress = response.body().get(i).getAlamat();
                 }
 
-//                Toast.makeText(DetailProcurementActivity.this, "ID :"+sId, Toast.LENGTH_SHORT).show();
                 twCode.setText(sCode);
                 twDate.setText(sDate);
                 twSupplier.setText(sSupplier);
+                twAddress.setText(sAddress);
                 loadProduct(sId);
             }
 
@@ -218,7 +248,10 @@ public class DetailProcurementActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
-        builder.setMessage("Batalkan pengadaan ?")
+        builder.setTitle("Yakin untuk membatalkan pengadaan ?")
+                .setMessage("Setelah melakukan pembatalan pengadaan "+sCode+", " +
+                        "maka pengadaan akan dipindahkan kedalam history pengadaan bagian batal.")
+                .setIcon(R.drawable.ic_delete)
                 .setCancelable(false)
                 .setPositiveButton("YA",
                         new DialogInterface.OnClickListener() {
@@ -237,20 +270,41 @@ public class DetailProcurementActivity extends AppCompatActivity {
 
     }
 
-    private void confirmItemFromList(View v) {
+    private void confirmItemFromList(final View v) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
-        builder.setMessage("Yakin untuk menyelesaikan pengadaan?")
+        builder.setTitle("Konfirmasi pemesanan pengadaan ?")
+                .setMessage("Anda akan melakukan konfirmasi pemesanan pengadaan untuk "+sCode+".\n\n" +
+                        "Setelah melakukan konfirmasi dan mencetak surat pemesanan anda tidak bisa mengubah pemesanan lagi.")
+                .setIcon(R.drawable.ic_letter)
                 .setCancelable(false)
-                .setPositiveButton("YA",
+                .setPositiveButton("KONFIRMASI",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                progressDialog.show();
-                                Confirm();
+                                if(detailProcurement.isEmpty())
+                                {
+                                    AlertDialog.Builder builder2 = new AlertDialog.Builder(v.getContext());
+                                    builder2.setMessage("Produk dalam pengadaan kosong!")
+                                            .setCancelable(false)
+                                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                }
+                                            });
+                                    AlertDialog alert = builder2.create();
+                                    alert.show();
+                                }
+                                else
+                                {
+                                    progressDialog.show();
+                                    Confirm();
+                                    Intent i = new Intent(DetailProcurementActivity.this, PDFViewerActivity.class);
+                                    i.putExtra("id_procurement",sId);
+                                    startActivity(i);
+                                }
                             }
                         })
-                .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
+                .setNegativeButton("BATAL", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                     }
@@ -302,7 +356,7 @@ public class DetailProcurementActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
-        builder.setMessage("Hapus produk ?")
+        builder.setTitle("Hapus produk ?")
                 .setCancelable(false)
                 .setPositiveButton("HAPUS",
                         new DialogInterface.OnClickListener() {

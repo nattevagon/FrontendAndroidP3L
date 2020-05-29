@@ -92,8 +92,6 @@ public class ProcurementCanceledRecyclerAdapter extends RecyclerView.Adapter<Pro
                             case R.id.restore:
                                 fragment.RestoreItemList(view, brg.getId_pengadaan(), brg.getKode());
                                 return true;
-                            case R.id.delete:
-                                return true;
                             default:
                                 return false;
                         }

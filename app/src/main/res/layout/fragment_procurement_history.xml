@@ -7,6 +7,14 @@
     android:background="@drawable/background_layout"
     tools:context=".Fragment.AllStockFragment">
 
+    <ImageView
+        android:id="@+id/imEmpty"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="@drawable/ic_layers_clear"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_view_container"
         android:layout_width="match_parent"
@@ -28,14 +36,6 @@
             <include layout="@layout/placeholder_transaction" />
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
-
-    <ImageView
-        android:id="@+id/imEmpty"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:background="@drawable/ic_layers_clear"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

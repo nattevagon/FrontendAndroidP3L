@@ -273,8 +273,8 @@
 
         <Button
             android:id="@+id/btnConfirmDone"
-            android:layout_width="369dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:layout_gravity="bottom"
             android:background="@drawable/button"
             android:foreground="@drawable/ripple_button_primary"

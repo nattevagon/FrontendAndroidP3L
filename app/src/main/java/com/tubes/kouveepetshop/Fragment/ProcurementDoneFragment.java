@@ -64,14 +64,6 @@ public class ProcurementDoneFragment extends Fragment {
         load();
     }
 
-    public void onBack() {
-        super.onResume();
-        mShimmerViewContainer.startShimmerAnimation();
-        list.clear();
-        load();
-        recyclerAdapter.notifyDataSetChanged();
-    }
-
     public void load(){
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<List<ProcurementDAO>> call = apiService.getAllByStatusProcurement("Selesai");

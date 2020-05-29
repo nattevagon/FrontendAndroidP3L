@@ -120,7 +120,7 @@ public class HomeFragment extends Fragment {
 
       @Override
       public void onFailure(Call<List<ProductDAO>> call, Throwable t) {
-        Toast.makeText(getContext(), "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
       }
     });
@@ -140,7 +140,7 @@ public class HomeFragment extends Fragment {
 
       @Override
       public void onFailure(Call<List<ServiceDAO>> call, Throwable t) {
-        Toast.makeText(getContext(), "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
       }
     });

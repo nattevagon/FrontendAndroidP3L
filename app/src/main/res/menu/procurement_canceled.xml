@@ -8,8 +8,4 @@
         android:id="@+id/restore"
         android:icon="@drawable/ic_restore"
         android:title="Pulihkan"/>
-    <item
-        android:id="@+id/delete"
-        android:icon="@drawable/ic_delete"
-        android:title="Hapus"/>
 </menu>

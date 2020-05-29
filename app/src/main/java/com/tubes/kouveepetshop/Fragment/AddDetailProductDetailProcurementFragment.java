@@ -38,10 +38,14 @@ public class AddDetailProductDetailProcurementFragment extends BottomSheetDialog
     private Button btnIncrement, btnDecrement, btnAdd;
     private String sIdProduct, sIdDetailP, sIdP, sName, sAmount, sSubTotal, sTotal, sPrice, sImage, url;
     private int amount, fixAmount, price;
+    private AddProductDetailProcurementFragment fragment;
 
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
+    public AddDetailProductDetailProcurementFragment(AddProductDetailProcurementFragment fragment) {
+        this.fragment = fragment;
+    }
 
     @Nullable
     @Override
@@ -181,6 +185,7 @@ public class AddDetailProductDetailProcurementFragment extends BottomSheetDialog
                 DetailProcurementActivity detailP = (DetailProcurementActivity) getActivity();
                 detailP.onBack();
                 dismiss();
+                fragment.dismiss();
             }
 
             @Override
@@ -201,6 +206,7 @@ public class AddDetailProductDetailProcurementFragment extends BottomSheetDialog
                 DetailProcurementActivity detailP = (DetailProcurementActivity) getActivity();
                 detailP.onBack();
                 dismiss();
+                fragment.dismiss();
             }
 
             @Override

@@ -8,6 +8,14 @@
     android:background="@drawable/background_layout"
     tools:context=".Activity.TransactionProductActivity">
 
+    <ImageView
+        android:id="@+id/imEmpty"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="@drawable/ic_layers_clear"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
     <LinearLayout
         android:id="@+id/upper"
         android:background="@drawable/upper_title"
@@ -46,17 +54,17 @@
                     android:text="Daftar Pengadaan"/>
             </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/btnHistory"
-                android:background="@drawable/ic_restore"
-                android:layout_alignParentRight="true"
-                android:padding="10dp"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
-                android:clickable="true"
-                android:foreground="@drawable/ripple_oval"/>
+            <!--<ImageButton-->
+                <!--android:id="@+id/btnHistory"-->
+                <!--android:background="@drawable/ic_restore"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:padding="10dp"-->
+                <!--android:layout_width="30dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginRight="20dp"-->
+                <!--android:clickable="true"-->
+                <!--android:foreground="@drawable/ripple_oval"/>-->
 
         </RelativeLayout>
 
@@ -79,6 +87,24 @@
 
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnHistory"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="7.5dp"
+        android:layout_marginRight="20dp"
+        android:paddingHorizontal="5dp"
+        android:drawableLeft="@drawable/ic_restore"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button"
+        android:foreground="@drawable/ripple_button_primary"
+        android:fontFamily="sans-serif-black"
+        android:text="HISTORY"
+        android:textColor="@color/black"
+        android:textSize="15dp" />
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_view_container"

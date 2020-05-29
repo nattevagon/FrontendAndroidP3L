@@ -4,14 +4,14 @@
         <shape>
             <gradient
                 android:startColor = "@color/white"
-                android:endColor = "@color/chocoDark"
+                android:endColor = "@color/grey"
                 android:angle = "90"/>
         </shape>
     </item>
-    <item>
-        <bitmap
-            android:src="@drawable/kouveepetshop_doglogo"
-            android:tileMode="disabled"
-            android:gravity="center"/>
-    </item>
+    <item
+        android:drawable="@drawable/ic_kouvee"
+        android:tileMode="disabled"
+        android:width="70dp"
+        android:height="98dp"
+        android:gravity="center"/>
 </layer-list>

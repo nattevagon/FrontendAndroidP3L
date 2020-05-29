@@ -74,7 +74,7 @@ public class AddDetailPRecyclerAdapter extends RecyclerView.Adapter<AddDetailPRe
                 image = brg.getGambar();
 
                 FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
-                AddDetailProductDetailProcurementFragment dialog = new AddDetailProductDetailProcurementFragment();
+                AddDetailProductDetailProcurementFragment dialog = new AddDetailProductDetailProcurementFragment(fragment);
                 dialog.show(manager, "dialog");
 
                 Bundle args = new Bundle();

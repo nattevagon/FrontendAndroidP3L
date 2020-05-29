@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background_layout"
+    tools:context=".Activity.PDFViewerActivity">
+
+    <RelativeLayout
+        android:id="@+id/navbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/upper_title">
+
+        <LinearLayout
+            android:id="@+id/topbar"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical"
+                android:foreground="@drawable/ripple_oval"
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_back"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="Surat Pemesanan"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/pdfView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/navbar"
+        android:layout_above="@+id/bottomBar"/>
+
+    <RelativeLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_navbar"
+        android:layout_alignParentBottom="true"
+        android:padding="20dp">
+
+        <Button
+            android:id="@+id/btnDownload"
+            android:layout_width="match_parent"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:paddingHorizontal="20dp"
+            android:drawableLeft="@drawable/ic_download"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/button"
+            android:foreground="@drawable/ripple_button_primary"
+            android:fontFamily="sans-serif-black"
+            android:text="DOWNLOAD"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

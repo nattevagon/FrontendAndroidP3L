@@ -117,7 +117,8 @@ public class ProcurementCanceledFragment extends Fragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
-        builder.setMessage("Pulihkan pengadaan"+code+" ?")
+        builder.setTitle("Pulihkan pengadaan ?")
+                .setMessage("Anda yakin untuk memulihkan pengadaan"+code+", jika dipulihkan maka akan tertampil pada daftar pengadaan.")
                 .setCancelable(false)
                 .setPositiveButton("PULIHKAN",
                         new DialogInterface.OnClickListener() {

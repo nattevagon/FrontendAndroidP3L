@@ -1,6 +1,7 @@
 package com.tubes.kouveepetshop.RecyclerAdapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -19,10 +20,9 @@ import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tubes.kouveepetshop.Activity.PDFViewerActivity;
 import com.tubes.kouveepetshop.Fragment.DetailProcurementFragment;
-import com.tubes.kouveepetshop.Fragment.ProcurementCanceledFragment;
 import com.tubes.kouveepetshop.Fragment.ProcurementProcessFragment;
-import com.tubes.kouveepetshop.Fragment.ReceiptProcurementFragment;
 import com.tubes.kouveepetshop.Model.ProcurementDAO;
 import com.tubes.kouveepetshop.R;
 
@@ -88,13 +88,10 @@ public class ProcurementProcessRecyclerAdapter extends RecyclerView.Adapter<Proc
                                 dialog.setArguments(args);
                                 return true;
                             case R.id.letter:
-                                FragmentManager manager2 = ((AppCompatActivity) context).getSupportFragmentManager();
-                                ReceiptProcurementFragment receiptDialog = new ReceiptProcurementFragment();
-                                receiptDialog.show(manager2, "dialog");
-
-                                Bundle args2 = new Bundle();
-                                args2.putString("id_procurement", brg.getId_pengadaan());
-                                receiptDialog.setArguments(args2);
+                                Intent i = new Intent(context, PDFViewerActivity.class);
+                                i.putExtra("id_procurement",brg.getId_pengadaan());
+                                i.putExtra("code",brg.getKode());
+                                context.startActivity(i);
                                 return true;
                             case R.id.confirm:
                                 fragment.DoneItemList(view, brg.getId_pengadaan(), brg.getKode());

@@ -36,6 +36,9 @@ public interface ApiInterface {
     @GET("produk")
     Call<List<ProductDAO>> getAllProduct();
 
+    @GET("produk/procurement")
+    Call<List<ProductDAO>> getAllProductProcurement(@Query("id_pengadaan") String id_pengadaan);
+
     @GET("produk")
     Call<List<ProductDAO>> getByProduct(@Query("id_produk") String id_produk);
 
