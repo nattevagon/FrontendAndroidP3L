@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -40,6 +41,7 @@ public class ProcurementActivity extends AppCompatActivity {
 
     private List<ProcurementDAO> procurementProductList;
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefresh;
     private ProcurementRecyclerAdapter recyclerAdapter;
 
     @Override
@@ -86,6 +88,15 @@ public class ProcurementActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.procurementRecyclerView);
         load();
+
+        swipeRefresh = findViewById(R.id.swipeRefresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mShimmerViewContainer.startShimmerAnimation();
+                load();
+            }
+        });
     }
 
     @Override
@@ -98,6 +109,7 @@ public class ProcurementActivity extends AppCompatActivity {
     protected void onPostResume() {
         super.onPostResume();
         mShimmerViewContainer.startShimmerAnimation();
+        imEmpty.setVisibility(View.INVISIBLE);
         load();
     }
 
@@ -124,6 +136,7 @@ public class ProcurementActivity extends AppCompatActivity {
                 }
                 mShimmerViewContainer.stopShimmerAnimation();
                 mShimmerViewContainer.setVisibility(View.GONE);
+                swipeRefresh.setRefreshing(false);
             }
 
             @Override

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -36,6 +37,7 @@ public class PetActivity extends AppCompatActivity {
 
     private List<PetDAO> petList;
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefresh;
     private PetRecyclerAdapter recyclerAdapter;
 
     @Override
@@ -70,6 +72,15 @@ public class PetActivity extends AppCompatActivity {
 
         petList = new ArrayList<>();
         load();
+
+        swipeRefresh = findViewById(R.id.swipeRefresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mShimmerViewContainer.startShimmerAnimation();
+                load();
+            }
+        });
     }
 
 
@@ -96,6 +107,7 @@ public class PetActivity extends AppCompatActivity {
                 generateDataList(response.body());
                 mShimmerViewContainer.stopShimmerAnimation();
                 mShimmerViewContainer.setVisibility(View.GONE);
+                swipeRefresh.setRefreshing(false);
             }
 
             @Override
@@ -106,7 +118,7 @@ public class PetActivity extends AppCompatActivity {
     }
 
     private void generateDataList(List<PetDAO> petList) {
-        recyclerView = findViewById(R.id.petRecyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerAdapter = new PetRecyclerAdapter(this,petList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PetActivity.this);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

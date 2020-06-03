@@ -1,7 +1,6 @@
 package com.tubes.kouveepetshop.RecyclerAdapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,10 +19,8 @@ import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tubes.kouveepetshop.Activity.DetailProcurementActivity;
 import com.tubes.kouveepetshop.Fragment.DetailProcurementFragment;
 import com.tubes.kouveepetshop.Fragment.ProcurementCanceledFragment;
-import com.tubes.kouveepetshop.Fragment.RestoreDetailTransactionProductFragment;
 import com.tubes.kouveepetshop.Model.ProcurementDAO;
 import com.tubes.kouveepetshop.R;
 
@@ -86,6 +82,7 @@ public class ProcurementCanceledRecyclerAdapter extends RecyclerView.Adapter<Pro
 
                                 Bundle args = new Bundle();
                                 args.putString("code", brg.getKode());
+                                args.putString("supplier", brg.getSupplier());
                                 args.putString("total", brg.getTotal_harga());
                                 dialog.setArguments(args);
                                 return true;

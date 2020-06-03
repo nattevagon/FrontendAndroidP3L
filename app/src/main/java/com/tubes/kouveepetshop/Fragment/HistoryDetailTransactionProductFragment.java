@@ -15,9 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
-import com.tubes.kouveepetshop.Model.DetailTransactionServiceDAO;
+import com.tubes.kouveepetshop.Model.DetailTransactionProductDAO;
 import com.tubes.kouveepetshop.R;
-import com.tubes.kouveepetshop.RecyclerAdapter.RestoreDetailTransactionServiceRecyclerAdapter;
+import com.tubes.kouveepetshop.RecyclerAdapter.HistoryDetailTransactionProductRecyclerAdapter;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -28,20 +28,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RestoreDetailTransactionServiceFragment extends DialogFragment {
+public class HistoryDetailTransactionProductFragment extends DialogFragment {
   private ImageButton btnClose;
-  private TextView twTotal;
-  private String sId, sIdDTP, sAmount, sPrice, sTotal, sStock;
-  private List<DetailTransactionServiceDAO> serviceList;
+  private TextView twCode, twPet, twTotal;
+  private String sId, sPet, sCode, sTotal;
+  private List<DetailTransactionProductDAO> productList;
   private RecyclerView recyclerView;
-  private RestoreDetailTransactionServiceRecyclerAdapter recyclerAdapter;
+  private HistoryDetailTransactionProductRecyclerAdapter recyclerAdapter;
   private ProgressDialog progressDialog;
 
   private Locale localeID = new Locale("in", "ID");
   private NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
-  public RestoreDetailTransactionServiceFragment(String id_tl) {
-    this.sId = id_tl;
+  public HistoryDetailTransactionProductFragment(String id_tp) {
+    this.sId = id_tp;
   }
 
 
@@ -59,11 +59,13 @@ public class RestoreDetailTransactionServiceFragment extends DialogFragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    View v = inflater.inflate(R.layout.fragment_restore_detail_transaction_service, container, false);
+    View v = inflater.inflate(R.layout.fragment_detail_transaction_product, container, false);
 
     progressDialog = new ProgressDialog(getContext());
     progressDialog.show();
 
+    twCode = v.findViewById(R.id.twCode);
+    twPet = v.findViewById(R.id.twPet);
     twTotal = v.findViewById(R.id.twTotal);
     btnClose = v.findViewById(R.id.btnClose);
 
@@ -74,14 +76,19 @@ public class RestoreDetailTransactionServiceFragment extends DialogFragment {
       }
     });
 
-    serviceList = new ArrayList<>();
+    productList = new ArrayList<>();
     recyclerView = v.findViewById(R.id.restoreTSRecyclerView);
     recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-    serviceList.removeAll(serviceList);
+    productList.removeAll(productList);
     load();
 
+    sCode = getArguments().getString("code", "");
+    sPet = getArguments().getString("pet", "");
     sTotal = getArguments().getString("total", "");
+
+    twCode.setText(sCode);
+    twPet.setText(sPet);
     twTotal.setText(formatRupiah.format((double)Double.parseDouble(sTotal)));
 
     return v;
@@ -89,23 +96,23 @@ public class RestoreDetailTransactionServiceFragment extends DialogFragment {
 
   public void load(){
     ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-    Call<List<DetailTransactionServiceDAO>> call = apiService.getByIDTSDetailTS(sId);
+    Call<List<DetailTransactionProductDAO>> call = apiService.getByIDTPDetailTP(sId);
 
-    call.enqueue(new Callback<List<DetailTransactionServiceDAO>>() {
+    call.enqueue(new Callback<List<DetailTransactionProductDAO>>() {
       @Override
-      public void onResponse(Call<List<DetailTransactionServiceDAO>> call, Response<List<DetailTransactionServiceDAO>> response) {
+      public void onResponse(Call<List<DetailTransactionProductDAO>> call, Response<List<DetailTransactionProductDAO>> response) {
         generateDataList(response.body());
       }
 
       @Override
-      public void onFailure(Call<List<DetailTransactionServiceDAO>> call, Throwable t) {
+      public void onFailure(Call<List<DetailTransactionProductDAO>> call, Throwable t) {
         progressDialog.dismiss();
       }
     });
   }
 
-  private void generateDataList(List<DetailTransactionServiceDAO> serviceList) {
-    recyclerAdapter = new RestoreDetailTransactionServiceRecyclerAdapter(getContext(),serviceList);
+  private void generateDataList(List<DetailTransactionProductDAO> productList) {
+    recyclerAdapter = new HistoryDetailTransactionProductRecyclerAdapter(getContext(),productList);
     recyclerView.setLayoutManager(new GridLayoutManager(getContext(),1));
     recyclerView.setAdapter(recyclerAdapter);
     progressDialog.dismiss();

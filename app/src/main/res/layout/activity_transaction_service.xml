@@ -46,18 +46,6 @@
                     android:text="Transaksi Layanan"/>
             </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/btnRestore"
-                android:background="@drawable/ic_restore"
-                android:layout_alignParentRight="true"
-                android:padding="10dp"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
-                android:clickable="true"
-                android:foreground="@drawable/ripple_oval"/>
-
         </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -78,6 +66,24 @@
 
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnHistory"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="7.5dp"
+        android:layout_marginRight="20dp"
+        android:paddingHorizontal="5dp"
+        android:drawableLeft="@drawable/ic_restore"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/button"
+        android:foreground="@drawable/ripple_button_primary"
+        android:fontFamily="sans-serif-black"
+        android:text="HISTORY"
+        android:textColor="@color/black"
+        android:textSize="15dp" />
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_view_container"
@@ -101,13 +107,18 @@
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tsRecyclerView"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
         android:layout_below="@+id/upper"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_alignParentBottom="true"

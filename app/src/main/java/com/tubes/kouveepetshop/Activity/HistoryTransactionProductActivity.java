@@ -9,21 +9,17 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.tubes.kouveepetshop.API.ApiClient;
 import com.tubes.kouveepetshop.API.ApiInterface;
-import com.tubes.kouveepetshop.Fragment.AddTransactionServiceFragment;
-import com.tubes.kouveepetshop.Model.DetailTransactionServiceDAO;
-import com.tubes.kouveepetshop.Model.TransactionServiceDAO;
+import com.tubes.kouveepetshop.Model.TransactionProductDAO;
 import com.tubes.kouveepetshop.R;
-import com.tubes.kouveepetshop.RecyclerAdapter.RestoreTransactionServiceRecyclerAdapter;
-import com.tubes.kouveepetshop.RecyclerAdapter.TransactionServiceRecyclerAdapter;
+import com.tubes.kouveepetshop.RecyclerAdapter.HistoryTransactionProductRecyclerAdapter;
 
 import java.util.List;
 
@@ -31,19 +27,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RestoreTransactionServiceActivity extends AppCompatActivity {
+public class HistoryTransactionProductActivity extends AppCompatActivity {
     private ImageButton btnBack;
     private SearchView searchView;
     private ShimmerFrameLayout mShimmerViewContainer;
 
-    private List<TransactionServiceDAO> transactionServiceList;
+    private List<TransactionProductDAO> transactionProductList;
     private RecyclerView recyclerView;
-    private RestoreTransactionServiceRecyclerAdapter recyclerAdapter;
+    private SwipeRefreshLayout swipeRefresh;
+    private HistoryTransactionProductRecyclerAdapter recyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_restore_transaction_service);
+        setContentView(R.layout.activity_history_transaction_product);
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
@@ -60,8 +57,17 @@ public class RestoreTransactionServiceActivity extends AppCompatActivity {
 
 
         searchView = findViewById(R.id.searchView);
-
+        recyclerView = findViewById(R.id.restoreTPRecyclerView);
         load();
+
+        swipeRefresh = findViewById(R.id.swipeRefresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mShimmerViewContainer.startShimmerAnimation();
+                load();
+            }
+        });
     }
 
     @Override
@@ -79,17 +85,17 @@ public class RestoreTransactionServiceActivity extends AppCompatActivity {
 
     public void load(){
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<List<TransactionServiceDAO>> call = apiService.getAllCanceledTransactionService();
+        Call<List<TransactionProductDAO>> call = apiService.getAllCanceledTransactionProduct();
 
-        call.enqueue(new Callback<List<TransactionServiceDAO>>() {
+        call.enqueue(new Callback<List<TransactionProductDAO>>() {
             @Override
-            public void onResponse(Call<List<TransactionServiceDAO>> call, Response<List<TransactionServiceDAO>> response) {
+            public void onResponse(Call<List<TransactionProductDAO>> call, Response<List<TransactionProductDAO>> response) {
                 for(int i=0;i<response.body().size();i++) {
-                    String id = response.body().get(i).getId_tl();
+                    String id = response.body().get(i).getId_tp();
 
                     if(id.equalsIgnoreCase("false"))
                     {
-                        Toast.makeText(RestoreTransactionServiceActivity.this, "Transaksi Kosong", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HistoryTransactionProductActivity.this, "Transaksi Kosong", Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
@@ -98,18 +104,18 @@ public class RestoreTransactionServiceActivity extends AppCompatActivity {
                 }
                 mShimmerViewContainer.stopShimmerAnimation();
                 mShimmerViewContainer.setVisibility(View.GONE);
+                swipeRefresh.setRefreshing(false);
             }
 
             @Override
-            public void onFailure(Call<List<TransactionServiceDAO>> call, Throwable t) {
-                Toast.makeText(RestoreTransactionServiceActivity.this, "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<List<TransactionProductDAO>> call, Throwable t) {
+                Toast.makeText(HistoryTransactionProductActivity.this, "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void generateDataList(List<TransactionServiceDAO> transactionServiceList) {
-        recyclerView = findViewById(R.id.restoreTSRecyclerView);
-        recyclerAdapter = new RestoreTransactionServiceRecyclerAdapter(this, transactionServiceList, this);
+    private void generateDataList(List<TransactionProductDAO> transactionProductList) {
+        recyclerAdapter = new HistoryTransactionProductRecyclerAdapter(this, transactionProductList, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerAdapter);
@@ -130,11 +136,13 @@ public class RestoreTransactionServiceActivity extends AppCompatActivity {
         });
     }
 
-    public void RestoreItemList(View v, final String idDetail) {
+    public void RestoreItemList(View v, final String idDetail, String code) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
-        builder.setMessage("Pulihkan transaksi ?")
+        builder.setTitle("Pulihkan transaksi ?")
+                .setMessage("Anda yakin untuk memulihkan transaksi "+code+" ?, jika dipulihkan maka akan tertampil pada daftar transaksi produk.")
+                .setIcon(R.drawable.ic_restore)
                 .setCancelable(false)
                 .setPositiveButton("PULIHKAN",
                         new DialogInterface.OnClickListener() {
@@ -155,16 +163,16 @@ public class RestoreTransactionServiceActivity extends AppCompatActivity {
 
     public void Restore(final String id) {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<TransactionServiceDAO> call = apiService.restoreTransactionService(id);
+        Call<TransactionProductDAO> call = apiService.restoreTransactionProduct(id);
 
-        call.enqueue(new Callback<TransactionServiceDAO>() {
+        call.enqueue(new Callback<TransactionProductDAO>() {
             @Override
-            public void onResponse(Call<TransactionServiceDAO> call, Response<TransactionServiceDAO> response) {
+            public void onResponse(Call<TransactionProductDAO> call, Response<TransactionProductDAO> response) {
                 onPostResume();
             }
 
             @Override
-            public void onFailure(Call<TransactionServiceDAO> call, Throwable t) {
+            public void onFailure(Call<TransactionProductDAO> call, Throwable t) {
                 mShimmerViewContainer.stopShimmerAnimation();
                 mShimmerViewContainer.setVisibility(View.GONE);
             }

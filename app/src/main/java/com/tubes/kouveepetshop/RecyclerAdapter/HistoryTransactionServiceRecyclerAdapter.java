@@ -19,10 +19,9 @@ import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tubes.kouveepetshop.Activity.RestoreTransactionProductActivity;
-import com.tubes.kouveepetshop.Fragment.RestoreDetailTransactionProductFragment;
-import com.tubes.kouveepetshop.Fragment.RestoreDetailTransactionServiceFragment;
-import com.tubes.kouveepetshop.Model.TransactionProductDAO;
+import com.tubes.kouveepetshop.Activity.HistoryTransactionServiceActivity;
+import com.tubes.kouveepetshop.Fragment.HistoryDetailTransactionServiceFragment;
+import com.tubes.kouveepetshop.Model.TransactionServiceDAO;
 import com.tubes.kouveepetshop.R;
 
 import java.text.NumberFormat;
@@ -30,17 +29,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class RestoreTransactionProductRecyclerAdapter extends RecyclerView.Adapter<RestoreTransactionProductRecyclerAdapter.RoomViewHolder> implements Filterable {
+public class HistoryTransactionServiceRecyclerAdapter extends RecyclerView.Adapter<HistoryTransactionServiceRecyclerAdapter.RoomViewHolder> implements Filterable {
     private String id, code;
-    private List<TransactionProductDAO> dataList;
-    private List<TransactionProductDAO> filteredDataList;
+    private List<TransactionServiceDAO> dataList;
+    private List<TransactionServiceDAO> filteredDataList;
     private Context context;
-    private RestoreTransactionProductActivity activity;
+    private HistoryTransactionServiceActivity activity;
 
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
-    public RestoreTransactionProductRecyclerAdapter(Context context, List<TransactionProductDAO> dataList, RestoreTransactionProductActivity activity) {
+    public HistoryTransactionServiceRecyclerAdapter(Context context, List<TransactionServiceDAO> dataList, HistoryTransactionServiceActivity activity) {
         this.context=context;
         this.dataList = dataList;
         this.filteredDataList = dataList;
@@ -51,13 +50,13 @@ public class RestoreTransactionProductRecyclerAdapter extends RecyclerView.Adapt
     @Override
     public RoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.recycle_adapter_restore_transaction_product, parent, false);
+        View view = layoutInflater.inflate(R.layout.recycle_adapter_history_transaction_service, parent, false);
         return new RoomViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RestoreTransactionProductRecyclerAdapter.RoomViewHolder holder, int position) {
-        final TransactionProductDAO brg = filteredDataList.get(position);
+    public void onBindViewHolder(@NonNull HistoryTransactionServiceRecyclerAdapter.RoomViewHolder holder, int position) {
+        final TransactionServiceDAO brg = filteredDataList.get(position);
         holder.mCode.setText(brg.getKode());
         holder.mPet.setText(brg.getHewan());
         holder.mSubTotal.setText(formatRupiah.format((double)Double.parseDouble(brg.getSub_total())));
@@ -77,15 +76,17 @@ public class RestoreTransactionProductRecyclerAdapter extends RecyclerView.Adapt
                         switch (item.getItemId()) {
                             case R.id.detail:
                                 FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
-                                RestoreDetailTransactionProductFragment dialog = new RestoreDetailTransactionProductFragment(brg.getId_tp());
+                                HistoryDetailTransactionServiceFragment dialog = new HistoryDetailTransactionServiceFragment(brg.getId_tl());
                                 dialog.show(manager, "dialog");
 
                                 Bundle args = new Bundle();
+                                args.putString("code", brg.getKode());
+                                args.putString("pet", brg.getHewan());
                                 args.putString("total", brg.getSub_total());
                                 dialog.setArguments(args);
                                 return true;
                             case R.id.restore:
-                                activity.RestoreItemList(view, brg.getId_tp());
+                                activity.RestoreItemList(view, brg.getId_tl(), brg.getKode());
                                 return true;
                             default:
                                 return false;
@@ -128,10 +129,10 @@ public class RestoreTransactionProductRecyclerAdapter extends RecyclerView.Adapt
                 if (charSequenceString.isEmpty()) {
                     filteredDataList = dataList;
                 } else {
-                    List<TransactionProductDAO> filteredList = new ArrayList<>();
-                    for (TransactionProductDAO TransactionProductDAO : dataList) {
-                        if (TransactionProductDAO.getKode().toLowerCase().contains(charSequenceString.toLowerCase()) || TransactionProductDAO.getHewan().contains(charSequenceString.toLowerCase())) {
-                            filteredList.add(TransactionProductDAO);
+                    List<TransactionServiceDAO> filteredList = new ArrayList<>();
+                    for (TransactionServiceDAO TransactionServiceDAO : dataList) {
+                        if (TransactionServiceDAO.getKode().toLowerCase().contains(charSequenceString.toLowerCase()) || TransactionServiceDAO.getHewan().contains(charSequenceString.toLowerCase())) {
+                            filteredList.add(TransactionServiceDAO);
                         }
                         filteredDataList = filteredList;
                     }
@@ -144,7 +145,7 @@ public class RestoreTransactionProductRecyclerAdapter extends RecyclerView.Adapt
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                filteredDataList = (List<TransactionProductDAO>) results.values;
+                filteredDataList = (List<TransactionServiceDAO>) results.values;
                 notifyDataSetChanged();
             }
         };

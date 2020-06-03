@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.tubes.kouveepetshop.API.ApiClient;
@@ -33,6 +34,7 @@ import retrofit2.Response;
 public class ProcurementCanceledFragment extends Fragment {
     private List<ProcurementDAO> list;
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefresh;
     private ProcurementCanceledRecyclerAdapter recyclerAdapter;
     private ShimmerFrameLayout mShimmerViewContainer;
     private ImageView imEmpty;
@@ -65,6 +67,15 @@ public class ProcurementCanceledFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView);
         load();
+
+        swipeRefresh = view.findViewById(R.id.swipeRefresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mShimmerViewContainer.startShimmerAnimation();
+                load();
+            }
+        });
     }
 
     public void onBack() {
@@ -96,6 +107,7 @@ public class ProcurementCanceledFragment extends Fragment {
                 }
                 mShimmerViewContainer.stopShimmerAnimation();
                 mShimmerViewContainer.setVisibility(View.GONE);
+                swipeRefresh.setRefreshing(false);
             }
 
             @Override
@@ -118,7 +130,8 @@ public class ProcurementCanceledFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
         builder.setTitle("Pulihkan pengadaan ?")
-                .setMessage("Anda yakin untuk memulihkan pengadaan"+code+", jika dipulihkan maka akan tertampil pada daftar pengadaan.")
+                .setMessage("Anda yakin untuk memulihkan pengadaan "+code+" ?, jika dipulihkan maka akan tertampil pada daftar pengadaan.")
+                .setIcon(R.drawable.ic_restore)
                 .setCancelable(false)
                 .setPositiveButton("PULIHKAN",
                         new DialogInterface.OnClickListener() {

@@ -84,6 +84,7 @@ public class ProcurementProcessRecyclerAdapter extends RecyclerView.Adapter<Proc
 
                                 Bundle args = new Bundle();
                                 args.putString("code", brg.getKode());
+                                args.putString("supplier", brg.getSupplier());
                                 args.putString("total", brg.getTotal_harga());
                                 dialog.setArguments(args);
                                 return true;

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Activity.LoginActivity"
-    android:background="@drawable/background_layout"
+    android:background="@drawable/background"
     android:orientation="vertical">
 
     <LinearLayout
@@ -38,78 +38,77 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvLogo"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
-        app:cardElevation="@dimen/card_elevation"
-        app:cardCornerRadius="@dimen/normal_radius"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground">
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal = "20dp"
+        app:cardElevation="6dp"
+        app:cardCornerRadius="6dp">
 
-        <ImageView
-            android:id="@+id/imageMain"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="20dp"
-            android:layout_gravity="center"
-            android:background="@drawable/kouveepetshop_doglogo" />
-    </androidx.cardview.widget.CardView>
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="20dp">
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingHorizontal="50dp">
-
-        <EditText
-            android:id="@+id/etUsername"
-            android:hint="Username"
-            android:inputType="text"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:background="@drawable/field_text"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:layout_marginTop="60dp"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:passwordToggleEnabled="true"
-            app:hintEnabled="false">
+            <ImageView
+                android:id="@+id/imageMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_gravity="center"
+                android:background="@drawable/kouveelogo" />
 
             <EditText
-                android:id="@+id/etPassword"
+                android:id="@+id/etUsername"
+                android:hint="Username"
+                android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:background="@drawable/field_text"
-                android:hint="Password"
-                android:inputType="textPassword"
                 android:paddingLeft="20dp"
-                android:paddingRight="20dp" />
+                android:paddingRight="20dp"
+                android:layout_marginTop="50dp"/>
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:passwordToggleEnabled="true"
+                app:hintEnabled="false">
 
-        <Button
-            android:id="@+id/btnMasuk"
-            android:layout_marginTop="50dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/button"
-            android:foreground="@drawable/ripple_button_primary"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_gravity="center"
-            android:text="MASUK"
-            android:textColor="@color/black"
-            android:fontFamily="sans-serif-black"
-            android:textSize="25dp"/>
+                <EditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/field_text"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp" />
 
-    </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
+            <Button
+                android:id="@+id/btnMasuk"
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/button"
+                android:foreground="@drawable/ripple_button_primary"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_gravity="center"
+                android:text="MASUK"
+                android:textColor="@color/black"
+                android:fontFamily="sans-serif-black"
+                android:textSize="25dp"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

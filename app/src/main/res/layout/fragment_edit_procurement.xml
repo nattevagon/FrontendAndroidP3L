@@ -38,47 +38,54 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:background="@drawable/upper_sheet"
-        android:paddingHorizontal="15dp">
+        android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin = "20dp"
-            app:cardElevation="6dp"
-            app:cardCornerRadius="6dp">
+            android:layout_margin="20dp"
+            app:cardCornerRadius="6dp"
+            app:cardElevation="6dp">
 
             <LinearLayout
-                android:layout_margin="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="10dp"
-                android:orientation="vertical">
+                android:layout_margin="20dp"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
 
                 <AutoCompleteTextView
                     android:id="@+id/spSupplier"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:hint="Supplier"
                     android:completionThreshold="1"
-                    android:textSize="20dp"/>
+                    android:hint="Supplier"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <Button
-            android:id="@+id/btnDone"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginVertical="40dp"
-            android:layout_marginHorizontal="20dp"
-            android:background="@drawable/button"
-            android:fontFamily="sans-serif-black"
-            android:text="SIMPAN"
-            android:textColor="@color/black"
-            android:textSize="20dp"/>
+            android:background="@drawable/bottom_navbar"
+            android:padding="20dp">
+
+            <Button
+                android:id="@+id/btnDone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/button"
+                android:fontFamily="sans-serif-black"
+                android:foreground="@drawable/ripple_button_primary"
+                style="?android:attr/borderlessButtonStyle"
+                android:text="SIMPAN"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

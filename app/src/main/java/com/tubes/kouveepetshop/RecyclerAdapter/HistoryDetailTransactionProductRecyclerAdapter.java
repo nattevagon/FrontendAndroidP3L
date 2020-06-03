@@ -12,17 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tubes.kouveepetshop.Model.DetailTransactionProductDAO;
 import com.tubes.kouveepetshop.R;
 
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
-public class RestoreDetailTransactionProductRecyclerAdapter extends RecyclerView.Adapter<RestoreDetailTransactionProductRecyclerAdapter.RoomViewHolder>{
+public class HistoryDetailTransactionProductRecyclerAdapter extends RecyclerView.Adapter<HistoryDetailTransactionProductRecyclerAdapter.RoomViewHolder>{
     private String sIdService, sIdDetailTS, sIdTS, sName, sPrice, sTotal, sAmountDay;
     private int price;
     private List<DetailTransactionProductDAO> dataList;
     private Context context;
 
-    public RestoreDetailTransactionProductRecyclerAdapter(Context context, List<DetailTransactionProductDAO> dataList) {
+    public HistoryDetailTransactionProductRecyclerAdapter(Context context, List<DetailTransactionProductDAO> dataList) {
         this.context=context;
         this.dataList = dataList;
     }
@@ -31,12 +29,12 @@ public class RestoreDetailTransactionProductRecyclerAdapter extends RecyclerView
     @Override
     public RoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.recycle_adapter_restore_detail_transaction_product, parent, false);
+        View view = layoutInflater.inflate(R.layout.recycle_adapter_history_detail_transaction_product, parent, false);
         return new RoomViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final RestoreDetailTransactionProductRecyclerAdapter.RoomViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final HistoryDetailTransactionProductRecyclerAdapter.RoomViewHolder holder, final int position) {
         final DetailTransactionProductDAO brg = dataList.get(position);
 
         holder.mName.setText(brg.getProduk());

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -36,6 +37,7 @@ public class ProductActivity extends AppCompatActivity {
 
     private List<ProductDAO> productList;
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefresh;
     private ProductRecyclerAdapter recyclerAdapter;
 
 
@@ -69,6 +71,15 @@ public class ProductActivity extends AppCompatActivity {
 
         searchView = findViewById(R.id.searchView);
         load();
+
+        swipeRefresh = findViewById(R.id.swipeRefresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mShimmerViewContainer.startShimmerAnimation();
+                load();
+            }
+        });
     }
 
     @Override
@@ -94,6 +105,7 @@ public class ProductActivity extends AppCompatActivity {
                 generateDataList(response.body());
                 mShimmerViewContainer.stopShimmerAnimation();
                 mShimmerViewContainer.setVisibility(View.GONE);
+                swipeRefresh.setRefreshing(false);
             }
 
             @Override
@@ -104,7 +116,7 @@ public class ProductActivity extends AppCompatActivity {
     }
 
     private void generateDataList(List<ProductDAO> productList) {
-        recyclerView = findViewById(R.id.productRecyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerAdapter = new ProductRecyclerAdapter(this,productList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ProductActivity.this);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

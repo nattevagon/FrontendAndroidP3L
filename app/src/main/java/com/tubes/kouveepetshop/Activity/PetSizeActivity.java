@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -36,6 +37,7 @@ public class PetSizeActivity extends AppCompatActivity {
 
     private List<PetSizeDAO> petsizeList;
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefresh;
     private PetSizeRecyclerAdapter recyclerAdapter;
 
     @Override
@@ -68,6 +70,15 @@ public class PetSizeActivity extends AppCompatActivity {
 
         searchView = findViewById(R.id.searchView);
         load();
+
+        swipeRefresh = findViewById(R.id.swipeRefresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mShimmerViewContainer.startShimmerAnimation();
+                load();
+            }
+        });
     }
 
     @Override
@@ -93,6 +104,7 @@ public class PetSizeActivity extends AppCompatActivity {
                 generateDataList(response.body());
                 mShimmerViewContainer.stopShimmerAnimation();
                 mShimmerViewContainer.setVisibility(View.GONE);
+                swipeRefresh.setRefreshing(false);
             }
 
             @Override
@@ -103,7 +115,7 @@ public class PetSizeActivity extends AppCompatActivity {
     }
 
     private void generateDataList(List<PetSizeDAO> petsizeList) {
-        recyclerView = findViewById(R.id.petSizeRecyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerAdapter = new PetSizeRecyclerAdapter(this,petsizeList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PetSizeActivity.this);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

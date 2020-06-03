@@ -131,6 +131,7 @@
             android:layout_marginBottom="10dp"
             android:layout_height="wrap_content"
             android:foreground="@drawable/ripple_button_primary"
+            style="?android:attr/borderlessButtonStyle"
             android:textColor="@color/black"
             android:fontFamily="sans-serif-black"
             android:text="Ubah"/>
@@ -147,6 +148,7 @@
             android:layout_marginBottom="10dp"
             android:layout_height="wrap_content"
             android:foreground="@drawable/ripple_button_primary"
+            style="?android:attr/borderlessButtonStyle"
             android:textColor="@color/black"
             android:fontFamily="sans-serif-black"
             android:textSize="20dp"

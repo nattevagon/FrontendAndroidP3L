@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.view.View;
@@ -34,6 +35,7 @@ public class ProductCustomerActivity extends AppCompatActivity {
 
     private List<ProductDAO> productList;
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefresh;
     private ProductCustomerRecyclerAdapter recyclerAdapter;
 
     @Override
@@ -56,12 +58,21 @@ public class ProductCustomerActivity extends AppCompatActivity {
         searchView = findViewById(R.id.searchView);
         btnSort = findViewById(R.id.btnSort);
         
-        recyclerView = findViewById(R.id.productRecyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         productList = new ArrayList<ProductDAO>();
         productList.removeAll(productList);
         load();
+
+        swipeRefresh = findViewById(R.id.swipeRefresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mShimmerViewContainer.startShimmerAnimation();
+                load();
+            }
+        });
 
         btnSort.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +99,9 @@ public class ProductCustomerActivity extends AppCompatActivity {
             public void onResponse(Call<List<ProductDAO>> call, Response<List<ProductDAO>> response) {
                 generateDataList(response.body());
                 mShimmerViewContainer.stopShimmerAnimation();
-                mShimmerViewContainer.setVisibility(View.GONE);            }
+                mShimmerViewContainer.setVisibility(View.GONE);
+                swipeRefresh.setRefreshing(false);
+            }
 
             @Override
             public void onFailure(Call<List<ProductDAO>> call, Throwable t) {

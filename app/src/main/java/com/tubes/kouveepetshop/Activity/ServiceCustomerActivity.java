@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.tubes.kouveepetshop.API.ApiClient;
@@ -33,6 +34,7 @@ public class ServiceCustomerActivity extends AppCompatActivity {
 
     private List<ServiceDAO> serviceList;
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefresh;
     private ServiceCustomerRecyclerAdapter recyclerAdapter;
 
     @Override
@@ -54,6 +56,15 @@ public class ServiceCustomerActivity extends AppCompatActivity {
 
         searchView = findViewById(R.id.searchView);
         load();
+
+        swipeRefresh = findViewById(R.id.swipeRefresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mShimmerViewContainer.startShimmerAnimation();
+                load();
+            }
+        });
     }
 
     @Override
@@ -79,6 +90,7 @@ public class ServiceCustomerActivity extends AppCompatActivity {
                 generateDataList(response.body());
                 mShimmerViewContainer.stopShimmerAnimation();
                 mShimmerViewContainer.setVisibility(View.GONE);
+                swipeRefresh.setRefreshing(false);
             }
 
             @Override
@@ -90,7 +102,7 @@ public class ServiceCustomerActivity extends AppCompatActivity {
     }
 
     private void generateDataList(List<ServiceDAO> serviceList) {
-        recyclerView = findViewById(R.id.serviceRecyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerAdapter = new ServiceCustomerRecyclerAdapter(this,serviceList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ServiceCustomerActivity.this);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

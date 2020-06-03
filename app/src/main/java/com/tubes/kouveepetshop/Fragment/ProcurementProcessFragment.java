@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.tubes.kouveepetshop.API.ApiClient;
@@ -34,6 +35,7 @@ import retrofit2.Response;
 public class ProcurementProcessFragment extends Fragment {
     private List<ProcurementDAO> list;
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefresh;
     private ProcurementProcessRecyclerAdapter recyclerAdapter;
     private ShimmerFrameLayout mShimmerViewContainer;
     private ImageView imEmpty;
@@ -66,7 +68,17 @@ public class ProcurementProcessFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView);
         load();
+
+        swipeRefresh = view.findViewById(R.id.swipeRefresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mShimmerViewContainer.startShimmerAnimation();
+                load();
+            }
+        });
     }
+
 
     public void onBack() {
         super.onResume();
@@ -97,6 +109,7 @@ public class ProcurementProcessFragment extends Fragment {
                 }
                 mShimmerViewContainer.stopShimmerAnimation();
                 mShimmerViewContainer.setVisibility(View.GONE);
+                swipeRefresh.setRefreshing(false);
             }
 
             @Override
@@ -119,8 +132,9 @@ public class ProcurementProcessFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
         builder.setTitle("Konfirmasi datang pesanan pengadaan ?")
-                .setMessage("Anda yakin pesanan pegadaan "+code+" sudah datang ?, " +
-                        "jika sudah dikonfirmasi maka pengadaan akan ditempatkan pada history pengadaan bagian selesai")
+                .setMessage("Anda yakin pesanan pegadaan "+code+" sudah datang ?\n\n" +
+                        "Jika sudah dikonfirmasi maka pengadaan akan ditempatkan pada history pengadaan bagian selesai.")
+                .setIcon(R.drawable.ic_done)
                 .setCancelable(false)
                 .setPositiveButton("KONFIRMASI",
                         new DialogInterface.OnClickListener() {
@@ -188,6 +202,7 @@ public class ProcurementProcessFragment extends Fragment {
         call.enqueue(new Callback<ProductDAO>() {
             @Override
             public void onResponse(Call<ProductDAO> call, Response<ProductDAO> response) {
+                Toast.makeText(getContext(), "Sukses melakukan update pada produk", Toast.LENGTH_SHORT).show();
             }
 
             @Override

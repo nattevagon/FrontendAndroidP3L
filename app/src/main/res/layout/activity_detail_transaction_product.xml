@@ -263,7 +263,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_navbar"
@@ -271,15 +271,38 @@
         android:padding="20dp">
 
         <Button
-            android:id="@+id/btnConfirmDone"
+            android:id="@+id/btnDone"
             android:layout_width="match_parent"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_height="50dp"
-            android:layout_gravity="bottom"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/btnConfirm"
+            android:layout_marginRight="20dp"
+            android:paddingHorizontal="20dp"
+            android:drawableLeft="@drawable/ic_done"
+            android:layout_gravity="center_horizontal"
             android:background="@drawable/button"
+            android:foreground="@drawable/ripple_button_primary"
+            android:fontFamily="sans-serif-black"
+            android:text="SELESAI"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btnConfirm"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:paddingHorizontal="20dp"
+            android:drawableLeft="@drawable/ic_letter"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/button2"
             android:foreground="@drawable/ripple_button_primary"
             android:fontFamily="sans-serif-black"
             android:text="KONFIRMASI"
             android:textColor="@color/black"
             android:textSize="20dp" />
-    </LinearLayout>
+
+    </RelativeLayout>
 </RelativeLayout>

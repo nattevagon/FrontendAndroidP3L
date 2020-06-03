@@ -79,6 +79,7 @@ public class ProcurementDoneRecyclerAdapter extends RecyclerView.Adapter<Procure
 
                                 Bundle args = new Bundle();
                                 args.putString("code", brg.getKode());
+                                args.putString("supplier", brg.getSupplier());
                                 args.putString("total", brg.getTotal_harga());
                                 dialog.setArguments(args);
                                 return true;

@@ -8,14 +8,14 @@
 
     <LinearLayout
         android:id="@+id/upper"
+        android:background="@drawable/upper_sheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/upper_sheet">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -26,7 +26,7 @@
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:text="Detail Pengadaan"/>
+                android:text="Detail Transaksi Produk"/>
 
             <ImageButton
                 android:id="@+id/btnClose"
@@ -41,7 +41,6 @@
                 android:background="@drawable/ic_close" />
         </RelativeLayout>
     </LinearLayout>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/restoreTSRecyclerView"
@@ -95,16 +94,16 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:textSize="15dp"
-                    android:text="Supplier"
+                    android:text="Hewan"
                     android:textColor="@color/black"/>
 
                 <TextView
-                    android:id="@+id/twSupplier"
+                    android:id="@+id/twPet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
-                    android:hint="Supplier"
+                    android:hint="Hewan"
                     android:textAlignment="textEnd"
                     android:textSize="15dp"
                     android:textColor="@color/black"/>
@@ -140,5 +139,6 @@
                     android:textColor="@color/black"/>
             </RelativeLayout>
         </LinearLayout>
+
     </RelativeLayout>
 </RelativeLayout>

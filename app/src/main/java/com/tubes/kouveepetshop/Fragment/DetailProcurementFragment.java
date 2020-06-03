@@ -30,8 +30,8 @@ import retrofit2.Response;
 
 public class DetailProcurementFragment extends DialogFragment {
   private ImageButton btnClose;
-  private TextView twTitle, twTotal;
-  private String sId, sCode, sTotal;
+  private TextView twCode, twSupplier, twTotal;
+  private String sId, sCode, sSupplier, sTotal;
   private List<DetailProcurementDAO> productList;
   private RecyclerView recyclerView;
   private HistoryDetailProcurementRecyclerAdapter recyclerAdapter;
@@ -64,7 +64,8 @@ public class DetailProcurementFragment extends DialogFragment {
     progressDialog = new ProgressDialog(getContext());
     progressDialog.show();
 
-    twTitle = v.findViewById(R.id.twTitle);
+    twCode = v.findViewById(R.id.twCode);
+    twSupplier = v.findViewById(R.id.twSupplier);
     twTotal = v.findViewById(R.id.twTotal);
     btnClose = v.findViewById(R.id.btnClose);
 
@@ -83,8 +84,10 @@ public class DetailProcurementFragment extends DialogFragment {
     load();
 
     sCode = getArguments().getString("code", "");
+    sSupplier = getArguments().getString("supplier", "");
     sTotal = getArguments().getString("total", "");
-    twTitle.setText("Detail Pengadaan : "+sCode);
+    twCode.setText(sCode);
+    twSupplier.setText(sSupplier);
     twTotal.setText(formatRupiah.format((double)Double.parseDouble(sTotal)));
 
     return v;

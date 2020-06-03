@@ -5,14 +5,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -30,13 +30,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TransactionServiceActivity extends AppCompatActivity {
-    private ImageButton btnBack, btnRestore;
+    private ImageButton btnBack;
+    private Button btnHistory;
     private SearchView searchView;
     private FloatingActionButton btnAdd;
     private ShimmerFrameLayout mShimmerViewContainer;
 
     private List<TransactionServiceDAO> transactionServiceList;
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefresh;
     private TransactionServiceRecyclerAdapter recyclerAdapter;
 
     @Override
@@ -50,7 +52,7 @@ public class TransactionServiceActivity extends AppCompatActivity {
         mShimmerViewContainer.startShimmerAnimation();
 
         btnBack = findViewById(R.id.btnBack);
-        btnRestore = findViewById(R.id.btnRestore);
+        btnHistory = findViewById(R.id.btnHistory);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,17 +70,26 @@ public class TransactionServiceActivity extends AppCompatActivity {
             }
         });
 
-        btnRestore.setOnClickListener(new View.OnClickListener() {
+        btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(TransactionServiceActivity.this, RestoreTransactionServiceActivity.class);
+                Intent i = new Intent(TransactionServiceActivity.this, HistoryTransactionServiceActivity.class);
                 startActivity(i);
             }
         });
 
         searchView = findViewById(R.id.searchView);
-
+        recyclerView = findViewById(R.id.tsRecyclerView);
         load();
+
+        swipeRefresh = findViewById(R.id.swipeRefresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mShimmerViewContainer.startShimmerAnimation();
+                load();
+            }
+        });
     }
 
     @Override
@@ -115,6 +126,7 @@ public class TransactionServiceActivity extends AppCompatActivity {
                 }
                 mShimmerViewContainer.stopShimmerAnimation();
                 mShimmerViewContainer.setVisibility(View.GONE);
+                swipeRefresh.setRefreshing(false);
             }
 
             @Override
@@ -125,7 +137,6 @@ public class TransactionServiceActivity extends AppCompatActivity {
     }
 
     private void generateDataList(List<TransactionServiceDAO> transactionServiceList) {
-        recyclerView = findViewById(R.id.tsRecyclerView);
         recyclerAdapter = new TransactionServiceRecyclerAdapter(this, transactionServiceList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);

@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.tubes.kouveepetshop.API.ApiClient;
@@ -29,8 +30,8 @@ import retrofit2.Response;
 
 public class OutStockFragment extends Fragment {
     private List<ProductDAO> productList;
-    private RecyclerView productRecyclerView;
     private RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefresh;
     private StockRecyclerAdapter recyclerAdapter;
     private ShimmerFrameLayout mShimmerViewContainer;
     private ImageView imEmpty;
@@ -64,6 +65,15 @@ public class OutStockFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.productRecyclerView);
         load();
+
+        swipeRefresh = view.findViewById(R.id.swipeRefresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mShimmerViewContainer.startShimmerAnimation();
+                load();
+            }
+        });
     }
 
     public void load(){
@@ -89,6 +99,7 @@ public class OutStockFragment extends Fragment {
                 }
                 mShimmerViewContainer.stopShimmerAnimation();
                 mShimmerViewContainer.setVisibility(View.GONE);
+                swipeRefresh.setRefreshing(false);
             }
 
             @Override

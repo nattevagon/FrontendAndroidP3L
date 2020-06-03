@@ -1,25 +1,14 @@
 package com.tubes.kouveepetshop.RecyclerAdapter;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuBuilder;
-import androidx.appcompat.view.menu.MenuPopupHelper;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tubes.kouveepetshop.Activity.DetailTransactionServiceActivity;
-import com.tubes.kouveepetshop.Fragment.EditPetCareFragment;
-import com.tubes.kouveepetshop.Fragment.SMSFragment;
 import com.tubes.kouveepetshop.Model.DetailTransactionServiceDAO;
 import com.tubes.kouveepetshop.R;
 
@@ -27,7 +16,7 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class RestoreDetailTransactionServiceRecyclerAdapter extends RecyclerView.Adapter<RestoreDetailTransactionServiceRecyclerAdapter.RoomViewHolder>{
+public class HistoryDetailTransactionServiceRecyclerAdapter extends RecyclerView.Adapter<HistoryDetailTransactionServiceRecyclerAdapter.RoomViewHolder>{
     private String sIdService, sIdDetailTS, sIdTS, sName, sPrice, sTotal, sAmountDay;
     private int price;
     private List<DetailTransactionServiceDAO> dataList;
@@ -36,7 +25,7 @@ public class RestoreDetailTransactionServiceRecyclerAdapter extends RecyclerView
     Locale localeID = new Locale("in", "ID");
     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
-    public RestoreDetailTransactionServiceRecyclerAdapter(Context context, List<DetailTransactionServiceDAO> dataList) {
+    public HistoryDetailTransactionServiceRecyclerAdapter(Context context, List<DetailTransactionServiceDAO> dataList) {
         this.context=context;
         this.dataList = dataList;
     }
@@ -45,12 +34,12 @@ public class RestoreDetailTransactionServiceRecyclerAdapter extends RecyclerView
     @Override
     public RoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.recycle_adapter_restore_detail_transaction_service, parent, false);
+        View view = layoutInflater.inflate(R.layout.recycle_adapter_history_detail_transaction_service, parent, false);
         return new RoomViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final RestoreDetailTransactionServiceRecyclerAdapter.RoomViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final HistoryDetailTransactionServiceRecyclerAdapter.RoomViewHolder holder, final int position) {
         final DetailTransactionServiceDAO brg = dataList.get(position);
 
         int total = Integer.parseInt(brg.getTotal());

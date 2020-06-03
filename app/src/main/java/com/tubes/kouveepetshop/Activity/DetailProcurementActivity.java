@@ -251,9 +251,9 @@ public class DetailProcurementActivity extends AppCompatActivity {
         builder.setTitle("Yakin untuk membatalkan pengadaan ?")
                 .setMessage("Setelah melakukan pembatalan pengadaan "+sCode+", " +
                         "maka pengadaan akan dipindahkan kedalam history pengadaan bagian batal.")
-                .setIcon(R.drawable.ic_delete)
+                .setIcon(R.drawable.ic_cancel)
                 .setCancelable(false)
-                .setPositiveButton("YA",
+                .setPositiveButton("BATALKAN",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 progressDialog.show();

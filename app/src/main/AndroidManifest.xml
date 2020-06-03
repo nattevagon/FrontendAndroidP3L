@@ -35,10 +35,10 @@
             android:name=".Activity.TransactionProductActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.RestoreTransactionServiceActivity"
+            android:name=".Activity.HistoryTransactionServiceActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.RestoreTransactionProductActivity"
+            android:name=".Activity.HistoryTransactionProductActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.DetailTransactionProductActivity"

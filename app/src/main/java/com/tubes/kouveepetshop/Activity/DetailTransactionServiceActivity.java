@@ -46,7 +46,7 @@ import retrofit2.Response;
 
 public class DetailTransactionServiceActivity extends AppCompatActivity {
     private ImageButton btnBack, btnCancel, btnEdit;
-    private Button btnAddService, btnConfirmDone;
+    private Button btnAddService, btnConfirm, btnDone;
     private String sId, sCode, sDate, sPet, sIdPet, sIdPetSize, sPetSize, sSubtotal, sTotalPrice, sIdCustomer, sCustomerService, sStatus, sCustomerName, sPhoneNumber;
     private TextView twCode, twDate, twCustomer, twSubTotal, twPet;
     private int idPet, sumSubTotal, subTotal;
@@ -79,7 +79,8 @@ public class DetailTransactionServiceActivity extends AppCompatActivity {
         twSubTotal = findViewById(R.id.twSubTotal);
         twPet = findViewById(R.id.twPet);
         btnAddService = findViewById(R.id.btnAddService);
-        btnConfirmDone = findViewById(R.id.btnConfirmDone);
+        btnDone = findViewById(R.id.btnDone);
+        btnConfirm = findViewById(R.id.btnConfirm);
         btnCancel = findViewById(R.id.btnCancel);
         btnEdit = findViewById(R.id.btnEdit);
 
@@ -149,7 +150,14 @@ public class DetailTransactionServiceActivity extends AppCompatActivity {
             }
         });
 
-        btnConfirmDone.setOnClickListener(new View.OnClickListener() {
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 confirmItemFromList(view);
@@ -314,9 +322,12 @@ public class DetailTransactionServiceActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
-        builder.setMessage("Batalkan transaksi ?")
+        builder.setTitle("Yakin untuk membatalkan transaksi ?")
+                .setMessage("Setelah melakukan pembatalan transaksi "+sCode+", " +
+                        "maka transaksi akan dipindahkan kedalam history pembatalan transaksi.")
+                .setIcon(R.drawable.ic_cancel)
                 .setCancelable(false)
-                .setPositiveButton("YA",
+                .setPositiveButton("BATALKAN",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 progressDialog.show();
@@ -337,7 +348,10 @@ public class DetailTransactionServiceActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
-        builder.setMessage("Yakin untuk menyelesaikan transaksi?")
+        builder.setTitle("Konfirmasi transaksi ?")
+                .setMessage("Anda akan melakukan konfirmasi transaksi penjualan untuk "+sCode+".\n\n" +
+                        "Setelah melakukan konfirmasi transaksi penjualan maka anda tidak bisa mengubah transaksi ini lagi.")
+                .setIcon(R.drawable.ic_letter)
                 .setCancelable(false)
                 .setPositiveButton("YA",
                         new DialogInterface.OnClickListener() {
@@ -400,7 +414,7 @@ public class DetailTransactionServiceActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 
-        builder.setMessage("Hapus layanan ?")
+        builder.setTitle("Hapus layanan ?")
                 .setCancelable(false)
                 .setPositiveButton("HAPUS",
                         new DialogInterface.OnClickListener() {
